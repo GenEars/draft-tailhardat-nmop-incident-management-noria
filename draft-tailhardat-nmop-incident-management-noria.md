@@ -89,6 +89,19 @@ informative:
     date: 7 July 2024
     target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/
 
+  I.D.draft-boucadair-nmop-rfc3535-20years-later:
+    author:
+      - name: Mohamed Boucadair
+      - name: Luis M. Contreras
+      - name: Oscar Gonzalez de Dios
+      - name: Thomas Graf
+      - name: Reshad Rahman
+    title: "RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"
+    seriesinfo:
+      Internet-Draft: draft-boucadair-nmop-rfc3535-20years-later-04
+    date: 22 July 2024
+    target: https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/
+
   NORIA-O-2024:
     author:
       - name: Lionel Tailhardat
@@ -168,11 +181,17 @@ TODO Abstract
 # Introduction
 
 Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
+Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
 their ecosystem, and the activities and operations related to them (see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
 Using such formal knowledge representation may therefore allows for a simplified interpretation of networks and their behavior, both for users and AI algorithms, and paves the way for the development of tools for analyzing and detecting complex anomalies through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
 However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
+YANG is a widely used standard among operators for describing network configuration and deployment.
+Using YANG representations in the form of a KG, as suggested in {{I.D.draft-marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
+The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{I.D.draft-boucadair-nmop-rfc3535-20years-later}}.
+
+Furthermore, it can be observed that the scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an ITSM perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+
 
 TODO Introduction
 
