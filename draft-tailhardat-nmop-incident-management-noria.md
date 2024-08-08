@@ -40,7 +40,118 @@ author:
 normative:
 
 informative:
+  SPARQL11-QL:
+    title: "SPARQL 1.1 Query Language"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/sparql11-query/
+    date: March 2013
 
+  SPARQL11-FQ:
+    title: "SPARQL 1.1 Federated Query"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/sparql11-federated-query/
+    date: March 2013
+
+  I.D.draft-marcas-nmop-knowledge-graph-yang:
+    title: "Knowledge Graphs for YANG-based Network Management", Work in Progress, Internet-Draft,
+draft-marcas-nmop-knowledge-graph-yang-03
+    author:
+      - name: I.D. Martinez-Casanueva
+      - name: L. Cabanillas
+    target: https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/
+    date: 5 July 2024
+
+  I.D.draft-netana-nmop-network-anomaly-lifecycle:
+    author:
+      - name: A. Roberto
+      - name: T. Graf
+      - name: W. Du
+      - name: A. Huang Feng
+    title: "Experiment: Network Anomaly Lifecycle", Work in Progress, Internet-Draft, draft-netana-nmop-network-anomaly-lifecycle-03
+    date: 8 July 2024
+    target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/
+
+  I.D.draft-netana-nmop-network-anomaly-semantics:
+    author:
+      - name: T. Graf
+      - name: W. Du
+      - name: A. Huang Feng
+      - name: V. Riccobene
+      - name: A. Roberto
+    title: "Semantic Metadata Annotation for Network Anomaly Detection", Work in Progress, Internet-Draft, draft-netana-nmop-network-anomaly-semantics-02
+    date: 7 July 2024
+    target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/
+
+  NORIA-O-2024:
+    author:
+      - name: Lionel Tailhardat
+      - name: Raphaël Troncy
+      - name: Yoan Chabot
+    title: "NORIA-O: An Ontology for Anomaly Detection and Incident Management in ICT Systems"
+    date: 2024
+    target: https://doi.org/10.1007/978-3-031-60635-9_2
+
+  SLKG-2023:
+    author:
+      - name: Lionel Tailhardat
+      - name: Raphaël Troncy,
+      - name: Yoan Chabot
+    title: "Leveraging Knowledge Graphs For Classifying Incident Situations in ICT Systems"
+    date: 2023
+    target: https://doi.org/10.1145/3600160.3604991
+
+  GPL-2024:
+    author:
+      - name: Lionel Tailhardat
+      - name: Benjamin Stach
+      - name: Yoan Chabot
+      - name: Raphaël Troncy
+    title: "Graphameleon: Relational Learning and Anomaly Detection on Web Navigation Traces Captured as Knowledge Graphs"
+    date: 2024
+    target: https://doi.org/10.1145/3589335.3651447
+
+  NORIA-UI-2024:
+    author:
+      - name: Lionel Tailhardat
+      - name: Yoan Chabot
+      - name: Antoine Py
+      - name: Perrine Guillemette
+    title: "NORIA UI: Efficient Incident Management on Large-Scale ICT Systems Represented as Knowledge Graphs"
+    date: 2024
+    target: https://doi.org/10.1145/3664476.3670438
+
+  FLAGSM-2021:
+    author:
+      - name: Bram Steenwinckel
+      - name: Dieter De Paepe
+      - name: Sander Vanden Hautte
+      - name: Pieter Heyvaert
+      - name: Mohamed Bentefrit
+      - name: Pieter Moens
+      - name: Anastasia Dimou
+      - name: Bruno Van Den Bossche
+      - name: Filip De Turck
+      - name: Sofie Van Hoecke
+      - name: Femke Ongenae
+    title: "FLAGS: A Methodology for Adaptive Anomaly Detection and Root Cause Analysis on Sensor Data Streams by Fusing Expert Knowledge with Machine Learning"
+    date: 2021
+    target: https://doi.org/10.1016/j.future.2020.10.015
+
+  FOLIO-2018:
+    author:
+      - name: Bram Steenwinckel
+      - name: Pieter Heyvaert
+      - name: Dieter De Paepe
+      - name: Olivier Janssens
+      - name: Sander Vanden Hautte
+      - name: Anastasia Dimou
+      - name: Filip De Turck
+      - name: Sofie Van Hoecke
+      - name: Femke Ongenae
+    title: "Towards Adaptive Anomaly Detection and Root Cause Analysis by Automated Extraction of Knowledge from Risk Analyses"
+    date: 2018
 
 --- abstract
 
@@ -60,16 +171,16 @@ of heterogeneous technical information sources.
 Knowledge graphs, by structuring heterogeneous data through shared
 vocabularies, enable providing a unified view of technical systems,
 their ecosystem, and the activities and operations related to them
-[I.D.draft-marcas-nmop-knowledge-graph-yang, NORIA-O-2024].
+(see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
 Using such formal knowledge representation may therefore allows for a
 simplified interpretation of networks and their behavior, both for users
 and AI algorithms, and paves the way for the development of
 tools for analyzing and detecting complex anomalies through explainable,
-actionable, and shareable models [FOLIO-2018,SLKG-2023,GPL-2024].
+actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
 However, despite potential benefits of using knowledge graphs, these are
 are not mainstream yet in commercial network deployment systems and
-decision support systems (see [NORIA-UI-2024] for more on the decision
+decision support systems (see {{NORIA-UI-2024}} for more on the decision
 support systems perspective).
 
 
@@ -217,92 +328,6 @@ access policy   ┌───────┐                                   �
 # IANA Considerations
 
 This document has no IANA actions.
-
-
-# Informative references
-
-[SPARQL11-QL]
-    Steve Harris, and Andy Seaborne,
-    "SPARQL 1.1 Query Language",
-    W3C Recommendation, 21 March 2013,
-    <https://www.w3.org/TR/sparql11-query/>.
-
-[SPARQL11-FQ]
-    Eric Prud'hommeaux, and Carlos Buil-Aranda,
-    "SPARQL 1.1 Federated Query",
-    W3C Recommendation, 21 March 2013,
-    <https://www.w3.org/TR/sparql11-federated-query/>.
-
-[I.D.draft-marcas-nmop-knowledge-graph-yang]
-    I.D. Martinez-Casanueva, and L. Cabanillas,
-    "Knowledge Graphs for YANG-based Network Management",
-    Work in Progress, Internet-Draft,
-    draft-marcas-nmop-knowledge-graph-yang-03,
-    5 July 2024,
-    <https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/>.
-
-
-[I.D.draft-netana-nmop-network-anomaly-lifecycle]
-    A. Roberto, T. Graf, W. Du, and A. Huang Feng,
-    "Experiment: Network Anomaly Lifecycle",
-    Work in Progress, Internet-Draft,
-    draft-netana-nmop-network-anomaly-lifecycle-03,
-    8 July 2024,
-    <https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/>.
-
-[I.D.draft-netana-nmop-network-anomaly-semantics]
-    T. Graf, W. Du, A. Huang Feng, V. Riccobene, and A. Roberto,
-    "Semantic Metadata Annotation for Network Anomaly Detection",
-    Work in Progress, Internet-Draft,
-    draft-netana-nmop-network-anomaly-semantics-02,
-    7 July 2024,
-    <https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/>.
-
-[NORIA-O-2024]
-    Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-    "NORIA-O: An Ontology for Anomaly Detection and Incident
-    Management in ICT Systems". In 21st European Semantic Web
-    Conference (ESWC), 2024.
-    <https://doi.org/10.1007/978-3-031-60635-9_2>.
-
-[SLKG-2023]
-    Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-    "Leveraging Knowledge Graphs For Classifying Incident Situations
-    in ICT Systems". In The 18th International Conference on
-    Availability, Reliability and Security (ARES 2023), 2023.
-    <https://doi.org/10.1145/3600160.3604991>.
-
-[GPL-2024]
-    Lionel TAILHARDAT, Benjamin STACH, Yoan CHABOT, and Raphaël TRONCY.
-    "Graphameleon: Relational Learning and Anomaly Detection on Web
-    Navigation Traces Captured as Knowledge Graphs". In The Web
-    Conf, 2024.
-    <https://doi.org/10.1145/3589335.3651447>.
-
-[NORIA-UI-2024]
-    Lionel TAILHARDAT, Yoan CHABOT, Antoine PY, Perrine GUILLEMETTE.
-    "NORIA UI: Efficient Incident Management on Large-Scale ICT
-    Systems Represented as Knowledge Graphs". In The 19th
-    International Conference on Availability, Reliability and
-    Security (ARES), 2024.
-    <https://doi.org/10.1145/3664476.3670438>.
-
-[FLAGSM-2021]
-    Bram Steenwinckel, Dieter De Paepe, Sander Vanden Hautte, Pieter
-    Heyvaert, Mohamed Bentefrit, Pieter Moens, Anastasia Dimou,
-    Bruno Van Den Bossche, Filip De Turck, Sofie Van Hoecke, and
-    Femke Ongenae. "FLAGS: A Methodology for Adaptive Anomaly
-    Detection and Root Cause Analysis on Sensor Data Streams by
-    Fusing Expert Knowledge with Machine Learning". 2021.
-    <https://doi.org/10.1016/j.future.2020.10.015>.
-
-[FOLIO-2018]
-    Bram Steenwinckel, Pieter Heyvaert, Dieter De Paepe, Olivier
-    Janssens, Sander Vanden Hautte, Anastasia Dimou, Filip De Turck,
-    Sofie Van Hoecke, and Femke Ongenae. "Towards Adaptive Anomaly
-    Detection and Root Cause Analysis by Automated Extraction of
-    Knowledge from Risk Analyses". In The 9th International Semantic
-    Sensor Networks Workshop (SSN). 2018.
 
 --- back
 
