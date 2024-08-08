@@ -67,6 +67,13 @@ and AI algorithms, and paves the way for the development of
 tools for analyzing and detecting complex anomalies through explainable,
 actionable, and shareable models [FOLIO-2018,SLKG-2023,GPL-2024].
 
+However, despite potential benefits of using knowledge graphs, these are
+are not mainstream yet in commercial network deployment systems and
+decision support systems (see [NORIA-UI-2024] for more on the decision
+support systems perspective).
+
+Yet, despite using knowledge graphs is not ma
+
 
 # Conventions and Definitions
 
@@ -255,24 +262,32 @@ This document has no IANA actions.
 
     [NORIA-O-2024]
         Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-        “NORIA-O: An Ontology for Anomaly Detection and Incident
-        Management in ICT Systems”. In 21st European Semantic Web
+        "NORIA-O: An Ontology for Anomaly Detection and Incident
+        Management in ICT Systems". In 21st European Semantic Web
         Conference (ESWC), 2024.
         <https://doi.org/10.1007/978-3-031-60635-9_2>.
 
     [SLKG-2023]
         Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-        “Leveraging Knowledge Graphs For Classifying Incident Situations
-        in ICT Systems”. In The 18th International Conference on
+        "Leveraging Knowledge Graphs For Classifying Incident Situations
+        in ICT Systems". In The 18th International Conference on
         Availability, Reliability and Security (ARES 2023), 2023.
         <https://doi.org/10.1145/3600160.3604991>.
 
     [GPL-2024]
         Lionel TAILHARDAT, Benjamin STACH, Yoan CHABOT, and Raphaël TRONCY.
-        “Graphameleon: Relational Learning and Anomaly Detection on Web
-        Navigation Traces Captured as Knowledge Graphs”. In The Web
+        "Graphameleon: Relational Learning and Anomaly Detection on Web
+        Navigation Traces Captured as Knowledge Graphs". In The Web
         Conf, 2024.
         <https://doi.org/10.1145/3589335.3651447>.
+
+    [NORIA-UI-2024]
+        Lionel TAILHARDAT, Yoan CHABOT, Antoine PY, Perrine GUILLEMETTE.
+        "NORIA UI: Efficient Incident Management on Large-Scale ICT
+        Systems Represented as Knowledge Graphs". In The 19th
+        International Conference on Availability, Reliability and
+        Security (ARES), 2024.
+        <https://doi.org/10.1145/3664476.3670438>.
 
     [FLAGSM-2021]
         Bram Steenwinckel, Dieter De Paepe, Sander Vanden Hautte, Pieter
