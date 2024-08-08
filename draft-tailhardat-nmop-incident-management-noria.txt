@@ -53,11 +53,19 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  References
-     5.1.  Normative References
-     5.2.  Informative References
+   3.  A meta-KG to align operator-specificities and share behavioral
+           models of technical architectures
+     3.1.  Aligning operator-specificities with a multi-faceted
+           knowledge graph
+     3.2.  Learning and sharing behavioral models
+     3.3.  NetOps perspective
+     3.4.  SecOps perspective
+     3.5.  Experiments
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -109,7 +117,21 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+3.  A meta-KG to align operator-specificities and share behavioral
+    models of technical architectures
+
+3.1.  Aligning operator-specificities with a multi-faceted knowledge
+      graph
+
+3.2.  Learning and sharing behavioral models
+
+3.3.  NetOps perspective
+
+3.4.  SecOps perspective
+
+3.5.  Experiments
+
+4.  Security Considerations
 
    TODO Security
 
@@ -243,13 +265,13 @@ access policy   ┌───────┐                                   �
      Figure 5: Unified access to data distributed across various
                        technological platforms
 
-4.  IANA Considerations
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  References
+6.  References
 
-5.1.  Normative References
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -260,7 +282,7 @@ access policy   ┌───────┐                                   �
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-5.2.  Informative References
+6.2.  Informative References
 
    [FLAGSM-2021]
               Steenwinckel, B., Paepe, D. D., Hautte, S. V., Heyvaert,
