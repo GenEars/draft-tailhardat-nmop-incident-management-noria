@@ -15,13 +15,13 @@ keyword:
 - knowledge graphs
 - incident management
 - anomaly detection
-#venue:
-#  group: WG
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
-#  github: USER/REPO
-#  latest: https://example.com/LATEST
+venue:
+  group: "Network Management Operations"
+  type: "Working Group"
+  mail: "nmop@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/nmop/"
+  github: "genears/draft-tailhardat-nmop-incident-management-noria"
+  latest: "https://genears.github.io/draft-tailhardat-nmop-incident-management-noria/draft-tailhardat-nmop-incident-management-noria.html"
 
 author:
  -
