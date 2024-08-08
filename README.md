@@ -1,6 +1,6 @@
 # Knowledge Graphs for Enhanced Cross-Operator Incident Management and Network Design
 
-This is the working area for the individual Internet-Draft, "Knowledge Graphs for Enhanced Cross-Operator Incident Management and Network Design".
+This is the working area for the individual Internet-Draft, "*Knowledge Graphs for Enhanced Cross-Operator Incident Management and Network Design*".
 
 * [Editor's Copy](https://GenEars.github.io/draft-tailhardat-nmop-incident-management-noria/#go.draft-tailhardat-nmop-incident-management-noria.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-tailhardat-nmop-incident-management-noria)
@@ -28,3 +28,9 @@ $ make
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
 
+Satisfying pre-requisites might notably include running:
+
+```sh
+sudo apt install ruby-bundler
+sudo apt install python3.10-venv
+```
