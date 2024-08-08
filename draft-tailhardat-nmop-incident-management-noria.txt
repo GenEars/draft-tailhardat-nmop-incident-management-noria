@@ -55,14 +55,13 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Security Considerations
    4.  IANA Considerations
-   5.  Informative references
-   6.  Normative References
+   5.  References
+     5.1.  Normative References
+     5.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
-
-   TODO Introduction
 
    Incident management on telecom and computer networks, whether it is
    related to infrastructure or cybersecurity issues, requires the
@@ -71,18 +70,20 @@ Table of Contents
    graphs, by structuring heterogeneous data through shared
    vocabularies, enable providing a unified view of technical systems,
    their ecosystem, and the activities and operations related to them
-   [I.D.draft-marcas-nmop-knowledge-graph-yang, NORIA-O-2024].  Using
-   such formal knowledge representation may therefore allows for a
-   simplified interpretation of networks and their behavior, both for
-   users and AI algorithms, and paves the way for the development of
-   tools for analyzing and detecting complex anomalies through
-   explainable, actionable, and shareable models [FOLIO-2018,SLKG-
-   2023,GPL-2024].
+   (see [I.D.draft-marcas-nmop-knowledge-graph-yang] and
+   [NORIA-O-2024]).  Using such formal knowledge representation may
+   therefore allows for a simplified interpretation of networks and
+   their behavior, both for users and AI algorithms, and paves the way
+   for the development of tools for analyzing and detecting complex
+   anomalies through explainable, actionable, and shareable models (see
+   [FOLIO-2018], [SLKG-2023], and [GPL-2024]).
 
    However, despite potential benefits of using knowledge graphs, these
-   are are not mainstream yet in commercial network deployment systems
-   and decision support systems (see [NORIA-UI-2024] for more on the
+   are not mainstream yet in commercial network deployment systems and
+   decision support systems (see [NORIA-UI-2024] for more on the
    decision support systems perspective).
+
+   TODO Introduction
 
 2.  Conventions and Definitions
 
@@ -230,83 +231,9 @@ access policy   ┌───────┐                                   �
 
    This document has no IANA actions.
 
-5.  Informative references
+5.  References
 
-   [SPARQL11-QL] Steve Harris, and Andy Seaborne, "SPARQL 1.1 Query
-   Language", W3C Recommendation, 21 March 2013, https://www.w3.org/TR/
-   sparql11-query/ (https://www.w3.org/TR/sparql11-query/).
-
-   [SPARQL11-FQ] Eric Prud'hommeaux, and Carlos Buil-Aranda, "SPARQL 1.1
-   Federated Query", W3C Recommendation, 21 March 2013,
-   https://www.w3.org/TR/sparql11-federated-query/
-   (https://www.w3.org/TR/sparql11-federated-query/).
-
-   [I.D.draft-marcas-nmop-knowledge-graph-yang] I.D.  Martinez-
-   Casanueva, and L.  Cabanillas, "Knowledge Graphs for YANG-based
-   Network Management", Work in Progress, Internet-Draft, draft-marcas-
-   nmop-knowledge-graph-yang-03, 5 July 2024,
-   https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-
-   yang/ (https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-
-   graph-yang/).
-
-   [I.D.draft-netana-nmop-network-anomaly-lifecycle] A.  Roberto, T.
-   Graf, W.  Du, and A.  Huang Feng, "Experiment: Network Anomaly
-   Lifecycle", Work in Progress, Internet-Draft, draft-netana-nmop-
-   network-anomaly-lifecycle-03, 8 July 2024,
-   https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-
-   lifecycle/ (https://datatracker.ietf.org/doc/draft-netana-nmop-
-   network-anomaly-lifecycle/).
-
-   [I.D.draft-netana-nmop-network-anomaly-semantics] T.  Graf, W.  Du,
-   A.  Huang Feng, V.  Riccobene, and A.  Roberto, "Semantic Metadata
-   Annotation for Network Anomaly Detection", Work in Progress,
-   Internet-Draft, draft-netana-nmop-network-anomaly-semantics-02, 7
-   July 2024, https://datatracker.ietf.org/doc/draft-netana-nmop-
-   network-anomaly-semantics/ (https://datatracker.ietf.org/doc/draft-
-   netana-nmop-network-anomaly-semantics/).
-
-   [NORIA-O-2024] Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-   "NORIA-O: An Ontology for Anomaly Detection and Incident Management
-   in ICT Systems".  In 21st European Semantic Web Conference (ESWC),
-   2024.  https://doi.org/10.1007/978-3-031-60635-9_2
-   (https://doi.org/10.1007/978-3-031-60635-9_2).
-
-   [SLKG-2023] Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-   "Leveraging Knowledge Graphs For Classifying Incident Situations in
-   ICT Systems".  In The 18th International Conference on Availability,
-   Reliability and Security (ARES 2023), 2023.
-   https://doi.org/10.1145/3600160.3604991
-   (https://doi.org/10.1145/3600160.3604991).
-
-   [GPL-2024] Lionel TAILHARDAT, Benjamin STACH, Yoan CHABOT, and
-   Raphaël TRONCY.  "Graphameleon: Relational Learning and Anomaly
-   Detection on Web Navigation Traces Captured as Knowledge Graphs".  In
-   The Web Conf, 2024.  https://doi.org/10.1145/3589335.3651447
-   (https://doi.org/10.1145/3589335.3651447).
-
-   [NORIA-UI-2024] Lionel TAILHARDAT, Yoan CHABOT, Antoine PY, Perrine
-   GUILLEMETTE.  "NORIA UI: Efficient Incident Management on Large-Scale
-   ICT Systems Represented as Knowledge Graphs".  In The 19th
-   International Conference on Availability, Reliability and Security
-   (ARES), 2024.  https://doi.org/10.1145/3664476.3670438
-   (https://doi.org/10.1145/3664476.3670438).
-
-   [FLAGSM-2021] Bram Steenwinckel, Dieter De Paepe, Sander Vanden
-   Hautte, Pieter Heyvaert, Mohamed Bentefrit, Pieter Moens, Anastasia
-   Dimou, Bruno Van Den Bossche, Filip De Turck, Sofie Van Hoecke, and
-   Femke Ongenae.  "FLAGS: A Methodology for Adaptive Anomaly Detection
-   and Root Cause Analysis on Sensor Data Streams by Fusing Expert
-   Knowledge with Machine Learning". 2021.  https://doi.org/10.1016/
-   j.future.2020.10.015 (https://doi.org/10.1016/j.future.2020.10.015).
-
-   [FOLIO-2018] Bram Steenwinckel, Pieter Heyvaert, Dieter De Paepe,
-   Olivier Janssens, Sander Vanden Hautte, Anastasia Dimou, Filip De
-   Turck, Sofie Van Hoecke, and Femke Ongenae.  "Towards Adaptive
-   Anomaly Detection and Root Cause Analysis by Automated Extraction of
-   Knowledge from Risk Analyses".  In The 9th International Semantic
-   Sensor Networks Workshop (SSN). 2018.
-
-6.  Normative References
+5.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -316,6 +243,79 @@ access policy   ┌───────┐                                   �
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+5.2.  Informative References
+
+   [FLAGSM-2021]
+              Steenwinckel, B., Paepe, D. D., Hautte, S. V., Heyvaert,
+              P., Bentefrit, M., Moens, P., Dimou, A., Bossche, B. V.
+              D., Turck, F. D., Hoecke, S. V., and F. Ongenae, "FLAGS: A
+              Methodology for Adaptive Anomaly Detection and Root Cause
+              Analysis on Sensor Data Streams by Fusing Expert Knowledge
+              with Machine Learning", 2021,
+              <https://doi.org/10.1016/j.future.2020.10.015>.
+
+   [FOLIO-2018]
+              Steenwinckel, B., Heyvaert, P., Paepe, D. D., Janssens,
+              O., Hautte, S. V., Dimou, A., Turck, F. D., Hoecke, S. V.,
+              and F. Ongenae, "Towards Adaptive Anomaly Detection and
+              Root Cause Analysis by Automated Extraction of Knowledge
+              from Risk Analyses", 2018.
+
+   [GPL-2024] Tailhardat, L., Stach, B., Chabot, Y., and R. Troncy,
+              "Graphameleon: Relational Learning and Anomaly Detection
+              on Web Navigation Traces Captured as Knowledge Graphs",
+              2024, <https://doi.org/10.1145/3589335.3651447>.
+
+   [I.D.draft-marcas-nmop-knowledge-graph-yang]
+              Martinez-Casanueva, I.D. and L. Cabanillas, "Knowledge
+              Graphs for YANG-based Network Management", Work in
+              Progress, Internet-Draft, draft-marcas-nmop-knowledge-
+              graph-yang-03, July 2024,
+              <https://datatracker.ietf.org/doc/draft-marcas-nmop-
+              knowledge-graph-yang/>.
+
+   [I.D.draft-netana-nmop-network-anomaly-lifecycle]
+              Roberto, A., Graf, T., Du, W., and A. H. Feng,
+              "Experiment: Network Anomaly Lifecycle", Work in Progress,
+              Internet-Draft, draft-netana-nmop-network-anomaly-
+              lifecycle-03, July 2024,
+              <https://datatracker.ietf.org/doc/draft-netana-nmop-
+              network-anomaly-lifecycle/>.
+
+   [I.D.draft-netana-nmop-network-anomaly-semantics]
+              Graf, T., Du, W., Feng, A. H., Riccobene, V., and A.
+              Roberto, "Semantic Metadata Annotation for Network Anomaly
+              Detection", Work in Progress, Internet-Draft, draft-
+              netana-nmop-network-anomaly-semantics-02, July 2024,
+              <https://datatracker.ietf.org/doc/draft-netana-nmop-
+              network-anomaly-semantics/>.
+
+   [NORIA-O-2024]
+              Tailhardat, L., Troncy, R., and Y. Chabot, "NORIA-O: An
+              Ontology for Anomaly Detection and Incident Management in
+              ICT Systems", 2024,
+              <https://doi.org/10.1007/978-3-031-60635-9_2>.
+
+   [NORIA-UI-2024]
+              Tailhardat, L., Chabot, Y., Py, A., and P. Guillemette,
+              "NORIA UI: Efficient Incident Management on Large-Scale
+              ICT Systems Represented as Knowledge Graphs", 2024,
+              <https://doi.org/10.1145/3664476.3670438>.
+
+   [SLKG-2023]
+              Tailhardat, L., Troncy, R., and Y. Chabot, "Leveraging
+              Knowledge Graphs For Classifying Incident Situations in
+              ICT Systems", 2023,
+              <https://doi.org/10.1145/3600160.3604991>.
+
+   [SPARQL11-FQ]
+              W3C, "SPARQL 1.1 Federated Query", March 2013,
+              <https://www.w3.org/TR/sparql11-federated-query/>.
+
+   [SPARQL11-QL]
+              W3C, "SPARQL 1.1 Query Language", March 2013,
+              <https://www.w3.org/TR/sparql11-query/>.
 
 Acknowledgments
 
