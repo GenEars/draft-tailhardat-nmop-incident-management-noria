@@ -55,8 +55,9 @@ informative:
     date: March 2013
 
   I.D.draft-marcas-nmop-knowledge-graph-yang:
-    title: "Knowledge Graphs for YANG-based Network Management", Work in Progress, Internet-Draft,
-draft-marcas-nmop-knowledge-graph-yang-03
+    title: "Knowledge Graphs for YANG-based Network Management"
+    seriesinfo:
+      Internet-Draft: draft-marcas-nmop-knowledge-graph-yang-03
     author:
       - name: I.D. Martinez-Casanueva
       - name: L. Cabanillas
@@ -69,7 +70,9 @@ draft-marcas-nmop-knowledge-graph-yang-03
       - name: T. Graf
       - name: W. Du
       - name: A. Huang Feng
-    title: "Experiment: Network Anomaly Lifecycle", Work in Progress, Internet-Draft, draft-netana-nmop-network-anomaly-lifecycle-03
+    title: "Experiment: Network Anomaly Lifecycle"
+    seriesinfo:
+      Internet-Draft: draft-netana-nmop-network-anomaly-lifecycle-03
     date: 8 July 2024
     target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/
 
@@ -80,7 +83,9 @@ draft-marcas-nmop-knowledge-graph-yang-03
       - name: A. Huang Feng
       - name: V. Riccobene
       - name: A. Roberto
-    title: "Semantic Metadata Annotation for Network Anomaly Detection", Work in Progress, Internet-Draft, draft-netana-nmop-network-anomaly-semantics-02
+    title: "Semantic Metadata Annotation for Network Anomaly Detection"
+    seriesinfo:
+      Internet-Draft: draft-netana-nmop-network-anomaly-semantics-02
     date: 7 July 2024
     target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/
 
@@ -96,7 +101,7 @@ draft-marcas-nmop-knowledge-graph-yang-03
   SLKG-2023:
     author:
       - name: Lionel Tailhardat
-      - name: Raphaël Troncy,
+      - name: Raphaël Troncy
       - name: Yoan Chabot
     title: "Leveraging Knowledge Graphs For Classifying Incident Situations in ICT Systems"
     date: 2023
@@ -162,27 +167,14 @@ TODO Abstract
 
 # Introduction
 
+Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
+Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
+their ecosystem, and the activities and operations related to them (see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
+Using such formal knowledge representation may therefore allows for a simplified interpretation of networks and their behavior, both for users and AI algorithms, and paves the way for the development of tools for analyzing and detecting complex anomalies through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
+
+However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
+
 TODO Introduction
-
-Incident management on telecom and computer networks, whether it is
-related to infrastructure or cybersecurity issues, requires the ability
-to simultaneously and quickly correlate and interpret a large number
-of heterogeneous technical information sources.
-Knowledge graphs, by structuring heterogeneous data through shared
-vocabularies, enable providing a unified view of technical systems,
-their ecosystem, and the activities and operations related to them
-(see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
-Using such formal knowledge representation may therefore allows for a
-simplified interpretation of networks and their behavior, both for users
-and AI algorithms, and paves the way for the development of
-tools for analyzing and detecting complex anomalies through explainable,
-actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
-
-However, despite potential benefits of using knowledge graphs, these are
-are not mainstream yet in commercial network deployment systems and
-decision support systems (see {{NORIA-UI-2024}} for more on the decision
-support systems perspective).
-
 
 # Conventions and Definitions
 
