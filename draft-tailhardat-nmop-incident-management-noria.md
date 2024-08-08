@@ -53,6 +53,20 @@ TODO Abstract
 
 TODO Introduction
 
+Incident management on telecom and computer networks, whether it is
+related to infrastructure or cybersecurity issues, requires the ability
+to simultaneously and quickly correlate and interpret a large number
+of heterogeneous technical information sources.
+Knowledge graphs [I.D.draft-marcas-nmop-knowledge-graph-yang], by
+structuring heterogeneous data through shared vocabularies, enable
+providing a unified view of technical systems, their ecosystem, and the
+activities and operations related to them [NORIA-O-2024].
+Using such formal knowledge representation may therefore allows for a
+simplified interpretation of networks and their behavior, both for users
+and AI algorithms, and paves the way for the development of
+tools for analyzing and detecting complex anomalies through explainable,
+actionable, and shareable models [FOLIO-2018,SLKG-2023,GPL-2024].
+
 
 # Conventions and Definitions
 
@@ -205,22 +219,19 @@ This document has no IANA actions.
     [SPARQL11-QL]
         Steve Harris, and Andy Seaborne,
         "SPARQL 1.1 Query Language",
-        W3C Recommendation,
-        21 March 2013,
+        W3C Recommendation, 21 March 2013,
         <https://www.w3.org/TR/sparql11-query/>.
 
     [SPARQL11-FQ]
         Eric Prud'hommeaux, and Carlos Buil-Aranda,
         "SPARQL 1.1 Federated Query",
-        W3C Recommendation,
-        21 March 2013,
+        W3C Recommendation, 21 March 2013,
         <https://www.w3.org/TR/sparql11-federated-query/>.
 
     [I.D.draft-marcas-nmop-knowledge-graph-yang]
         I.D. Martinez-Casanueva, and L. Cabanillas,
         "Knowledge Graphs for YANG-based Network Management",
-        Work in Progress,
-        Internet-Draft,
+        Work in Progress, Internet-Draft,
         draft-marcas-nmop-knowledge-graph-yang-03,
         5 July 2024,
         <https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/>.
@@ -229,8 +240,7 @@ This document has no IANA actions.
     [I.D.draft-netana-nmop-network-anomaly-lifecycle]
         A. Roberto, T. Graf, W. Du, and A. Huang Feng,
         "Experiment: Network Anomaly Lifecycle",
-        Work in Progress,
-        Internet-Draft,
+        Work in Progress, Internet-Draft,
         draft-netana-nmop-network-anomaly-lifecycle-03,
         8 July 2024,
         <https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/>.
@@ -238,38 +248,48 @@ This document has no IANA actions.
     [I.D.draft-netana-nmop-network-anomaly-semantics]
         T. Graf, W. Du, A. Huang Feng, V. Riccobene, and A. Roberto,
         "Semantic Metadata Annotation for Network Anomaly Detection",
-        Work in Progress,
-        Internet-Draft,
+        Work in Progress, Internet-Draft,
         draft-netana-nmop-network-anomaly-semantics-02,
         7 July 2024,
         <https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/>.
 
     [NORIA-O-2024]
         Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-        “NORIA-O: An Ontology for Anomaly Detection and Incident Management in ICT Systems”.
-        In 21st European Semantic Web Conference (ESWC), Resources track, May 26-30, 2024, Hersonissos, Greece.
-        2024.
-        https://doi.org/10.1007/978-3-031-60635-9_2
+        “NORIA-O: An Ontology for Anomaly Detection and Incident
+        Management in ICT Systems”. In 21st European Semantic Web
+        Conference (ESWC), 2024.
+        <https://doi.org/10.1007/978-3-031-60635-9_2>.
 
-    [StatisticalLearningKG-2023]
+    [SLKG-2023]
         Lionel TAILHARDAT, Raphaël TRONCY, and Yoan CHABOT.
-        “Leveraging Knowledge Graphs For Classifying Incident Situations in ICT Systems”.
-        In The 18th International Conference on Availability, Reliability and Security (ARES 2023), August 29-September 1, 2023, Benevento, Italy.
-        ACM, New York, NY, USA, 9 pages.
-        2023.
+        “Leveraging Knowledge Graphs For Classifying Incident Situations
+        in ICT Systems”. In The 18th International Conference on
+        Availability, Reliability and Security (ARES 2023), 2023.
         <https://doi.org/10.1145/3600160.3604991>.
 
-    [bramsteenwinckelFLAGSMethodologyAdaptive2021]
-        "FLAGS: A Methodology for Adaptive Anomaly Detection and Root Cause Analysis on Sensor Data Streams by Fusing Expert Knowledge with Machine Learning".
-        Bram Steenwinckel, Dieter De Paepe, Sander Vanden Hautte, Pieter Heyvaert, Mohamed Bentefrit, Pieter Moens, Anastasia Dimou, Bruno Van Den Bossche, Filip De Turck, Sofie Van Hoecke, and Femke Ongenae.
-        2021.
+    [GPL-2024]
+        Lionel TAILHARDAT, Benjamin STACH, Yoan CHABOT, and Raphaël TRONCY.
+        “Graphameleon: Relational Learning and Anomaly Detection on Web
+        Navigation Traces Captured as Knowledge Graphs”. In The Web
+        Conf, 2024.
+        <https://doi.org/10.1145/3589335.3651447>.
+
+    [FLAGSM-2021]
+        Bram Steenwinckel, Dieter De Paepe, Sander Vanden Hautte, Pieter
+        Heyvaert, Mohamed Bentefrit, Pieter Moens, Anastasia Dimou,
+        Bruno Van Den Bossche, Filip De Turck, Sofie Van Hoecke, and
+        Femke Ongenae. "FLAGS: A Methodology for Adaptive Anomaly
+        Detection and Root Cause Analysis on Sensor Data Streams by
+        Fusing Expert Knowledge with Machine Learning". 2021.
         <https://doi.org/10.1016/j.future.2020.10.015>.
 
-    [bramsteenwinckelAdaptiveAnomalyDetection2018]
-        Bram Steenwinckel, Pieter Heyvaert, Dieter De Paepe, Olivier Janssens, Sander Vanden Hautte, Anastasia Dimou, Filip De Turck, Sofie Van Hoecke, and Femke Ongenae.
-        "Towards Adaptive Anomaly Detection and Root Cause Analysis by Automated Extraction of Knowledge from Risk Analyses",
-        9th International Semantic Sensor Networks Workshop (SSN).
-        2018.
+    [FOLIO-2018]
+        Bram Steenwinckel, Pieter Heyvaert, Dieter De Paepe, Olivier
+        Janssens, Sander Vanden Hautte, Anastasia Dimou, Filip De Turck,
+        Sofie Van Hoecke, and Femke Ongenae. "Towards Adaptive Anomaly
+        Detection and Root Cause Analysis by Automated Extraction of
+        Knowledge from Risk Analyses". In The 9th International Semantic
+        Sensor Networks Workshop (SSN). 2018.
 
 --- back
 
