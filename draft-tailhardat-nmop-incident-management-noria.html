@@ -1163,11 +1163,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
+Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
 their ecosystem, and the activities and operations related to them (see <span>[<a href="#I.D.draft-marcas-nmop-knowledge-graph-yang" class="cite xref">I.D.draft-marcas-nmop-knowledge-graph-yang</a>]</span> and <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>).
 Using such formal knowledge representation may therefore allows for a simplified interpretation of networks and their behavior, both for users and AI algorithms, and paves the way for the development of tools for analyzing and detecting complex anomalies through explainable, actionable, and shareable models (see <span>[<a href="#FOLIO-2018" class="cite xref">FOLIO-2018</a>]</span>, <span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span>, and <span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span>).<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see <span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> for more on the decision support systems perspective).<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">TODO Introduction<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-2">However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see <span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> for more on the decision support systems perspective).
+YANG is a widely used standard among operators for describing network configuration and deployment.
+Using YANG representations in the form of a KG, as suggested in <span>[<a href="#I.D.draft-marcas-nmop-knowledge-graph-yang" class="cite xref">I.D.draft-marcas-nmop-knowledge-graph-yang</a>]</span>, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
+The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution <span>[<a href="#I.D.draft-boucadair-nmop-rfc3535-20years-later" class="cite xref">I.D.draft-boucadair-nmop-rfc3535-20years-later</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Furthermore, it can be observed that the scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an ITSM perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">TODO Introduction<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1396,6 +1400,10 @@ access policy   ┌───────┐                                   �
 <dt id="GPL-2024">[GPL-2024]</dt>
         <dd>
 <span class="refAuthor">Tailhardat, L.</span>, <span class="refAuthor">Stach, B.</span>, <span class="refAuthor">Chabot, Y.</span>, and <span class="refAuthor">R. Troncy</span>, <span class="refTitle">"Graphameleon: Relational Learning and Anomaly Detection on Web Navigation Traces Captured as Knowledge Graphs"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.1145/3589335.3651447">https://doi.org/10.1145/3589335.3651447</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I.D.draft-boucadair-nmop-rfc3535-20years-later">[I.D.draft-boucadair-nmop-rfc3535-20years-later]</dt>
+        <dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Dios, O. G. de.</span>, <span class="refAuthor">Graf, T.</span>, and <span class="refAuthor">R. Rahman</span>, <span class="refTitle">"RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-nmop-rfc3535-20years-later-04</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/">https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I.D.draft-marcas-nmop-knowledge-graph-yang">[I.D.draft-marcas-nmop-knowledge-graph-yang]</dt>
         <dd>
