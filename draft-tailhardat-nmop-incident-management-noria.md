@@ -199,6 +199,17 @@ TODO Introduction
 
 {::boilerplate bcp14-tagged}
 
+# A meta-KG to align operator-specificities and share behavioral models of technical architectures
+
+## Aligning operator-specificities with a multi-faceted knowledge graph
+
+## Learning and sharing behavioral models
+
+## NetOps perspective
+
+## SecOps perspective
+
+## Experiments
 
 # Security Considerations
 
