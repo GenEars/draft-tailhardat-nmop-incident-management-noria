@@ -154,7 +154,7 @@ Table of Contents
    the set of actions and network configuration changes carried-out to
    resolve the incident).
 
-  ┌───Incident─context────────────────────────────┐
+  ┌───Incident context────────────────────────────┐
   │                 ┌────────────┐                │
   │                 │skos:Concept│                │
   │                 └─┬┬─────────┘                │
@@ -191,7 +191,9 @@ Table of Contents
     model that is trained on the relationship of the incident context
     (i.e. a subgraph centered around a Resource entity concerned by a
          given TroubleTicket) to the problem class defined at the
-                       TroubleTicket entity level.
+      TroubleTicket entity level.  Arrows are for object properties
+       (owl:ObjectProperty), double line edges are for object class
+                        relationships (rdf:type).
 
    By going a step further, we notice that a generic understanding of
    incident context can be extracted and shared among operators from
