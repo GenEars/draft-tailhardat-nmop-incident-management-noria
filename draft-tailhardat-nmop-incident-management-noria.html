@@ -1212,20 +1212,38 @@ Assuming the continuous integration into a knowledge graph of data from ticketin
 <figure id="figure-1">
         <div class="alignLeft art-ascii-art art-text artwork" id="section-1-5.1">
 <pre>
-┌─────────────┐
-│TroubleTicket│
-└─────┬┬──────┘
-      ││
- &lt;incident_01&gt;
-      │
-problemCategory
-      │
-      ▼
- &lt;packet-loss&gt;
-      ││
- ┌────┴┴──────┐
- │skos:Concept│
- └────────────┘
+┌───Incident─context────────────────────────────┐
+│                 ┌────────────┐                │
+│                 │skos:Concept│                │
+│                 └─┬┬─────────┘                │
+│                  &lt;server&gt;                     │
+│                    ▲                          │
+│                    │                          │
+│                 resourceType                  │
+│         ┌────────┐ │                          │      ┌─────────────┐
+│         │Resource│ │                          │      │TroubleTicket│
+│         └──────┬┬┘ │                          │      └─────┬┬──────┘
+│                ││  │                          │            ││
+│        &lt;ne_2&gt;──&lt;ne_1&gt;◄──troubleTicketRelatedResource──&lt;incident_01&gt;
+│           │      │                            │            │
+│           │      │                            │      problemCategory
+│&lt;ne_5&gt;──&lt;ne_4&gt;────┼──&lt;ne_3&gt;────&lt;log_2&gt;         │            │
+│           │      │    │                       │            ▼
+│           │      │    │                       │       &lt;packet-loss&gt;
+│       &lt;log_3&gt;    │  &lt;ne_6&gt;                    │            ││
+│                  │                            │       ┌────┴┴──────┐
+│     logOriginatingManagedObject               │       │skos:Concept│
+│                  │                            │       └────────────┘
+│                  ▼                            │
+│               &lt;log_1&gt;──────┐                  │
+│      ┌─────────┴┴┐     dcterms:type           │
+│      │EventRecord│         │                  │
+│      └───────────┘         ▼                  │
+│                    &lt;integrityViolation&gt;       │
+│                       ┌────┴┴──────┐          │
+│                       │skos:Concept│          │
+│                       └────────────┘          │
+└───────────────────────────────────────────────┘
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:

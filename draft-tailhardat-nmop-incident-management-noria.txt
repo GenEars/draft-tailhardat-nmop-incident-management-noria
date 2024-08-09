@@ -154,26 +154,44 @@ Table of Contents
    the set of actions and network configuration changes carried-out to
    resolve the incident).
 
-   ┌─────────────┐
-   │TroubleTicket│
-   └─────┬┬──────┘
-         ││
-    <incident_01>
-         │
-   problemCategory
-         │
-         ▼
-    <packet-loss>
-         ││
-    ┌────┴┴──────┐
-    │skos:Concept│
-    └────────────┘
+  ┌───Incident─context────────────────────────────┐
+  │                 ┌────────────┐                │
+  │                 │skos:Concept│                │
+  │                 └─┬┬─────────┘                │
+  │                  <server>                     │
+  │                    ▲                          │
+  │                    │                          │
+  │                 resourceType                  │
+  │         ┌────────┐ │                          │      ┌─────────────┐
+  │         │Resource│ │                          │      │TroubleTicket│
+  │         └──────┬┬┘ │                          │      └─────┬┬──────┘
+  │                ││  │                          │            ││
+  │        <ne_2>──<ne_1>◄──troubleTicketRelatedResource──<incident_01>
+  │           │      │                            │            │
+  │           │      │                            │      problemCategory
+  │<ne_5>──<ne_4>────┼──<ne_3>────<log_2>         │            │
+  │           │      │    │                       │            ▼
+  │           │      │    │                       │       <packet-loss>
+  │       <log_3>    │  <ne_6>                    │            ││
+  │                  │                            │       ┌────┴┴──────┐
+  │     logOriginatingManagedObject               │       │skos:Concept│
+  │                  │                            │       └────────────┘
+  │                  ▼                            │
+  │               <log_1>──────┐                  │
+  │      ┌─────────┴┴┐     dcterms:type           │
+  │      │EventRecord│         │                  │
+  │      └───────────┘         ▼                  │
+  │                    <integrityViolation>       │
+  │                       ┌────┴┴──────┐          │
+  │                       │skos:Concept│          │
+  │                       └────────────┘          │
+  └───────────────────────────────────────────────┘
 
-     Figure 1: Learning an incident signature seen as a classification
-     model that is trained on the relationship of the incident context
-     (i.e. a subgraph centered around a Resource entity concerned by a
-          given TroubleTicket) to the problem class defined at the
-                        TroubleTicket entity level.
+    Figure 1: Learning an incident signature seen as a classification
+    model that is trained on the relationship of the incident context
+    (i.e. a subgraph centered around a Resource entity concerned by a
+         given TroubleTicket) to the problem class defined at the
+                       TroubleTicket entity level.
 
    By going a step further, we notice that a generic understanding of
    incident context can be extracted and shared among operators from
