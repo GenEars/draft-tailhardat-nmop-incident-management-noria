@@ -408,7 +408,7 @@ access policy   ┌───────┐                                   �
               (Second Edition)", December 2012,
               <https://www.w3.org/TR/owl2-overview/>.
 
-   [RDF]      "Resource Description Framework (RDF): Concepts and
+   [RDF]      W3C, "Resource Description Framework (RDF): Concepts and
               Abstract Syntax", February 2014,
               <https://www.w3.org/TR/rdf11-concepts/>.
 
