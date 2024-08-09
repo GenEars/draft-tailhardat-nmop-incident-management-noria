@@ -105,13 +105,13 @@ Table of Contents
    are not mainstream yet in commercial network deployment systems and
    decision support systems (see [NORIA-UI-2024] for more on the
    decision support systems perspective).  YANG is a widely used
-   standard among operators for describing network configuration and
-   deployment.  Using YANG representations in the form of a KG, as
-   suggested in [I-D.marcas-nmop-knowledge-graph-yang], would minimize
-   the effort required to adapt network management tools towards the
-   unified vision and applications evoked above.  The lack of alignment
-   between various YANG models on key concepts (e.g. for describing
-   network topology) is, however, hindering this evolution
+   standard among operators for describing network configurations and
+   automating their deployment.  Using YANG representations in the form
+   of a KG, as suggested in [I-D.marcas-nmop-knowledge-graph-yang],
+   would minimize the effort required to adapt network management tools
+   towards the unified vision and applications evoked above.  The lack
+   of alignment between various YANG models on key concepts (e.g. for
+   describing network topology) is, however, hindering this evolution
    [I-D.boucadair-nmop-rfc3535-20years-later].
 
    Furthermore, although [I-D.netana-nmop-network-anomaly-lifecycle]
