@@ -1,3 +1,6 @@
+# Loading (optional) environment variables from file.
+-include ./.env
+
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
