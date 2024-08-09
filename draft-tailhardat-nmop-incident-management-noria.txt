@@ -147,12 +147,33 @@ Table of Contents
    performed during incident management.  Assuming the continuous
    integration into a knowledge graph of data from ticketing systems,
    network monitoring solutions, and network configuration management
-   databases, we remark that the resulting knowledge graph (Figure xxx)
+   databases, we remark that the resulting knowledge graph (Figure 1)
    implicitely holds the necessary information to (automatically) learn
    incident contexts (i.e. the network topology, its set of states and
    set of events prior to the incident) and remediation procedures (i.e.
    the set of actions and network configuration changes carried-out to
    resolve the incident).
+
+   ┌─────────────┐
+   │TroubleTicket│
+   └─────┬┬──────┘
+         ││
+    <incident_01>
+         │
+   problemCategory
+         │
+         ▼
+    <packet-loss>
+         ││
+    ┌────┴┴──────┐
+    │skos:Concept│
+    └────────────┘
+
+     Figure 1: Learning an incident signature seen as a classification
+     model that is trained on the relationship of the incident context
+     (i.e. a subgraph centered around a Resource entity concerned by a
+          given TroubleTicket) to the problem class defined at the
+                        TroubleTicket entity level.
 
    By going a step further, we notice that a generic understanding of
    incident context can be extracted and shared among operators from
@@ -216,7 +237,7 @@ Table of Contents
                                         │(event/LOG_login_03)=>(object/RES/router1)│
                                         └──────────────────────────────────────────┘
 
-    Figure 1: KG-only data integration architecture for event data
+    Figure 2: KG-only data integration architecture for event data
                                streams
 
                             <object/RES_router3>
@@ -231,7 +252,7 @@ Table of Contents
                   <event/LOG_login_02>──rdf:type─┤EventRecord│
                     <event/LOG_login_03>         └───────────┘
 
-     Figure 2: Resulting knowledge representation for the KG-only data
+     Figure 3: Resulting knowledge representation for the KG-only data
               integration architecture for event data streams
 
                               ┌────────────────┐
@@ -255,7 +276,7 @@ Table of Contents
                                                                   │               │   │└──────┘│
                                                                   └───────────────┘   └────────┘
 
-  Figure 3: Mixed KG/non-KG data integration architecture for event
+  Figure 4: Mixed KG/non-KG data integration architecture for event
                              data streams
 
                                 <object/RES_router3>
@@ -288,7 +309,7 @@ Table of Contents
 │                                 ▲
 └──shared─identifier──────────────┘
 
-    Figure 4: Resulting knowledge representation for the mixed KG/
+    Figure 5: Resulting knowledge representation for the mixed KG/
      non-KG data integration architecture for event data streams
 
 Data domain &   ───On-premise────────────────────────────   ┌─┐  Scope-based querying
@@ -329,7 +350,7 @@ access policy   ┌───────┐                                   �
                 └───┬───┘                                   └─┘        │
                     └──────────────────────────────────────────────────┘
 
-     Figure 5: Unified access to data distributed across various
+     Figure 6: Unified access to data distributed across various
                        technological platforms
 
 5.  IANA Considerations
