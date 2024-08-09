@@ -94,42 +94,40 @@ Table of Contents
    ability to simultaneously and quickly correlate and interpret a large
    number of heterogeneous technical information sources.  Knowledge
    Graphs (KGs), by structuring heterogeneous data through shared
-   vocabularies, enable the provision of a unified view of complex
-   technical systems, their ecosystem, and the activities and operations
-   related to them (see [I.D.draft-marcas-nmop-knowledge-graph-yang] and
+   vocabularies, enable providing a unified view of complex technical
+   systems, their ecosystem, and the activities and operations related
+   to them (see [I-D.marcas-nmop-knowledge-graph-yang] and
    [NORIA-O-2024]).  Using such formal knowledge representation allows
    for a simplified interpretation of networks and their behavior, both
    for NetOps & SecOps teams and artificial intelligence (AI) algorithms
    (e.g. anomaly detection, root cause analysis, diagnostic aid,
    situation summarization), and paves the way, in line with the Network
-   Digital Twin vision [I.D.draft-irtf-nmrg-network-digital-twin-arch],
-   for the development of tools for detecting and analyzing complex
-   network incident situations through explainable, actionable, and
-   shareable models (see [FOLIO-2018], [SLKG-2023], and [GPL-2024]).
+   Digital Twin vision [I-D.irtf-nmrg-network-digital-twin-arch], for
+   the development of tools for detecting and analyzing complex network
+   incident situations through explainable, actionable, and shareable
+   models (see [FOLIO-2018], [SLKG-2023], and [GPL-2024]).
 
    However, despite potential benefits of using knowledge graphs, these
    are not mainstream yet in commercial network deployment systems and
    decision support systems (see [NORIA-UI-2024] for more on the
    decision support systems perspective).  YANG is a widely used
-   standard among operators for describing networks configurations and
-   automating the deployment of these configurations.  Using YANG
-   representations in the form of a KG, as suggested in
-   [I.D.draft-marcas-nmop-knowledge-graph-yang], would minimize the
-   effort required to adapt network management tools towards the unified
-   vision and applications evoked above.  The lack of alignment between
-   various YANG models on key concepts (e.g. for describing network
-   topology) is, however, hindering this evolution
-   [I.D.draft-boucadair-nmop-rfc3535-20years-later].
+   standard among operators for describing network configuration and
+   deployment.  Using YANG representations in the form of a KG, as
+   suggested in [I-D.marcas-nmop-knowledge-graph-yang], would minimize
+   the effort required to adapt network management tools towards the
+   unified vision and applications evoked above.  The lack of alignment
+   between various YANG models on key concepts (e.g. for describing
+   network topology) is, however, hindering this evolution
+   [I-D.boucadair-nmop-rfc3535-20years-later].
 
-   Furthermore, although
-   [I.D.draft-netana-nmop-network-anomaly-lifecycle] addresses the
-   capitalization of incident management knowledge through a YANG model,
-   it can be observed that the overall scope of YANG models does not
-   naturally cover the description of the networks' ecosystem (e.g.
-   physical equipment location, operator organization, supervision
-   systems) or the description of network operations from an IT service
-   management (ITSM) perspective (e.g. business processes and design
-   rules used by the company, scheduled modification operations,
+   Furthermore, although [I-D.netana-nmop-network-anomaly-lifecycle]
+   addresses the capitalization of incident management knowledge through
+   a YANG model, it can be observed that the overall scope of YANG
+   models does not naturally cover the description of the networks'
+   ecosystem (e.g. physical equipment location, operator organization,
+   supervision systems) or the description of network operations from an
+   IT service management (ITSM) perspective (e.g. business processes and
+   design rules used by the company, scheduled modification operations,
    remediation actions performed during incident handling).  As a
    consequence, the continuous improvement of network quality & designs
    requires additional data cross-referencing operations to properly
@@ -320,17 +318,6 @@ access policy   ┌───────┐                                   �
 
 6.1.  Normative References
 
-   [OWL]      W3C, "OWL 2 Web Ontology Language Document Overview
-              (Second Edition)", December 2012,
-              <https://www.w3.org/TR/owl2-overview/>.
-
-   [RDF]      W3C, "Resource Description Framework (RDF): Concepts and
-              Abstract Syntax", February 2014,
-              <https://www.w3.org/TR/rdf11-concepts/>.
-
-   [RDFS]     W3C, "RDF Schema 1.1", February 2014,
-              <https://www.w3.org/TR/rdf-schema/>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -339,18 +326,6 @@ access policy   ┌───────┐                                   �
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [SKOS]     W3C, "SKOS Simple Knowledge Organization System
-              Reference", August 2009,
-              <https://www.w3.org/TR/skos-reference/>.
-
-   [SPARQL11-FQ]
-              W3C, "SPARQL 1.1 Federated Query", March 2013,
-              <https://www.w3.org/TR/sparql11-federated-query/>.
-
-   [SPARQL11-QL]
-              W3C, "SPARQL 1.1 Query Language", March 2013,
-              <https://www.w3.org/TR/sparql11-query/>.
 
 6.2.  Informative References
 
@@ -383,47 +358,39 @@ access policy   ┌───────┐                                   �
               on Web Navigation Traces Captured as Knowledge Graphs",
               2024, <https://doi.org/10.1145/3589335.3651447>.
 
-   [I.D.draft-boucadair-nmop-rfc3535-20years-later]
-              Boucadair, M., Contreras, L. M., Dios, O. G. de., Graf,
-              T., and R. Rahman, "RFC 3535, 20 Years Later: An Update of
+   [I-D.boucadair-nmop-rfc3535-20years-later]
+              Boucadair, M., Contreras, L. M., de Dios, O. G., Graf, T.,
+              and R. Rahman, "RFC 3535, 20 Years Later: An Update of
               Operators Requirements on Network Management Protocols and
               Modelling", Work in Progress, Internet-Draft, draft-
-              boucadair-nmop-rfc3535-20years-later-04, July 2024,
-              <https://datatracker.ietf.org/doc/draft-boucadair-nmop-
-              rfc3535-20years-later/>.
+              boucadair-nmop-rfc3535-20years-later-04, 22 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-boucadair-
+              nmop-rfc3535-20years-later-04>.
 
-   [I.D.draft-irtf-nmrg-network-digital-twin-arch]
+   [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
               Q., Boucadair, M., and C. Jacquenet, "Network Digital
               Twin: Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-06, July 2024,
-              <https://datatracker.ietf.org/doc/draft-irtf-nmrg-network-
-              digital-twin-arch/>.
+              twin-arch-06, 7 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
+              network-digital-twin-arch-06>.
 
-   [I.D.draft-marcas-nmop-knowledge-graph-yang]
-              Martinez-Casanueva, I.D. and L. Cabanillas, "Knowledge
+   [I-D.marcas-nmop-knowledge-graph-yang]
+              Martinez-Casanueva, I. D. and L. C. Rodríguez, "Knowledge
               Graphs for YANG-based Network Management", Work in
               Progress, Internet-Draft, draft-marcas-nmop-knowledge-
-              graph-yang-03, July 2024,
-              <https://datatracker.ietf.org/doc/draft-marcas-nmop-
-              knowledge-graph-yang/>.
+              graph-yang-03, 5 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-marcas-nmop-
+              knowledge-graph-yang-03>.
 
-   [I.D.draft-netana-nmop-network-anomaly-lifecycle]
-              Roberto, A., Graf, T., Du, W., and A. H. Feng,
-              "Experiment: Network Anomaly Lifecycle", Work in Progress,
-              Internet-Draft, draft-netana-nmop-network-anomaly-
-              lifecycle-03, July 2024,
-              <https://datatracker.ietf.org/doc/draft-netana-nmop-
-              network-anomaly-lifecycle/>.
-
-   [I.D.draft-netana-nmop-network-anomaly-semantics]
-              Graf, T., Du, W., Feng, A. H., Riccobene, V., and A.
-              Roberto, "Semantic Metadata Annotation for Network Anomaly
-              Detection", Work in Progress, Internet-Draft, draft-
-              netana-nmop-network-anomaly-semantics-02, July 2024,
-              <https://datatracker.ietf.org/doc/draft-netana-nmop-
-              network-anomaly-semantics/>.
+   [I-D.netana-nmop-network-anomaly-lifecycle]
+              Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
+              Feng, "Experiment: Network Anomaly Lifecycle", Work in
+              Progress, Internet-Draft, draft-netana-nmop-network-
+              anomaly-lifecycle-03, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
+              network-anomaly-lifecycle-03>.
 
    [NORIA-O-2024]
               Tailhardat, L., Troncy, R., and Y. Chabot, "NORIA-O: An
@@ -437,11 +404,34 @@ access policy   ┌───────┐                                   �
               ICT Systems Represented as Knowledge Graphs", 2024,
               <https://doi.org/10.1145/3664476.3670438>.
 
+   [OWL]      W3C, "OWL 2 Web Ontology Language Document Overview
+              (Second Edition)", December 2012,
+              <https://www.w3.org/TR/owl2-overview/>.
+
+   [RDF]      "Resource Description Framework (RDF): Concepts and
+              Abstract Syntax", February 2014,
+              <https://www.w3.org/TR/rdf11-concepts/>.
+
+   [RDFS]     W3C, "RDF Schema 1.1", February 2014,
+              <https://www.w3.org/TR/rdf-schema/>.
+
+   [SKOS]     W3C, "SKOS Simple Knowledge Organization System
+              Reference", August 2009,
+              <https://www.w3.org/TR/skos-reference/>.
+
    [SLKG-2023]
               Tailhardat, L., Troncy, R., and Y. Chabot, "Leveraging
               Knowledge Graphs For Classifying Incident Situations in
               ICT Systems", 2023,
               <https://doi.org/10.1145/3600160.3604991>.
+
+   [SPARQL11-FQ]
+              W3C, "SPARQL 1.1 Federated Query", March 2013,
+              <https://www.w3.org/TR/sparql11-federated-query/>.
+
+   [SPARQL11-QL]
+              W3C, "SPARQL 1.1 Query Language", March 2013,
+              <https://www.w3.org/TR/sparql11-query/>.
 
 Acknowledgments
 

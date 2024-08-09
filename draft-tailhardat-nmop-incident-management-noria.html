@@ -1193,13 +1193,13 @@ It also describes an experiment to carry-out to assess the meta-knowledge graph 
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable the provision of a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see <span>[<a href="#I.D.draft-marcas-nmop-knowledge-graph-yang" class="cite xref">I.D.draft-marcas-nmop-knowledge-graph-yang</a>]</span> and <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>).
-Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps &amp; SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision <span>[<a href="#I.D.draft-irtf-nmrg-network-digital-twin-arch" class="cite xref">I.D.draft-irtf-nmrg-network-digital-twin-arch</a>]</span>, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see <span>[<a href="#FOLIO-2018" class="cite xref">FOLIO-2018</a>]</span>, <span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span>, and <span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span>).<a href="#section-1-1" class="pilcrow">¶</a></p>
+Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see <span>[<a href="#I-D.marcas-nmop-knowledge-graph-yang" class="cite xref">I-D.marcas-nmop-knowledge-graph-yang</a>]</span> and <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>).
+Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps &amp; SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision <span>[<a href="#I-D.irtf-nmrg-network-digital-twin-arch" class="cite xref">I-D.irtf-nmrg-network-digital-twin-arch</a>]</span>, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see <span>[<a href="#FOLIO-2018" class="cite xref">FOLIO-2018</a>]</span>, <span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span>, and <span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span>).<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see <span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> for more on the decision support systems perspective).
-YANG is a widely used standard among operators for describing networks configurations and automating the deployment of these configurations.
-Using YANG representations in the form of a KG, as suggested in <span>[<a href="#I.D.draft-marcas-nmop-knowledge-graph-yang" class="cite xref">I.D.draft-marcas-nmop-knowledge-graph-yang</a>]</span>, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
-The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution <span>[<a href="#I.D.draft-boucadair-nmop-rfc3535-20years-later" class="cite xref">I.D.draft-boucadair-nmop-rfc3535-20years-later</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Furthermore, although <span>[<a href="#I.D.draft-netana-nmop-network-anomaly-lifecycle" class="cite xref">I.D.draft-netana-nmop-network-anomaly-lifecycle</a>]</span> addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+YANG is a widely used standard among operators for describing network configuration and deployment.
+Using YANG representations in the form of a KG, as suggested in <span>[<a href="#I-D.marcas-nmop-knowledge-graph-yang" class="cite xref">I-D.marcas-nmop-knowledge-graph-yang</a>]</span>, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
+The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution <span>[<a href="#I-D.boucadair-nmop-rfc3535-20years-later" class="cite xref">I-D.boucadair-nmop-rfc3535-20years-later</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Furthermore, although <span>[<a href="#I-D.netana-nmop-network-anomaly-lifecycle" class="cite xref">I-D.netana-nmop-network-anomaly-lifecycle</a>]</span> addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
 As a consequence, the continuous improvement of network quality &amp; designs requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
 As a result of these additional efforts of contextualization, the capitalization of knowledge typically remains confined at the level of each network operator.
 This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1448,37 +1448,13 @@ access policy   ┌───────┐                                   �
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="OWL">[OWL]</dt>
-        <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"OWL 2 Web Ontology Language Document Overview (Second Edition)"</span>, <time datetime="2012-12" class="refDate">December 2012</time>, <span>&lt;<a href="https://www.w3.org/TR/owl2-overview/">https://www.w3.org/TR/owl2-overview/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RDF">[RDF]</dt>
-        <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"Resource Description Framework (RDF): Concepts and Abstract Syntax"</span>, <time datetime="2014-02" class="refDate">February 2014</time>, <span>&lt;<a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RDFS">[RDFS]</dt>
-        <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"RDF Schema 1.1"</span>, <time datetime="2014-02" class="refDate">February 2014</time>, <span>&lt;<a href="https://www.w3.org/TR/rdf-schema/">https://www.w3.org/TR/rdf-schema/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-        <dd>
-<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SKOS">[SKOS]</dt>
-        <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"SKOS Simple Knowledge Organization System Reference"</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SPARQL11-FQ">[SPARQL11-FQ]</dt>
-        <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"SPARQL 1.1 Federated Query"</span>, <time datetime="2013-03" class="refDate">March 2013</time>, <span>&lt;<a href="https://www.w3.org/TR/sparql11-federated-query/">https://www.w3.org/TR/sparql11-federated-query/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SPARQL11-QL">[SPARQL11-QL]</dt>
       <dd>
-<span class="refAuthor">W3C</span>, <span class="refTitle">"SPARQL 1.1 Query Language"</span>, <time datetime="2013-03" class="refDate">March 2013</time>, <span>&lt;<a href="https://www.w3.org/TR/sparql11-query/">https://www.w3.org/TR/sparql11-query/</a>&gt;</span>. </dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1505,25 +1481,21 @@ access policy   ┌───────┐                                   �
         <dd>
 <span class="refAuthor">Tailhardat, L.</span>, <span class="refAuthor">Stach, B.</span>, <span class="refAuthor">Chabot, Y.</span>, and <span class="refAuthor">R. Troncy</span>, <span class="refTitle">"Graphameleon: Relational Learning and Anomaly Detection on Web Navigation Traces Captured as Knowledge Graphs"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.1145/3589335.3651447">https://doi.org/10.1145/3589335.3651447</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I.D.draft-boucadair-nmop-rfc3535-20years-later">[I.D.draft-boucadair-nmop-rfc3535-20years-later]</dt>
+<dt id="I-D.boucadair-nmop-rfc3535-20years-later">[I-D.boucadair-nmop-rfc3535-20years-later]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Dios, O. G. de.</span>, <span class="refAuthor">Graf, T.</span>, and <span class="refAuthor">R. Rahman</span>, <span class="refTitle">"RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-nmop-rfc3535-20years-later-04</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/">https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/</a>&gt;</span>. </dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Graf, T.</span>, and <span class="refAuthor">R. Rahman</span>, <span class="refTitle">"RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-nmop-rfc3535-20years-later-04</span>, <time datetime="2024-07-22" class="refDate">22 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-04">https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I.D.draft-irtf-nmrg-network-digital-twin-arch">[I.D.draft-irtf-nmrg-network-digital-twin-arch]</dt>
+<dt id="I-D.irtf-nmrg-network-digital-twin-arch">[I-D.irtf-nmrg-network-digital-twin-arch]</dt>
         <dd>
-<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-06</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-irtf-nmrg-network-digital-twin-arch/">https://datatracker.ietf.org/doc/draft-irtf-nmrg-network-digital-twin-arch/</a>&gt;</span>. </dd>
+<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-06</span>, <time datetime="2024-07-07" class="refDate">7 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-06">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I.D.draft-marcas-nmop-knowledge-graph-yang">[I.D.draft-marcas-nmop-knowledge-graph-yang]</dt>
+<dt id="I-D.marcas-nmop-knowledge-graph-yang">[I-D.marcas-nmop-knowledge-graph-yang]</dt>
         <dd>
-<span class="refAuthor">Martinez-Casanueva, I.D.</span> and <span class="refAuthor">L. Cabanillas</span>, <span class="refTitle">"Knowledge Graphs for YANG-based Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-marcas-nmop-knowledge-graph-yang-03</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/">https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/</a>&gt;</span>. </dd>
+<span class="refAuthor">Martinez-Casanueva, I. D.</span> and <span class="refAuthor">L. C. Rodríguez</span>, <span class="refTitle">"Knowledge Graphs for YANG-based Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-marcas-nmop-knowledge-graph-yang-03</span>, <time datetime="2024-07-05" class="refDate">5 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-marcas-nmop-knowledge-graph-yang-03">https://datatracker.ietf.org/doc/html/draft-marcas-nmop-knowledge-graph-yang-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I.D.draft-netana-nmop-network-anomaly-lifecycle">[I.D.draft-netana-nmop-network-anomaly-lifecycle]</dt>
+<dt id="I-D.netana-nmop-network-anomaly-lifecycle">[I-D.netana-nmop-network-anomaly-lifecycle]</dt>
         <dd>
-<span class="refAuthor">Roberto, A.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Du, W.</span>, and <span class="refAuthor">A. H. Feng</span>, <span class="refTitle">"Experiment: Network Anomaly Lifecycle"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-netana-nmop-network-anomaly-lifecycle-03</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/">https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I.D.draft-netana-nmop-network-anomaly-semantics">[I.D.draft-netana-nmop-network-anomaly-semantics]</dt>
-        <dd>
-<span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Du, W.</span>, <span class="refAuthor">Feng, A. H.</span>, <span class="refAuthor">Riccobene, V.</span>, and <span class="refAuthor">A. Roberto</span>, <span class="refTitle">"Semantic Metadata Annotation for Network Anomaly Detection"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-netana-nmop-network-anomaly-semantics-02</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/">https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/</a>&gt;</span>. </dd>
+<span class="refAuthor">Riccobene, V.</span>, <span class="refAuthor">Roberto, A.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Du, W.</span>, and <span class="refAuthor">A. H. Feng</span>, <span class="refTitle">"Experiment: Network Anomaly Lifecycle"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-netana-nmop-network-anomaly-lifecycle-03</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-netana-nmop-network-anomaly-lifecycle-03">https://datatracker.ietf.org/doc/html/draft-netana-nmop-network-anomaly-lifecycle-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NORIA-O-2024">[NORIA-O-2024]</dt>
         <dd>
@@ -1533,9 +1505,33 @@ access policy   ┌───────┐                                   �
         <dd>
 <span class="refAuthor">Tailhardat, L.</span>, <span class="refAuthor">Chabot, Y.</span>, <span class="refAuthor">Py, A.</span>, and <span class="refAuthor">P. Guillemette</span>, <span class="refTitle">"NORIA UI: Efficient Incident Management on Large-Scale ICT Systems Represented as Knowledge Graphs"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.1145/3664476.3670438">https://doi.org/10.1145/3664476.3670438</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="OWL">[OWL]</dt>
+        <dd>
+<span class="refAuthor">W3C</span>, <span class="refTitle">"OWL 2 Web Ontology Language Document Overview (Second Edition)"</span>, <time datetime="2012-12" class="refDate">December 2012</time>, <span>&lt;<a href="https://www.w3.org/TR/owl2-overview/">https://www.w3.org/TR/owl2-overview/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RDF">[RDF]</dt>
+        <dd>
+<span class="refTitle">"Resource Description Framework (RDF): Concepts and Abstract Syntax"</span>, <time datetime="2014-02" class="refDate">February 2014</time>, <span>&lt;<a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RDFS">[RDFS]</dt>
+        <dd>
+<span class="refAuthor">W3C</span>, <span class="refTitle">"RDF Schema 1.1"</span>, <time datetime="2014-02" class="refDate">February 2014</time>, <span>&lt;<a href="https://www.w3.org/TR/rdf-schema/">https://www.w3.org/TR/rdf-schema/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SKOS">[SKOS]</dt>
+        <dd>
+<span class="refAuthor">W3C</span>, <span class="refTitle">"SKOS Simple Knowledge Organization System Reference"</span>, <time datetime="2009-08" class="refDate">August 2009</time>, <span>&lt;<a href="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="SLKG-2023">[SLKG-2023]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Tailhardat, L.</span>, <span class="refAuthor">Troncy, R.</span>, and <span class="refAuthor">Y. Chabot</span>, <span class="refTitle">"Leveraging Knowledge Graphs For Classifying Incident Situations in ICT Systems"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://doi.org/10.1145/3600160.3604991">https://doi.org/10.1145/3600160.3604991</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SPARQL11-FQ">[SPARQL11-FQ]</dt>
+        <dd>
+<span class="refAuthor">W3C</span>, <span class="refTitle">"SPARQL 1.1 Federated Query"</span>, <time datetime="2013-03" class="refDate">March 2013</time>, <span>&lt;<a href="https://www.w3.org/TR/sparql11-federated-query/">https://www.w3.org/TR/sparql11-federated-query/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SPARQL11-QL">[SPARQL11-QL]</dt>
+      <dd>
+<span class="refAuthor">W3C</span>, <span class="refTitle">"SPARQL 1.1 Query Language"</span>, <time datetime="2013-03" class="refDate">March 2013</time>, <span>&lt;<a href="https://www.w3.org/TR/sparql11-query/">https://www.w3.org/TR/sparql11-query/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
