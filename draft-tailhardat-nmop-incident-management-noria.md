@@ -38,6 +38,27 @@ author:
     email: yoan.chabot@orange.com
 
 normative:
+  OWL:
+    title: "OWL 2 Web Ontology Language Document Overview (Second Edition)"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/owl2-overview/
+    date: December 2012
+
+  RDF:
+    title: "Resource Description Framework (RDF): Concepts and Abstract Syntax"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/rdf11-concepts/
+    date: February 2014
+
+  RDFS:
+    title: "RDF Schema 1.1"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/rdf-schema/
+    date: February 2014
+
   SPARQL11-QL:
     title: "SPARQL 1.1 Query Language"
     author:
@@ -51,6 +72,13 @@ normative:
       organization: W3C
     target: https://www.w3.org/TR/sparql11-federated-query/
     date: March 2013
+
+  SKOS:
+    title: "SKOS Simple Knowledge Organization System Reference"
+    author:
+      organization: W3C
+    target: https://www.w3.org/TR/skos-reference/
+    date: 18 August 2009
 
 informative:
   I.D.draft-marcas-nmop-knowledge-graph-yang:
@@ -185,6 +213,24 @@ informative:
       - name: Femke Ongenae
     title: "Towards Adaptive Anomaly Detection and Root Cause Analysis by Automated Extraction of Knowledge from Risk Analyses"
     date: 2018
+    target: https://www.ceur-ws.org/Vol-2213/paper2.pdf
+
+  DevOpsInfra-2021:
+    author:
+      - name: Oscar Corcho
+      - name: David Chaves-Fraga
+      - name: Jhon Toledo
+      - name: Juli{\'a}n Arenas-Guerrero
+      - name: Carlos Badenes-Olmedo
+      - name: Mingxue Wang
+      - name: Hu Peng
+      - name: Nicholas Burrett
+      - name: Jos{\'e} Mora
+      - name: Puchao Zhang
+    title: "A High-Level Ontology Network for ICT Infrastructures"
+    date: 2021
+    target: https://doi.org/10.1007/978-3-030-88361-4_26
+
 
 --- abstract
 
@@ -204,10 +250,13 @@ YANG is a widely used standard among operators for describing networks configura
 Using YANG representations in the form of a KG, as suggested in {{I.D.draft-marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
 The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{I.D.draft-boucadair-nmop-rfc3535-20years-later}}.
 
-Although {{I.D.draft-netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
-Therefore, the continuous improvement of network quality requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
+Furthermore, although {{I.D.draft-netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+As a consequence, the continuous improvement of network quality & designs requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
 As a result of these additional efforts of contextualization, the capitalization of knowledge typically remains confined at the level of each network operator.
 This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.
+
+Realizing an ITSM knowledge graph for network deployment, anomaly detection and risk management applications has been studied for several years in the Semantic Web community (i.e. knowledge representation and automated reasoning leveraging Web technologies such as {{RDF}}, {{RDFS}}, {{OWL}}, and {{SKOS}}).
+Among other examples: the DevOpsInfra ontology {{DevOpsInfra-2021}} allows for describing sets of computing resources and how they are allocated for hosting services; the NORIA-O ontology {{NORIA-UI-2024}} allows for describing a network infrastructure & ecosystem, its events, diagnosis and repair actions performed during incident management.
 
 TODO Introduction
 
