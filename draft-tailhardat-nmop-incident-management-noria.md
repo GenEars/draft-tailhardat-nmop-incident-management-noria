@@ -238,7 +238,7 @@ Assuming the continuous integration into a knowledge graph of data from ticketin
 {: #fig-incident-context title="Learning an incident signature seen as a classification model that is trained on the relationship of the incident context (i.e. a subgraph centered around a Resource entity concerned by a given TroubleTicket) to the problem class defined at the TroubleTicket entity level. Arrows are for object properties (owl:ObjectProperty), double line edges are for object class relationships (rdf:type)."}
 
 By going a step further, we notice that a generic understanding of incident context can be extracted and shared among operators from knowledge graphs.
-Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies such as SKOS), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the graph (i.e. the class of the graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
+Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowlegde graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
 
 The remainder of this document is organized as follows.
 Firstly, the concept of a meta-knowledge graph is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
