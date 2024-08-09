@@ -103,26 +103,38 @@ Table of Contents
    topology) is, however, hindering this evolution
    [I.D.draft-boucadair-nmop-rfc3535-20years-later].
 
-   Although [I.D.draft-netana-nmop-network-anomaly-lifecycle] addresses
-   the capitalization of incident management knowledge through a YANG
-   model, it can be observed that the overall scope of YANG models does
-   not naturally cover the description of the networks' ecosystem (e.g.
+   Furthermore, although
+   [I.D.draft-netana-nmop-network-anomaly-lifecycle] addresses the
+   capitalization of incident management knowledge through a YANG model,
+   it can be observed that the overall scope of YANG models does not
+   naturally cover the description of the networks' ecosystem (e.g.
    physical equipment location, operator organization, supervision
    systems) or the description of network operations from an IT service
    management (ITSM) perspective (e.g. business processes and design
    rules used by the company, scheduled modification operations,
-   remediation actions performed during incident handling).  Therefore,
-   the continuous improvement of network quality requires additional
-   data cross-referencing operations to properly contextualize incidents
-   and learn from remediation actions taken (e.g. analyzing intervention
-   technicians' verbatim, comparing actions performed on similar
-   incidents but occurring on different networks).  As a result of these
-   additional efforts of contextualization, the capitalization of
-   knowledge typically remains confined at the level of each network
-   operator.  This, in turn, hinders the sharing of information within
-   the community of researchers and system designers regarding failure
-   modes and best practices to adopt, considering the concept of overall
-   improvement of IT systems and the Internet.
+   remediation actions performed during incident handling).  As a
+   consequence, the continuous improvement of network quality & designs
+   requires additional data cross-referencing operations to properly
+   contextualize incidents and learn from remediation actions taken
+   (e.g. analyzing intervention technicians' verbatim, comparing actions
+   performed on similar incidents but occurring on different networks).
+   As a result of these additional efforts of contextualization, the
+   capitalization of knowledge typically remains confined at the level
+   of each network operator.  This, in turn, hinders the sharing of
+   information within the community of researchers and system designers
+   regarding failure modes and best practices to adopt, considering the
+   concept of overall improvement of IT systems and the Internet.
+
+   Realizing an ITSM knowledge graph for network deployment, anomaly
+   detection and risk management applications has been studied for
+   several years in the Semantic Web community (i.e. knowledge
+   representation and automated reasoning leveraging Web technologies
+   such as [RDF], [RDFS], [OWL], and [SKOS]).  Among other examples: the
+   DevOpsInfra ontology [DevOpsInfra-2021] allows for describing sets of
+   computing resources and how they are allocated for hosting services;
+   the NORIA-O ontology [NORIA-UI-2024] allows for describing a network
+   infrastructure & ecosystem, its events, diagnosis and repair actions
+   performed during incident management.
 
    TODO Introduction
 
@@ -290,6 +302,17 @@ access policy   ┌───────┐                                   �
 
 6.1.  Normative References
 
+   [OWL]      W3C, "OWL 2 Web Ontology Language Document Overview
+              (Second Edition)", December 2012,
+              <https://www.w3.org/TR/owl2-overview/>.
+
+   [RDF]      W3C, "Resource Description Framework (RDF): Concepts and
+              Abstract Syntax", February 2014,
+              <https://www.w3.org/TR/rdf11-concepts/>.
+
+   [RDFS]     W3C, "RDF Schema 1.1", February 2014,
+              <https://www.w3.org/TR/rdf-schema/>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -298,6 +321,10 @@ access policy   ┌───────┐                                   �
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [SKOS]     W3C, "SKOS Simple Knowledge Organization System
+              Reference", August 2009,
+              <https://www.w3.org/TR/skos-reference/>.
 
    [SPARQL11-FQ]
               W3C, "SPARQL 1.1 Federated Query", March 2013,
@@ -308,6 +335,13 @@ access policy   ┌───────┐                                   �
               <https://www.w3.org/TR/sparql11-query/>.
 
 6.2.  Informative References
+
+   [DevOpsInfra-2021]
+              Corcho, O., Chaves-Fraga, D., Toledo, J., Arenas-Guerrero,
+              J., Badenes-Olmedo, C., Wang, M., Peng, H., Burrett, N.,
+              Mora, J., and P. Zhang, "A High-Level Ontology Network for
+              ICT Infrastructures", 2021,
+              <https://doi.org/10.1007/978-3-030-88361-4_26>.
 
    [FLAGSM-2021]
               Steenwinckel, B., Paepe, D. D., Hautte, S. V., Heyvaert,
@@ -323,7 +357,8 @@ access policy   ┌───────┐                                   �
               O., Hautte, S. V., Dimou, A., Turck, F. D., Hoecke, S. V.,
               and F. Ongenae, "Towards Adaptive Anomaly Detection and
               Root Cause Analysis by Automated Extraction of Knowledge
-              from Risk Analyses", 2018.
+              from Risk Analyses", 2018,
+              <https://www.ceur-ws.org/Vol-2213/paper2.pdf>.
 
    [GPL-2024] Tailhardat, L., Stach, B., Chabot, Y., and R. Troncy,
               "Graphameleon: Relational Learning and Anomaly Detection
@@ -392,7 +427,9 @@ access policy   ┌───────┐                                   �
 
 Acknowledgments
 
-   TODO acknowledge.
+   We would like to thank Benoit Claise for spontaneously seeking to
+   include the work of the NORIA research project in the vision of the
+   NMOP working group through direct contact.
 
 Authors' Addresses
 
