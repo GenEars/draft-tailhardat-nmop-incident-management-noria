@@ -70,9 +70,9 @@ Table of Contents
      3.1.  Aligning operator-specificities with a multi-faceted
            knowledge graph
      3.2.  Learning and sharing behavioral models
-     3.3.  NetOps perspective
-     3.4.  SecOps perspective
-     3.5.  Experiments
+       3.2.1.  NetOps perspective
+       3.2.2.  SecOps perspective
+     3.3.  Experiments
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -146,24 +146,35 @@ Table of Contents
    infrastructure & ecosystem, its events, diagnosis and repair actions
    performed during incident management.  Assuming the continuous
    integration into a knowledge graph of data from ticketing systems,
-   network moniroting solutions and network configuration management
+   network monitoring solutions, and network configuration management
    databases, we remark that the resulting knowledge graph (Figure xxx)
    implicitely holds the necessary information to (automatically) learn
-   incident contexts (i.e. the network topology, set of states and set
-   of events prior to the incident) and remediation procedures (i.e. the
-   set of actions and netwo configuration changes carried-out to resolve
-   the incident).
+   incident contexts (i.e. the network topology, its set of states and
+   set of events prior to the incident) and remediation procedures (i.e.
+   the set of actions and network configuration changes carried-out to
+   resolve the incident).
 
    By going a step further, we notice that a generic understanding of
    incident context can be extracted and shared among operators from
    knowledge graphs.  Indeed, a knowledge graph, being an instantiation
    of shared vocabularies (e.g.  RDFS/OWL ontologies and controlled
    vocabularies such as SKOS), sharing incident signatures can be done
-   without revealing infrastructure details (e.g. hostname, IP address,
-   etc.), but rather the abstract representation of the graph (i.e. the
-   classes and relationships between graph entities).
+   without revealing infrastructure details (e.g. hostname, IP address),
+   but rather the abstract representation of the graph (i.e. the class
+   of the graph entities and relationships, such as "server" or
+   "router", and or "IPoWDM link").
 
-   TODO Introduction
+   The remainder of this document is organized as follows.  Firstly, the
+   concept of a meta-knowledge graph is introduced to leverage existing
+   network infrastructure descriptions in YANG format and enable
+   abstract reasoning on network behaviors.  Secondly, an experiment is
+   proposed to assess the potential of the meta-knowledge graph in
+   improving network quality and designs.  In addition to the main parts
+   of the proposal, the document also covers data integration and data
+   federation architectures in the Security Considerations section.
+   This section specifically addresses the handling of event data
+   streams and the provision of a unified view for different
+   stakeholders.
 
 2.  Conventions and Definitions
 
@@ -181,11 +192,11 @@ Table of Contents
 
 3.2.  Learning and sharing behavioral models
 
-3.3.  NetOps perspective
+3.2.1.  NetOps perspective
 
-3.4.  SecOps perspective
+3.2.2.  SecOps perspective
 
-3.5.  Experiments
+3.3.  Experiments
 
 4.  Security Considerations
 

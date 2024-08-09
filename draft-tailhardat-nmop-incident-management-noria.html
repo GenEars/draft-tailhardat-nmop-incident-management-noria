@@ -1148,15 +1148,17 @@ An experiment is proposed to assess the potential of the meta-knowledge graph in
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-learning-and-sharing-behavi" class="internal xref">Learning and sharing behavioral models</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
+                    <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-netops-perspective" class="internal xref">NetOps perspective</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
+                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-secops-perspective" class="internal xref">SecOps perspective</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-netops-perspective" class="internal xref">NetOps perspective</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-secops-perspective" class="internal xref">SecOps perspective</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-experiments" class="internal xref">Experiments</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-experiments" class="internal xref">Experiments</a></p>
 </li>
             </ul>
 </li>
@@ -1205,10 +1207,13 @@ As a result of these additional efforts of contextualization, the capitalization
 This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Realizing an ITSM knowledge graph for network deployment, anomaly detection and risk management applications has been studied for several years in the Semantic Web community (i.e. knowledge representation and automated reasoning leveraging Web technologies such as <span>[<a href="#RDF" class="cite xref">RDF</a>]</span>, <span>[<a href="#RDFS" class="cite xref">RDFS</a>]</span>, <span>[<a href="#OWL" class="cite xref">OWL</a>]</span>, and <span>[<a href="#SKOS" class="cite xref">SKOS</a>]</span>).
 Among other examples: the DevOpsInfra ontology <span>[<a href="#DevOpsInfra-2021" class="cite xref">DevOpsInfra-2021</a>]</span> allows for describing sets of computing resources and how they are allocated for hosting services; the NORIA-O ontology <span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> allows for describing a network infrastructure &amp; ecosystem, its events, diagnosis and repair actions performed during incident management.
-Assuming the continuous integration into a knowledge graph of data from ticketing systems, network moniroting solutions and network configuration management databases, we remark that the resulting knowledge graph (Figure xxx) implicitely holds the necessary information to (automatically) learn incident contexts (i.e. the network topology, set of states and set of events prior to the incident) and remediation procedures (i.e. the set of actions and netwo configuration changes carried-out to resolve the incident).<a href="#section-1-4" class="pilcrow">¶</a></p>
+Assuming the continuous integration into a knowledge graph of data from ticketing systems, network monitoring solutions, and network configuration management databases, we remark that the resulting knowledge graph (Figure xxx) implicitely holds the necessary information to (automatically) learn incident contexts (i.e. the network topology, its set of states and set of events prior to the incident) and remediation procedures (i.e. the set of actions and network configuration changes carried-out to resolve the incident).<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">By going a step further, we notice that a generic understanding of incident context can be extracted and shared among operators from knowledge graphs.
-Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies such as SKOS), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address, etc.), but rather the abstract representation of the graph (i.e. the classes and relationships between graph entities).<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">TODO Introduction<a href="#section-1-6" class="pilcrow">¶</a></p>
+Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies such as SKOS), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the graph (i.e. the class of the graph entities and relationships, such as "server" or "router", and or "IPoWDM link").<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">The remainder of this document is organized as follows.
+Firstly, the concept of a meta-knowledge graph is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
+Secondly, an experiment is proposed to assess the potential of the meta-knowledge graph in improving network quality and designs.
+In addition to the main parts of the proposal, the document also covers data integration and data federation architectures in the Security Considerations section. This section specifically addresses the handling of event data streams and the provision of a unified view for different stakeholders.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1238,27 +1243,27 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <section id="section-3.2">
         <h3 id="name-learning-and-sharing-behavi">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-learning-and-sharing-behavi" class="section-name selfRef">Learning and sharing behavioral models</a>
-      </h3>
-</section>
-</div>
+        </h3>
 <div id="netops-perspective">
-<section id="section-3.3">
-        <h3 id="name-netops-perspective">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-netops-perspective" class="section-name selfRef">NetOps perspective</a>
-      </h3>
+<section id="section-3.2.1">
+          <h4 id="name-netops-perspective">
+<a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-netops-perspective" class="section-name selfRef">NetOps perspective</a>
+        </h4>
 </section>
 </div>
 <div id="secops-perspective">
-<section id="section-3.4">
-        <h3 id="name-secops-perspective">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-secops-perspective" class="section-name selfRef">SecOps perspective</a>
-      </h3>
+<section id="section-3.2.2">
+          <h4 id="name-secops-perspective">
+<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-secops-perspective" class="section-name selfRef">SecOps perspective</a>
+        </h4>
+</section>
+</div>
 </section>
 </div>
 <div id="experiments">
-<section id="section-3.5">
+<section id="section-3.3">
         <h3 id="name-experiments">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
       </h3>
 </section>
 </div>
