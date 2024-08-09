@@ -38,6 +38,8 @@ author:
     email: yoan.chabot@orange.com
 
 normative:
+
+informative:
   OWL:
     title: "OWL 2 Web Ontology Language Document Overview (Second Edition)"
     author:
@@ -48,7 +50,7 @@ normative:
   RDF:
     title: "Resource Description Framework (RDF): Concepts and Abstract Syntax"
     author:
-      organization: W3C
+    organization: W3C
     target: https://www.w3.org/TR/rdf11-concepts/
     date: February 2014
 
@@ -79,71 +81,6 @@ normative:
       organization: W3C
     target: https://www.w3.org/TR/skos-reference/
     date: 18 August 2009
-
-informative:
-  I.D.draft-marcas-nmop-knowledge-graph-yang:
-    title: "Knowledge Graphs for YANG-based Network Management"
-    seriesinfo:
-      Internet-Draft: draft-marcas-nmop-knowledge-graph-yang-03
-    author:
-      - name: I.D. Martinez-Casanueva
-      - name: L. Cabanillas
-    target: https://datatracker.ietf.org/doc/draft-marcas-nmop-knowledge-graph-yang/
-    date: 5 July 2024
-
-  I.D.draft-netana-nmop-network-anomaly-lifecycle:
-    author:
-      - name: A. Roberto
-      - name: T. Graf
-      - name: W. Du
-      - name: A. Huang Feng
-    title: "Experiment: Network Anomaly Lifecycle"
-    seriesinfo:
-      Internet-Draft: draft-netana-nmop-network-anomaly-lifecycle-03
-    date: 8 July 2024
-    target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-lifecycle/
-
-  I.D.draft-netana-nmop-network-anomaly-semantics:
-    author:
-      - name: T. Graf
-      - name: W. Du
-      - name: A. Huang Feng
-      - name: V. Riccobene
-      - name: A. Roberto
-    title: "Semantic Metadata Annotation for Network Anomaly Detection"
-    seriesinfo:
-      Internet-Draft: draft-netana-nmop-network-anomaly-semantics-02
-    date: 7 July 2024
-    target: https://datatracker.ietf.org/doc/draft-netana-nmop-network-anomaly-semantics/
-
-  I.D.draft-boucadair-nmop-rfc3535-20years-later:
-    author:
-      - name: Mohamed Boucadair
-      - name: Luis M. Contreras
-      - name: Oscar Gonzalez de Dios
-      - name: Thomas Graf
-      - name: Reshad Rahman
-    title: "RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"
-    seriesinfo:
-      Internet-Draft: draft-boucadair-nmop-rfc3535-20years-later-04
-    date: 22 July 2024
-    target: https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/
-
-  I.D.draft-irtf-nmrg-network-digital-twin-arch:
-    author:
-      - name: Cheng Zhou
-      - name: Hongwei Yang
-      - name: Xiaodong Duan
-      - name: Diego Lopez
-      - name: Antonio Pastor
-      - name: Qin Wu
-      - name: Mohamed Boucadair
-      - name: Christian Jacquenet
-    title: "Network Digital Twin: Concepts and Reference Architecture"
-    seriesinfo:
-      Internet-Draft: draft-irtf-nmrg-network-digital-twin-arch-06
-    date: 7 July 2024
-    target: https://datatracker.ietf.org/doc/draft-irtf-nmrg-network-digital-twin-arch/
 
   NORIA-O-2024:
     author:
@@ -246,15 +183,15 @@ It also describes an experiment to carry-out to assess the meta-knowledge graph 
 # Introduction
 
 Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable the provision of a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
-Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision {{I.D.draft-irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
+Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
+Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision {{?I-D.irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
 However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
-YANG is a widely used standard among operators for describing networks configurations and automating the deployment of these configurations.
-Using YANG representations in the form of a KG, as suggested in {{I.D.draft-marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
-The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{I.D.draft-boucadair-nmop-rfc3535-20years-later}}.
+YANG is a widely used standard among operators for describing network configuration and deployment.
+Using YANG representations in the form of a KG, as suggested in {{?I-D.marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
+The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{?I-D.boucadair-nmop-rfc3535-20years-later}}.
 
-Furthermore, although {{I.D.draft-netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+Furthermore, although {{?I-D.netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
 As a consequence, the continuous improvement of network quality & designs requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
 As a result of these additional efforts of contextualization, the capitalization of knowledge typically remains confined at the level of each network operator.
 This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.
