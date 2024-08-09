@@ -50,7 +50,7 @@ informative:
   RDF:
     title: "Resource Description Framework (RDF): Concepts and Abstract Syntax"
     author:
-    organization: W3C
+      organization: W3C
     target: https://www.w3.org/TR/rdf11-concepts/
     date: February 2014
 
