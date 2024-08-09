@@ -202,20 +202,38 @@ Among other examples: the DevOpsInfra ontology {{DevOpsInfra-2021}} allows for d
 Assuming the continuous integration into a knowledge graph of data from ticketing systems, network monitoring solutions, and network configuration management databases, we remark that the resulting knowledge graph ({{fig-incident-context}}) implicitely holds the necessary information to (automatically) learn incident contexts (i.e. the network topology, its set of states and set of events prior to the incident) and remediation procedures (i.e. the set of actions and network configuration changes carried-out to resolve the incident).
 
 ~~~~ ascii-art
-┌─────────────┐
-│TroubleTicket│
-└─────┬┬──────┘
-      ││
- <incident_01>
-      │
-problemCategory
-      │
-      ▼
- <packet-loss>
-      ││
- ┌────┴┴──────┐
- │skos:Concept│
- └────────────┘
+┌───Incident─context────────────────────────────┐
+│                 ┌────────────┐                │
+│                 │skos:Concept│                │
+│                 └─┬┬─────────┘                │
+│                  <server>                     │
+│                    ▲                          │
+│                    │                          │
+│                 resourceType                  │
+│         ┌────────┐ │                          │      ┌─────────────┐
+│         │Resource│ │                          │      │TroubleTicket│
+│         └──────┬┬┘ │                          │      └─────┬┬──────┘
+│                ││  │                          │            ││
+│        <ne_2>──<ne_1>◄──troubleTicketRelatedResource──<incident_01>
+│           │      │                            │            │
+│           │      │                            │      problemCategory
+│<ne_5>──<ne_4>────┼──<ne_3>────<log_2>         │            │
+│           │      │    │                       │            ▼
+│           │      │    │                       │       <packet-loss>
+│       <log_3>    │  <ne_6>                    │            ││
+│                  │                            │       ┌────┴┴──────┐
+│     logOriginatingManagedObject               │       │skos:Concept│
+│                  │                            │       └────────────┘
+│                  ▼                            │
+│               <log_1>──────┐                  │
+│      ┌─────────┴┴┐     dcterms:type           │
+│      │EventRecord│         │                  │
+│      └───────────┘         ▼                  │
+│                    <integrityViolation>       │
+│                       ┌────┴┴──────┐          │
+│                       │skos:Concept│          │
+│                       └────────────┘          │
+└───────────────────────────────────────────────┘
 ~~~~
 {: #fig-incident-context title="Learning an incident signature seen as a classification model that is trained on the relationship of the incident context (i.e. a subgraph centered around a Resource entity concerned by a given TroubleTicket) to the problem class defined at the TroubleTicket entity level."}
 
