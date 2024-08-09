@@ -234,8 +234,12 @@ informative:
 
 --- abstract
 
-TODO Abstract
-
+Incident management on telecom and computer networks requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
+Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable the provision of a unified view of complex technical systems and their dynamics.
+Similarly, YANG data models enable describing networks configurations and automating the deployment of these configurations.
+However, both knowledge graphs and YANG formalisms suffer vocabulary alignment and adoption challenges that hinders the learning and sharing of knowledge on network designs failure modes and best practices to adopt towards an overall improvement of IT systems and the Internet.
+To adress these challenges, this document introduces the concept of meta-knowledge graph to leverage already existing network infrastructure descriptions in YANG format while enabling abstract reasoning on the networks behaviors.
+It also describes an experiment to carry-out to assess the meta-knowledge graph proposal, learn pros & cons of it, and evaluate its potential for solving continuous improvement of network quality & designs challenges.
 
 --- middle
 
