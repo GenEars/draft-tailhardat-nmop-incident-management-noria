@@ -16,25 +16,19 @@ ISSN: 2070-1721                                                  EURECOM
 
 Abstract
 
-   Incident management on telecom and computer networks requires the
-   ability to simultaneously and quickly correlate and interpret a large
-   number of heterogeneous technical information sources.  Knowledge
-   graphs, by structuring heterogeneous data through shared
-   vocabularies, enable the provision of a unified view of complex
-   technical systems and their dynamics.  Similarly, YANG data models
-   enable describing networks configurations and automating the
-   deployment of these configurations.  However, both knowledge graphs
-   and YANG formalisms suffer vocabulary alignment and adoption
-   challenges that hinders the learning and sharing of knowledge on
-   network designs failure modes and best practices to adopt towards an
-   overall improvement of IT systems and the Internet.  To adress these
-   challenges, this document introduces the concept of meta-knowledge
-   graph to leverage already existing network infrastructure
-   descriptions in YANG format while enabling abstract reasoning on the
-   networks behaviors.  It also describes an experiment to carry-out to
-   assess the meta-knowledge graph proposal, learn pros & cons of it,
-   and evaluate its potential for solving continuous improvement of
-   network quality & designs challenges.
+   Operational efficiency in incident management on telecom and computer
+   networks requires correlating and interpreting large volumes of
+   heterogeneous technical information.  Knowledge graphs can provide a
+   unified view of complex systems through shared vocabularies.  YANG
+   data models enable describing network configurations and automating
+   their deployment.  However, both approaches face challenges in
+   vocabulary alignment and adoption, hindering knowledge capitalization
+   and sharing on network designs and best practices.  To address this,
+   the concept of a meta-knowledge graph is introduced to leverage
+   existing network infrastructure descriptions in YANG format and
+   enable abstract reasoning on network behaviors.  An experiment is
+   proposed to assess the potential of the meta-knowledge graph in
+   improving network quality and designs.
 
 Status of This Memo
 
