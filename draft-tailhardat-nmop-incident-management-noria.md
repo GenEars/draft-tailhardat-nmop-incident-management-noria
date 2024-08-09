@@ -38,8 +38,6 @@ author:
     email: yoan.chabot@orange.com
 
 normative:
-
-informative:
   SPARQL11-QL:
     title: "SPARQL 1.1 Query Language"
     author:
@@ -54,6 +52,7 @@ informative:
     target: https://www.w3.org/TR/sparql11-federated-query/
     date: March 2013
 
+informative:
   I.D.draft-marcas-nmop-knowledge-graph-yang:
     title: "Knowledge Graphs for YANG-based Network Management"
     seriesinfo:
@@ -101,6 +100,22 @@ informative:
       Internet-Draft: draft-boucadair-nmop-rfc3535-20years-later-04
     date: 22 July 2024
     target: https://datatracker.ietf.org/doc/draft-boucadair-nmop-rfc3535-20years-later/
+
+  I.D.draft-irtf-nmrg-network-digital-twin-arch:
+    author:
+      - name: Cheng Zhou
+      - name: Hongwei Yang
+      - name: Xiaodong Duan
+      - name: Diego Lopez
+      - name: Antonio Pastor
+      - name: Qin Wu
+      - name: Mohamed Boucadair
+      - name: Christian Jacquenet
+    title: "Network Digital Twin: Concepts and Reference Architecture"
+    seriesinfo:
+      Internet-Draft: draft-irtf-nmrg-network-digital-twin-arch-06
+    date: 7 July 2024
+    target: https://datatracker.ietf.org/doc/draft-irtf-nmrg-network-digital-twin-arch/
 
   NORIA-O-2024:
     author:
@@ -181,17 +196,18 @@ TODO Abstract
 # Introduction
 
 Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of technical systems,
-their ecosystem, and the activities and operations related to them (see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
-Using such formal knowledge representation may therefore allows for a simplified interpretation of networks and their behavior, both for users and AI algorithms, and paves the way for the development of tools for analyzing and detecting complex anomalies through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
+Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable the provision of a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{I.D.draft-marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
+Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision {{I.D.draft-irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
 However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
-YANG is a widely used standard among operators for describing network configuration and deployment.
+YANG is a widely used standard among operators for describing networks configurations and automating the deployment of these configurations.
 Using YANG representations in the form of a KG, as suggested in {{I.D.draft-marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
 The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{I.D.draft-boucadair-nmop-rfc3535-20years-later}}.
 
-Furthermore, it can be observed that the scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an ITSM perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
-
+Although {{I.D.draft-netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+Therefore, the continuous improvement of network quality requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
+As a result of these additional efforts of contextualization, the capitalization of knowledge typically remains confined at the level of each network operator.
+This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.
 
 TODO Introduction
 
