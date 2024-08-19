@@ -252,16 +252,16 @@ Table of Contents
    compatibility, / for partial satisfaction, - for non-compliance with
    the requirement.  A comment is provided as necessary.
 
-   *  Core Requirements
+3.1.1.1.  Core Requirements
 
-      -  (+) REQ-BASIC-MODEL-SUPPORT
+   REQ-BASIC-MODEL-SUPPORT:  *+*
 
-      -  (+) REQ-LAYERED-MODEL
+   REQ-LAYERED-MODEL:  *+*
 
-      -  (/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as
-         the concept of meta-KG mainly relate to the knowledge
-         representation topic rather than to the platform running the
-         Digital Map service on top of the meta-knowledge graph.
+   *  (/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as
+      the concept of meta-KG mainly relate to the knowledge
+      representation topic rather than to the platform running the
+      Digital Map service on top of the meta-knowledge graph.
 
       -  (/) REQ-STD-API-BASED: same remark as for REQ-PROG-OPEN-MODEL.
 
@@ -286,34 +286,34 @@ Table of Contents
       -  (+) REQ-GRAPH-TRAVERSAL: this capability is naturally enabled
          as the meta-KG concept involves using a graph data structure.
 
-   *  Design Requirements
+3.1.1.2.  Design Requirements
 
-      -  (-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG
-         involves to have more than topological data to interpret and
-         contextualize the network behavior.
+   *  (-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG
+      involves to have more than topological data to interpret and
+      contextualize the network behavior.
 
-      -  (-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.
+   *  (-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.
 
-      -  (-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.
+   *  (-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.
 
-      -  (+) REQ-CONDITIONAL: native, notably considering the
-         expressiveness of SPARQL [SPARQL11-QL] if using the Semantic
-         Web protocol stack to run the meta-KG concept.
+   *  (+) REQ-CONDITIONAL: native, notably considering the
+      expressiveness of SPARQL [SPARQL11-QL] if using the Semantic Web
+      protocol stack to run the meta-KG concept.
 
-      -  (+) REQ-TEMPO-HISTO
+   *  (+) REQ-TEMPO-HISTO #### Architectural Requirements
 
-   *  Architectural Requirements
+   *  (+) REQ-DM-SCALES: this capability applies as we can use data
+      aggregation at the graph level (Figure 4 and Figure 5 compared to
+      Figure 2 and Figure 3), aggregation without loss of information
+      (Figure 4 and Figure 5), and load balancing (horizontal scaling)
+      by partitioning the meta-KG (Figure 6).  Further, ease of
+      integration is enabled thanks to existing standard graph data
+      access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
+      illustrated in Figure 6).
 
-      -  (+) REQ-DM-SCALES: this capability applies as we can use data
-         aggregation at the graph level (Figure 4 and Figure 5 compared
-         to Figure 2 and Figure 3), aggregation without loss of
-         information (Figure 4 and Figure 5), and load balancing
-         (horizontal scaling) by partitioning the meta-KG (Figure 6).
-         Further, ease of integration is enabled thanks to existing
-         standard graph data access protocols (e.g.  SPARQL Federated
-         Queries [SPARQL11-FQ], as illustrated in Figure 6).
+   *  (/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.
 
-      -  (/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.
+3.1.1.3.  Data integration and data access considerations
 
    The following figures illustrate different scenarios for constructing
    a meta-KG through an Extract-Transform-Load (ETL) data integration

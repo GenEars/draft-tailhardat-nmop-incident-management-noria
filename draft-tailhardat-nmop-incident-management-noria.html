@@ -1294,79 +1294,94 @@ The meta-knowledge graph extends the Digital Map concept by adding information a
 <p id="section-3.1.1-2">To clarify this positioning, the following list reflects the compliance of the meta-KG concept with the Digital Map Requirements defined in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span>.
 A symbol to the left of each requirement indicates the nature of compliance: <code>+</code> for compatibility, <code>/</code> for partial satisfaction, <code>-</code> for non-compliance with the requirement.
 A comment is provided as necessary.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<div id="core-requirements">
+<section id="section-3.1.1.1">
+            <h5 id="name-core-requirements">
+<a href="#section-3.1.1.1" class="section-number selfRef">3.1.1.1. </a><a href="#name-core-requirements" class="section-name selfRef">Core Requirements</a>
+            </h5>
+<span class="break"></span><dl class="dlParallel" id="section-3.1.1.1-1">
+              <dt id="section-3.1.1.1-1.1">REQ-BASIC-MODEL-SUPPORT:</dt>
+              <dd style="margin-left: 1.5em" id="section-3.1.1.1-1.2">
+                <p id="section-3.1.1.1-1.2.1"><strong>+</strong><a href="#section-3.1.1.1-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+              <dd class="break"></dd>
+<dt id="section-3.1.1.1-1.3">REQ-LAYERED-MODEL:</dt>
+              <dd style="margin-left: 1.5em" id="section-3.1.1.1-1.4">
+                <p id="section-3.1.1.1-1.4.1"><strong>+</strong><a href="#section-3.1.1.1-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+</dl>
 <ul class="normal">
-<li class="normal" id="section-3.1.1-3.1">
-              <p id="section-3.1.1-3.1.1">Core Requirements<a href="#section-3.1.1-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.1.1-2.1">
+                <p id="section-3.1.1.1-2.1.1">(/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.<a href="#section-3.1.1.1-2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1.1-3.1.2.1">
-                  <p id="section-3.1.1-3.1.2.1.1">(+) REQ-BASIC-MODEL-SUPPORT<a href="#section-3.1.1-3.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.1.1-2.1.2.1">
+                    <p id="section-3.1.1.1-2.1.2.1.1">(/) REQ-STD-API-BASED: same remark as for REQ-PROG-OPEN-MODEL.<a href="#section-3.1.1.1-2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.2">
-                  <p id="section-3.1.1-3.1.2.2.1">(+) REQ-LAYERED-MODEL<a href="#section-3.1.1-3.1.2.2.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.2">
+                    <p id="section-3.1.1.1-2.1.2.2.1">(+) REQ-COMMON-APP<a href="#section-3.1.1.1-2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.3">
-                  <p id="section-3.1.1-3.1.2.3.1">(/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.<a href="#section-3.1.1-3.1.2.3.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.3">
+                    <p id="section-3.1.1.1-2.1.2.3.1">(+) REQ-SEMANTIC<a href="#section-3.1.1.1-2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.4">
-                  <p id="section-3.1.1-3.1.2.4.1">(/) REQ-STD-API-BASED: same remark as for REQ-PROG-OPEN-MODEL.<a href="#section-3.1.1-3.1.2.4.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.4">
+                    <p id="section-3.1.1.1-2.1.2.4.1">(+) REQ-LAYER-NAVIGATE<a href="#section-3.1.1.1-2.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.5">
-                  <p id="section-3.1.1-3.1.2.5.1">(+) REQ-COMMON-APP<a href="#section-3.1.1-3.1.2.5.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.5">
+                    <p id="section-3.1.1.1-2.1.2.5.1">(+) REQ-EXTENSIBLE: knowledge graphs implicitly satisfy this requirement, notably with OWL <span>[<a href="#OWL" class="cite xref">OWL</a>]</span> and SKOS <span>[<a href="#SKOS" class="cite xref">SKOS</a>]</span> constructs if considering RDF knowledge graphs for the meta-KG (e.g. <code>owl:sameAs</code> to relate a meta-KG entity to some other entity of another knowledge graph, <code>owl:equivalentClass</code> to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, <code>skos:inScheme</code> to group new items of a controled-vocabulary as part of a <code>skos:ConceptScheme</code>).<a href="#section-3.1.1.1-2.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.6">
-                  <p id="section-3.1.1-3.1.2.6.1">(+) REQ-SEMANTIC<a href="#section-3.1.1-3.1.2.6.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.6">
+                    <p id="section-3.1.1.1-2.1.2.6.1">(+) REQ-PLUGG: same remark as for REQ-EXTENSIBLE.<a href="#section-3.1.1.1-2.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.7">
-                  <p id="section-3.1.1-3.1.2.7.1">(+) REQ-LAYER-NAVIGATE<a href="#section-3.1.1-3.1.2.7.1" class="pilcrow">¶</a></p>
+                  <li class="normal" id="section-3.1.1.1-2.1.2.7">
+                    <p id="section-3.1.1.1-2.1.2.7.1">(+) REQ-GRAPH-TRAVERSAL: this capability is naturally enabled as the meta-KG concept involves using a graph data structure.<a href="#section-3.1.1.1-2.1.2.7.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.8">
-                  <p id="section-3.1.1-3.1.2.8.1">(+) REQ-EXTENSIBLE: knowledge graphs implicitly satisfy this requirement, notably with OWL <span>[<a href="#OWL" class="cite xref">OWL</a>]</span> and SKOS <span>[<a href="#SKOS" class="cite xref">SKOS</a>]</span> constructs if considering RDF knowledge graphs for the meta-KG (e.g. <code>owl:sameAs</code> to relate a meta-KG entity to some other entity of another knowledge graph, <code>owl:equivalentClass</code> to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, <code>skos:inScheme</code> to group new items of a controled-vocabulary as part of a <code>skos:ConceptScheme</code>).<a href="#section-3.1.1-3.1.2.8.1" class="pilcrow">¶</a></p>
+                </ul>
 </li>
-                <li class="normal" id="section-3.1.1-3.1.2.9">
-                  <p id="section-3.1.1-3.1.2.9.1">(+) REQ-PLUGG: same remark as for REQ-EXTENSIBLE.<a href="#section-3.1.1-3.1.2.9.1" class="pilcrow">¶</a></p>
-</li>
-                <li class="normal" id="section-3.1.1-3.1.2.10">
-                  <p id="section-3.1.1-3.1.2.10.1">(+) REQ-GRAPH-TRAVERSAL: this capability is naturally enabled as the meta-KG concept involves using a graph data structure.<a href="#section-3.1.1-3.1.2.10.1" class="pilcrow">¶</a></p>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-3.1.1-3.2">
-              <p id="section-3.1.1-3.2.1">Design Requirements<a href="#section-3.1.1-3.2.1" class="pilcrow">¶</a></p>
+            </ul>
+</section>
+</div>
+<div id="design-requirements">
+<section id="section-3.1.1.2">
+            <h5 id="name-design-requirements">
+<a href="#section-3.1.1.2" class="section-number selfRef">3.1.1.2. </a><a href="#name-design-requirements" class="section-name selfRef">Design Requirements</a>
+            </h5>
 <ul class="normal">
-<li class="normal" id="section-3.1.1-3.2.2.1">
-                  <p id="section-3.1.1-3.2.2.1.1">(-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.<a href="#section-3.1.1-3.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.1.2-1.1">
+                <p id="section-3.1.1.2-1.1.1">(-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.<a href="#section-3.1.1.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.2.2.2">
-                  <p id="section-3.1.1-3.2.2.2.1">(-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.<a href="#section-3.1.1-3.2.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1.1.2-1.2">
+                <p id="section-3.1.1.2-1.2.1">(-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.<a href="#section-3.1.1.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.2.2.3">
-                  <p id="section-3.1.1-3.2.2.3.1">(-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.<a href="#section-3.1.1-3.2.2.3.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1.1.2-1.3">
+                <p id="section-3.1.1.2-1.3.1">(-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.<a href="#section-3.1.1.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.2.2.4">
-                  <p id="section-3.1.1-3.2.2.4.1">(+) REQ-CONDITIONAL: native, notably considering the expressiveness of SPARQL <span>[<a href="#SPARQL11-QL" class="cite xref">SPARQL11-QL</a>]</span> if using the Semantic Web protocol stack to run the meta-KG concept.<a href="#section-3.1.1-3.2.2.4.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1.1.2-1.4">
+                <p id="section-3.1.1.2-1.4.1">(+) REQ-CONDITIONAL: native, notably considering the expressiveness of SPARQL <span>[<a href="#SPARQL11-QL" class="cite xref">SPARQL11-QL</a>]</span> if using the Semantic Web protocol stack to run the meta-KG concept.<a href="#section-3.1.1.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.2.2.5">
-                  <p id="section-3.1.1-3.2.2.5.1">(+) REQ-TEMPO-HISTO<a href="#section-3.1.1-3.2.2.5.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1.1.2-1.5">
+                <p id="section-3.1.1.2-1.5.1">(+) REQ-TEMPO-HISTO
+#### Architectural Requirements<a href="#section-3.1.1.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
-              </ul>
+              <li class="normal" id="section-3.1.1.2-1.6">
+                <p id="section-3.1.1.2-1.6.1">(+) REQ-DM-SCALES: this capability applies as we can use data aggregation at the graph level (<a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a> compared to <a href="#fig-stream-kg-only" class="auto internal xref">Figure 2</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 3</a>), aggregation without loss of information (<a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a>), and load balancing (horizontal scaling) by partitioning the meta-KG (<a href="#fig-multi-store" class="auto internal xref">Figure 6</a>). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries <span>[<a href="#SPARQL11-FQ" class="cite xref">SPARQL11-FQ</a>]</span>, as illustrated in <a href="#fig-multi-store" class="auto internal xref">Figure 6</a>).<a href="#section-3.1.1.2-1.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.1-3.3">
-              <p id="section-3.1.1-3.3.1">Architectural Requirements<a href="#section-3.1.1-3.3.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.1.1-3.3.2.1">
-                  <p id="section-3.1.1-3.3.2.1.1">(+) REQ-DM-SCALES: this capability applies as we can use data aggregation at the graph level (<a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a> compared to <a href="#fig-stream-kg-only" class="auto internal xref">Figure 2</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 3</a>), aggregation without loss of information (<a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a>), and load balancing (horizontal scaling) by partitioning the meta-KG (<a href="#fig-multi-store" class="auto internal xref">Figure 6</a>). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries <span>[<a href="#SPARQL11-FQ" class="cite xref">SPARQL11-FQ</a>]</span>, as illustrated in <a href="#fig-multi-store" class="auto internal xref">Figure 6</a>).<a href="#section-3.1.1-3.3.2.1.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-3.1.1.2-1.7">
+                <p id="section-3.1.1.2-1.7.1">(/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.<a href="#section-3.1.1.2-1.7.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-3.3.2.2">
-                  <p id="section-3.1.1-3.3.2.2.1">(/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.<a href="#section-3.1.1-3.3.2.2.1" class="pilcrow">¶</a></p>
-</li>
-              </ul>
-</li>
-          </ul>
-<p id="section-3.1.1-4">The following figures illustrate different scenarios for constructing a meta-KG through an Extract-Transform-Load (ETL) data integration pipeline.
-From the perspective of the Digital Map Requirements, the <a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a>, <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a> and <a href="#fig-multi-store" class="auto internal xref">Figure 6</a> particularly address the REQ-DM-SCALES requirement.<a href="#section-3.1.1-4" class="pilcrow">¶</a></p>
+            </ul>
+</section>
+</div>
+<div id="data-integration-and-data-access-considerations">
+<section id="section-3.1.1.3">
+            <h5 id="name-data-integration-and-data-a">
+<a href="#section-3.1.1.3" class="section-number selfRef">3.1.1.3. </a><a href="#name-data-integration-and-data-a" class="section-name selfRef">Data integration and data access considerations</a>
+            </h5>
+<p id="section-3.1.1.3-1">The following figures illustrate different scenarios for constructing a meta-KG through an Extract-Transform-Load (ETL) data integration pipeline.
+From the perspective of the Digital Map Requirements, the <a href="#fig-stream-mixed" class="auto internal xref">Figure 4</a>, <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 5</a> and <a href="#fig-multi-store" class="auto internal xref">Figure 6</a> particularly address the REQ-DM-SCALES requirement.<a href="#section-3.1.1.3-1" class="pilcrow">¶</a></p>
 <span id="name-kg-only-data-integration-ar"></span><div id="fig-stream-kg-only">
 <figure id="figure-2">
-            <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1-5.1">
+              <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1.3-2.1">
 <pre>
           ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
 ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
@@ -1385,11 +1400,11 @@ From the perspective of the Digital Map Requirements, the <a href="#fig-stream-m
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-kg-only-data-integration-ar" class="selfRef">KG-only data integration architecture for event data streams</a>
-            </figcaption></figure>
+              </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represe"></span><div id="fig-stream-kg-only-kr">
 <figure id="figure-3">
-            <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1-6.1">
+              <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1.3-3.1">
 <pre>
                          &lt;object/RES_router3&gt;
 &lt;object/RES_router2&gt;          │
@@ -1406,11 +1421,11 @@ From the perspective of the Digital Map Requirements, the <a href="#fig-stream-m
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-resulting-knowledge-represe" class="selfRef">Resulting knowledge representation for the KG-only data integration architecture for event data streams</a>
-            </figcaption></figure>
+              </figcaption></figure>
 </div>
 <span id="name-mixed-kg-non-kg-data-integr"></span><div id="fig-stream-mixed">
 <figure id="figure-4">
-            <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1-7.1">
+              <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1.3-4.1">
 <pre>
                   ┌────────────┐
                   │  Complex   │
@@ -1435,11 +1450,11 @@ From the perspective of the Digital Map Requirements, the <a href="#fig-stream-m
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-mixed-kg-non-kg-data-integr" class="selfRef">Mixed KG/non-KG data integration architecture for event data streams</a>
-            </figcaption></figure>
+              </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represen"></span><div id="fig-stream-mixed-kr">
 <figure id="figure-5">
-            <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1-8.1">
+              <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1.3-5.1">
 <pre>
                                 &lt;object/RES_router3&gt;
        &lt;object/RES_router2&gt;          │
@@ -1473,11 +1488,11 @@ From the perspective of the Digital Map Requirements, the <a href="#fig-stream-m
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-resulting-knowledge-represen" class="selfRef">Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams</a>
-            </figcaption></figure>
+              </figcaption></figure>
 </div>
 <span id="name-unified-access-to-data-dist"></span><div id="fig-multi-store">
 <figure id="figure-6">
-            <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1-9.1">
+              <div class="alignLeft art-ascii-art art-text artwork" id="section-3.1.1.3-6.1">
 <pre>
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
@@ -1520,7 +1535,9 @@ From the perspective of the Digital Map Requirements, the <a href="#fig-stream-m
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-unified-access-to-data-dist" class="selfRef">Unified access to data distributed across various technological platforms</a>
-            </figcaption></figure>
+              </figcaption></figure>
+</div>
+</section>
 </div>
 </section>
 </div>
