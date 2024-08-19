@@ -241,7 +241,25 @@ Table of Contents
 
 4.  Security Considerations
 
-   TODO Security
+   As this document covers the _meta-knowledge graph_ concepts, and use
+   cases, there is no specific security considerations.
+
+   However, as the concept of a meta-knowledge graph involves the
+   construction of a multi-faceted graph (i.e. including network
+   topologies, operational data, and service and client data), it poses
+   the risk of simplifying access to network operational data and
+   functions that fall outside the operators' responsibility or that
+   could facilitate the intervention of malicious individuals.  To
+   support the discussion on mitigating this risk, we suggest referring
+   to Figure 6, which illustrates the concept of partial access to the
+   meta-knowledge graph based on rights associated with each user group
+   (UG) at the data domain level.  We also recommend referring to
+   [AMO-2012] for an example of implemention of access rights in a
+   content management system that relies on Semantic Web models and
+   technologies.  This implementation uses the AMO ontology, which
+   includes a set of classes and properties for annotating resources
+   that require access control, as well as a base of inference rules
+   that model the access management strategy to carry out.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
    ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
@@ -389,6 +407,10 @@ Table of Contents
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 6.2.  Informative References
+
+   [AMO-2012] Buffa, M. and C. Faron-Zucker, "Ontology-Based Access
+              Rights Management", 2012,
+              <https://doi.org/10.1007/978-3-642-25838-1_3>.
 
    [DevOpsInfra-2021]
               Corcho, O., Chaves-Fraga, D., Toledo, J., Arenas-Guerrero,
