@@ -164,7 +164,7 @@ Table of Contents
    such as [RDF], [RDFS], [OWL], and [SKOS]).  Among other examples: the
    DevOpsInfra ontology [DevOpsInfra-2021] allows for describing sets of
    computing resources and how they are allocated for hosting services;
-   the NORIA-O ontology [NORIA-UI-2024] allows for describing a network
+   the NORIA-O ontology [NORIA-O-2024] allows for describing a network
    infrastructure & ecosystem, its events, diagnosis and repair actions
    performed during incident management.  Assuming the continuous
    integration into a knowledge graph of data from ticketing systems,
