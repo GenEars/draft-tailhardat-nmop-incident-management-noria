@@ -264,7 +264,7 @@ In addition to the main parts of the proposal, the document also covers data int
 
 ## Aligning operator-specificities with a multi-faceted knowledge graph
 
-## Relation to the Digital Map {{#sec-digital-map}}
+## Relation to the Digital Map {#sec-digital-map}
 
 Similar to the concept of *meta-knowledge graph* (meta-KG) discussed here, the concept of *Digital Map* discussed in {{!I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
 The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
