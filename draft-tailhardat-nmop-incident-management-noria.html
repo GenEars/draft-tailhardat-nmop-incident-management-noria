@@ -33,7 +33,7 @@ An experiment is proposed to assess the potential of the meta-knowledge graph in
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.32.3
-    setuptools 69.5.1
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
 <link href="draft-tailhardat-nmop-incident-management-noria.xml" rel="alternate" type="application/rfc+xml">
@@ -1321,19 +1321,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <figure id="figure-2">
         <div class="alignLeft art-ascii-art art-text artwork" id="section-4-2.1">
 <pre>
-               ┌──────────┐   ┌────────────────┐   ┌──────────┐   ┌───────────────┐   ┌────────┐
-┌──────────┐   │          │   │                │   │          │   │               │   │┌──────┐│
-│  Events  │──►│  E.S.B.  ├──►│ Stream mapping ├──►│  S.S.B.  ├──►│ Stream loader ├──►││ K.G. ││
-└──────────┘   │          │   │                │   │          │   │               │   │└──────┘│
-               └──────────┘   └────────────────┘   └────┬─────┘   └───────────────┘   └────────┘
-                                                        │
-                                    ┌───────────────────┴──────────────────────┐
-                                    │(event/LOG_login_03)=&gt;(object/RES/router1)│
-                                    └─┌──────────────────────────────────────────┐
-                                      │(event/LOG_login_03)=&gt;(object/RES/router1)│
-                                      └─┌──────────────────────────────────────────┐
-                                        │(event/LOG_login_03)=&gt;(object/RES/router1)│
-                                        └──────────────────────────────────────────┘
+          ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
+┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+└──────┘  │      │  │         │  │      │  │        │  │└────┘│
+          └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+                                    │
+                ┌───────────────────┴──────────────────────┐
+                │(event/LOG_login_03)=&gt;(object/RES/router1)│
+                └─┌──────────────────────────────────────────┐
+                  │(event/LOG_login_03)=&gt;(object/RES/router1)│
+                  └─┌──────────────────────────────────────────┐
+                    │(event/LOG_login_03)=&gt;(object/RES/router1)│
+                    └──────────────────────────────────────────┘
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1365,26 +1365,25 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <figure id="figure-4">
         <div class="alignLeft art-ascii-art art-text artwork" id="section-4-4.1">
 <pre>
-                              ┌────────────────┐
-                              │    Complex     │
-                              │     Event      │
-                              │   Processing   │
-                              └───────┬┬───────┘
-               ┌──────────┐   ┌───────┴┴───────┐   ┌──────────┐   ┌───────────────┐   ┌────────┐
-┌──────────┐   │          │   │                │   │          │   │               │   │┌──────┐│
-│  Events  │──►│  E.S.B.  ├──►│ Stream mapping ├──►│  S.S.B.  ├──►│ Stream loader ├──►││ K.G. ││
-└──────────┘   │          │   │                │   │          │   │               │   │└──────┘│
-               └────────┬─┘   └────────────────┘   └────┬─────┘   └───────────────┘   └────────┘
-                        │                               │
-                        │           ┌───────────────────┴──────────────────────┐
-                        │           │(event/AIS_login_01)=&gt;(object/RES/router1)│
-                        │           └──────────────────────────────────────────┘
-                        │
-                        │                                         ┌───────────────┐   ┌────────┐
-                        │                                         │               │   │┌──────┐│
-                        └────────────────────────────────────────►│ Stream loader ├──►││ TSDB ││
-                                                                  │               │   │└──────┘│
-                                                                  └───────────────┘   └────────┘
+                  ┌────────────┐
+                  │  Complex   │
+                  │   Event    │
+                  │ Processing │
+                  └────┬──┬────┘
+          ┌──────┐  ┌──┴──┴───┐  ┌──────┐  ┌────────┐  ┌──────┐
+┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+└──────┘  │      │  │         │  │      │  │        │  │└────┘│
+          └──┬───┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+             │                      │
+             │  ┌───────────────────┴──────────────────────┐
+             │  │(event/AIS_login_01)=&gt;(object/RES/router1)│
+             │  └──────────────────────────────────────────┘
+             │                             ┌────────┐  ┌──────┐
+             │                             │ Stream │  │┌────┐│
+             └────────────────────────────►│ loader ├─►││TSDB││
+                                           │        │  │└────┘│
+                                           └────────┘  └──────┘
 </pre>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
@@ -1400,23 +1399,22 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
                       │              │            ┌────────┐
                     &lt;object/RES_router1&gt;─rdf:type─┤Resource│
                               │                   └────────┘
-                              │
                  logOriginatingManagedObject
                               │                    ┌───────────┐
 ┌──────────────────►&lt;event/AIS_login_01&gt;──rdf:type─┤EventRecord│
-│                    │              │ │            └───────────┘
-│                duration           │ │
-│                    │              │ │
-│  "P0Y0M0DT0H3M30S"^^xsd:duration  │ └─dcterms:type─&lt;Notification/EventType/inferredAlert&gt;
-│                                   │                                │
-│                              loggingTime                        rdf:type
-│                                   │                          ┌─────┴──────┐
-│                 "2024-02-07T16:22:42Z"^^xsd:dateTime         │skos:Concept│
-│                                                              └────────────┘
-│  KG knowledge representation
-│  ========================================================================================
+│                    │             │  \            └───────────┘
+│                duration          │   \
+│                    │             │ dcterms:type
+│  "P0Y0M0DT0H3M30S"^^xsd:duration │     \
+│                                  │   &lt;Notification/
+│                          loggingTime   EventType/inferredAlert&gt;
+│                                  │                   │
+│        "2024-02-07T16:22:42Z"^^xsd:dateTime       rdf:type
+│                                                ┌─────┴──────┐
+│                                                │skos:Concept│
+│  KG knowledge representation                   └────────────┘
+│  ==============================================================
 │  Time series database (TSDB) data representation
-│
 │
 │  Timestamp             Origin                Event
 │  2024-02-07T16:22:42Z  &lt;object/RES_router1&gt;  Login Attempt
@@ -1434,43 +1432,43 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <figure id="figure-6">
         <div class="alignLeft art-ascii-art art-text artwork" id="section-4-6.1">
 <pre>
-Data domain &amp;   ───On-premise────────────────────────────   ┌─┐  Scope-based querying
-access policy   ┌───────┐                                   │ │
-                │┌─────┐│  ┌──────┐           ┌─────────┐   │ │           ┌───────────┐
-  Domain A ────►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├──►│ ├─Network &amp;─┤  NetOps   │
-   -   UG2      │└─────┘│  └──────┘           └─────────┘   │ ├─Usage─────┤Application│
-                └───────┘                                   │ │           └───────────┘
-                ┌───────┐                                   │ │           ┌───────────┐
-                │┌─────┐│  ┌──────┐           ┌─────────┐   │ ├─Network &amp;─┤  SecOps   │
-  Domain B ────►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├──►│ ├─Security──┤Application│
-  UG1   -       │└─────┘│  └──────┘           └─────────┘   │F│           └───────────┘
-                └─────┬─┘                                   │E│
-                      └─────────────────────────────────────│D│─────────────┐
-                ───On-premise / public-cloud─────────────   │E│             │
-                ┌───────┐                                   │R│             ▼  Usage
-                │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐   │A│           ┌────scope──┐
-  Domain C ────►││ RDB ││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├──►│T│           │*          │
-  UG1 &amp; UG2     │└─────┘│  └──────┘ └───┘     └─────────┘   │E│   Network │   *  *    │
-                └───────┘                                   │D│   scope───│────────┐  │
-                ┌───────┐                                   │ │       │   │ *  *   │  │
-                │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐   │Q│       │  *└───────────┘
-  Domain D ────►││NoSQL││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├──►│U│       │  ┌───────────┐
-  UG1   -       │└─────┘│  └──────┘ └───┘     └─────────┘   │E│       │* │ *  *    │ │
-                └───────┘                                   │R│       └──│─────────┘ │
-                ┌───────┐                                   │I│        ▲ │     *     │
-                │┌─────┐│  ┌──────┐ ┌───────┐ ┌─────────┐   │E│        │ │ *       * │
-  Domain E ────►││ LPG ││◄─┤GDBMS ├─│QL tlt.├─┤SPARQL EP│──►│S│        │ └──Security─┘
-   -   UG2      │└─────┘│  └──────┘ └───────┘ └─────────┘   │ │        │    scope ▲
-                └───┬───┘                                   │ │        │          │
-                    └───────────────────────────────────────│ │────────┼──────────┘
-                                                            │ │        │
-                ───Public-cloud──────────────────────────   │ │        │
-                ┌───────┐                                   │ │        │
-                │┌─────┐│  ┌──────┐           ┌─────────┐   │ │        │
-  Domain F ────►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├──►│ │        │
-  UG1 &amp; UG2     │└─────┘│  └──────┘           └─────────┘   │ │        │
-                └───┬───┘                                   └─┘        │
-                    └──────────────────────────────────────────────────┘
+  ───On-premise────────────────────────────  ┌─┐  Scope-based querying
+  ┌Dom.─A─┐                                  │ │
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &amp;─┤  NetOps   │
+  │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
+  └UG.─2──┘                                  │ │           └───────────┘
+  ┌Dom. B─┐                                  │ │           ┌───────────┐
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &amp;─┤  SecOps   │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+  │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
+  └UG.─1┬─┘                                  │E│
+        └────────────────────────────────────│D│─────────────┐
+  ───On-premise / public-cloud─────────────  │E│             │
+  ┌Dom.─C─┐                                  │R│             ▼  Usage
+  │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐  │A│           ┌────scope──┐
+─►││ RDB ││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├─►│T│           │*          │
+  │└─────┘│  └──────┘ └───┘     └─────────┘  │E│   Network │   *  *    │
+  └UG.─1&amp;2┘                                  │D│   scope───│────────┐  │
+  ┌Dom.─D─┐                                  │ │       │   │ *  *   │  │
+  │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐  │Q│       │  *└───────────┘
+─►││NoSQL││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├─►│U│       │  ┌───────────┐
+  │└─────┘│  └──────┘ └───┘     └─────────┘  │E│       │* │ *  *    │ │
+  └UG.─1──┘                                  │R│       └──│─────────┘ │
+  ┌Dom.─E─┐                                  │I│        ▲ │     *     │
+  │┌─────┐│  ┌──────┐ ┌───────┐ ┌─────────┐  │E│        │ │ *       * │
+─►││ LPG ││◄─┤GDBMS ├─┤QL tlt.├─┤SPARQL EP├─►│S│        │ └──Security─┘
+  │└─────┘│  └──────┘ └───────┘ └─────────┘  │ │        │    scope ▲
+  └UG.┬2──┘                                  │ │        │          │
+      └──────────────────────────────────────│ │────────┼──────────┘
+                                             │ │        │
+  ───Public-cloud──────────────────────────  │ │        │
+  ┌Dom.─F─┐                                  │ │        │
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ │        │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ │        │
+  │└─────┘│  └──────┘           └─────────┘  │ │        │
+  └UG.┬1&amp;2┘                                  └─┘        │
+      └─────────────────────────────────────────────────┘
 </pre>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
