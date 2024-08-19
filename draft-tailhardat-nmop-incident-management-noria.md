@@ -274,7 +274,7 @@ In addition to the main parts of the proposal, the document also covers data int
 
 As this document covers the *meta-knowledge graph* concepts, and use cases, there is no specific security considerations.
 
-However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the operators' responsibility or that could facilitate the intervention of malicious individuals.
+However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
 To support the discussion on mitigating this risk, we suggest referring to {{fig-multi-store}}, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
 We also recommend referring to {{AMO-2012}} for an example of implemention of access rights in a content management system that relies on Semantic Web models and technologies.
 This implementation uses the AMO ontology, which includes a set of classes and properties for annotating resources that require access control, as well as a base of inference rules that model the access management strategy to carry out.
