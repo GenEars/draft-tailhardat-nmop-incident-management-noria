@@ -65,10 +65,11 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  A meta-KG to align operator-specificities and share behavioral
-           models of technical architectures
+   3.  A meta-knowledge graph to align operator-specificities and
+           share behavioral models of technical architectures
      3.1.  Aligning operator-specificities with a multi-faceted
            knowledge graph
+       3.1.1.  Relation to the Digital Map
      3.2.  Learning and sharing behavioral models
        3.2.1.  NetOps perspective
        3.2.2.  SecOps perspective
@@ -206,15 +207,15 @@ Table of Contents
    or "router", and or "IPoWDM link").
 
    The remainder of this document is organized as follows.  Firstly, the
-   concept of a meta-knowledge graph is introduced to leverage existing
-   network infrastructure descriptions in YANG format and enable
-   abstract reasoning on network behaviors.  Secondly, an experiment is
-   proposed to assess the potential of the meta-knowledge graph in
-   improving network quality and designs.  In addition to the main parts
-   of the proposal, the document also covers data integration and data
-   federation architectures in the Security Considerations section.
-   This section specifically addresses the handling of event data
-   streams and the provision of a unified view for different
+   concept of a _meta-knowledge graph_ is introduced to leverage
+   existing network infrastructure descriptions in YANG format and
+   enable abstract reasoning on network behaviors.  Secondly, an
+   experiment is proposed to assess the potential of the meta-knowledge
+   graph in improving network quality and designs.  In addition to the
+   main parts of the proposal, the document also covers data integration
+   and data federation architectures in the Security Considerations
+   section.  This section specifically addresses the handling of event
+   data streams and the provision of a unified view for different
    stakeholders.
 
 2.  Conventions and Definitions
@@ -225,41 +226,100 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  A meta-KG to align operator-specificities and share behavioral
-    models of technical architectures
+3.  A meta-knowledge graph to align operator-specificities and share
+    behavioral models of technical architectures
 
 3.1.  Aligning operator-specificities with a multi-faceted knowledge
       graph
 
-3.2.  Learning and sharing behavioral models
+3.1.1.  Relation to the Digital Map
 
-3.2.1.  NetOps perspective
+   Similar to the concept of _meta-knowledge graph_ (meta-KG) discussed
+   here, the concept of _Digital Map_ discussed in
+   [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
+   heterogeneous data describing networks in order to simplify network
+   management operations through unified access to this data.  The meta-
+   knowledge graph extends the Digital Map concept by adding information
+   about the lifecycle of infrastructures and services, as well as the
+   context of their usage.  These additional pieces of information are
+   considered essential for learning shareable activity models of
+   systems.
 
-3.2.2.  SecOps perspective
+   To clarify this positioning, the following list reflects the
+   compliance of the meta-KG concept with the Digital Map Requirements
+   defined in [I-D.havel-nmop-digital-map-concept].  A symbol to the
+   left of each requirement indicates the nature of compliance: + for
+   compatibility, / for partial satisfaction, - for non-compliance with
+   the requirement.  A comment is provided as necessary.
 
-3.3.  Experiments
+   *  Core Requirements
 
-4.  Security Considerations
+      -  (+) REQ-BASIC-MODEL-SUPPORT
 
-   As this document covers the _meta-knowledge graph_ concepts, and use
-   cases, there is no specific security considerations.
+      -  (+) REQ-LAYERED-MODEL
 
-   However, as the concept of a meta-knowledge graph involves the
-   construction of a multi-faceted graph (i.e. including network
-   topologies, operational data, and service and client data), it poses
-   the risk of simplifying access to network operational data and
-   functions that fall outside the operators' responsibility or that
-   could facilitate the intervention of malicious individuals.  To
-   support the discussion on mitigating this risk, we suggest referring
-   to Figure 6, which illustrates the concept of partial access to the
-   meta-knowledge graph based on rights associated with each user group
-   (UG) at the data domain level.  We also recommend referring to
-   [AMO-2012] for an example of implemention of access rights in a
-   content management system that relies on Semantic Web models and
-   technologies.  This implementation uses the AMO ontology, which
-   includes a set of classes and properties for annotating resources
-   that require access control, as well as a base of inference rules
-   that model the access management strategy to carry out.
+      -  (/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as
+         the concept of meta-KG mainly relate to the knowledge
+         representation topic rather than to the platform running the
+         Digital Map service on top of the meta-knowledge graph.
+
+      -  (/) REQ-STD-API-BASED: same remark as for REQ-PROG-OPEN-MODEL.
+
+      -  (+) REQ-COMMON-APP
+
+      -  (+) REQ-SEMANTIC
+
+      -  (+) REQ-LAYER-NAVIGATE
+
+      -  (+) REQ-EXTENSIBLE: knowledge graphs implicitly satisfy this
+         requirement, notably with OWL [OWL] and SKOS [SKOS] constructs
+         if considering RDF knowledge graphs for the meta-KG (e.g.
+         owl:sameAs to relate a meta-KG entity to some other entity of
+         another knowledge graph, owl:equivalentClass to link concepts
+         and properties used to interpret the meta-KG to concepts and
+         properties from other data models, skos:inScheme to group new
+         items of a controled-vocabulary as part of a
+         skos:ConceptScheme).
+
+      -  (+) REQ-PLUGG: same remark as for REQ-EXTENSIBLE.
+
+      -  (+) REQ-GRAPH-TRAVERSAL: this capability is naturally enabled
+         as the meta-KG concept involves using a graph data structure.
+
+   *  Design Requirements
+
+      -  (-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG
+         involves to have more than topological data to interpret and
+         contextualize the network behavior.
+
+      -  (-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.
+
+      -  (-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.
+
+      -  (+) REQ-CONDITIONAL: native, notably considering the
+         expressiveness of SPARQL [SPARQL11-QL] if using the Semantic
+         Web protocol stack to run the meta-KG concept.
+
+      -  (+) REQ-TEMPO-HISTO
+
+   *  Architectural Requirements
+
+      -  (+) REQ-DM-SCALES: this capability applies as we can use data
+         aggregation at the graph level (Figure 4 and Figure 5 compared
+         to Figure 2 and Figure 3), aggregation without loss of
+         information (Figure 4 and Figure 5), and load balancing
+         (horizontal scaling) by partitioning the meta-KG (Figure 6).
+         Further, ease of integration is enabled thanks to existing
+         standard graph data access protocols (e.g.  SPARQL Federated
+         Queries [SPARQL11-FQ], as illustrated in Figure 6).
+
+      -  (/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.
+
+   The following figures illustrate different scenarios for constructing
+   a meta-KG through an Extract-Transform-Load (ETL) data integration
+   pipeline.  From the perspective of the Digital Map Requirements, the
+   Figure 4, Figure 5 and Figure 6 particularly address the REQ-DM-
+   SCALES requirement.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
    ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
@@ -389,6 +449,36 @@ Table of Contents
      Figure 6: Unified access to data distributed across various
                        technological platforms
 
+3.2.  Learning and sharing behavioral models
+
+3.2.1.  NetOps perspective
+
+3.2.2.  SecOps perspective
+
+3.3.  Experiments
+
+4.  Security Considerations
+
+   As this document covers the _meta-knowledge graph_ concepts, and use
+   cases, there is no specific security considerations.
+
+   However, as the concept of a meta-knowledge graph involves the
+   construction of a multi-faceted graph (i.e. including network
+   topologies, operational data, and service and client data), it poses
+   the risk of simplifying access to network operational data and
+   functions that fall outside the knowledge graph users' responsibility
+   or that could facilitate the intervention of malicious individuals.
+   To support the discussion on mitigating this risk, we suggest
+   referring to Figure 6, which illustrates the concept of partial
+   access to the meta-knowledge graph based on rights associated with
+   each user group (UG) at the data domain level.  We also recommend
+   referring to [AMO-2012] for an example of implemention of access
+   rights in a content management system that relies on Semantic Web
+   models and technologies.  This implementation uses the AMO ontology,
+   which includes a set of classes and properties for annotating
+   resources that require access control, as well as a base of inference
+   rules that model the access management strategy to carry out.
+
 5.  IANA Considerations
 
    This document has no IANA actions.
@@ -396,6 +486,14 @@ Table of Contents
 6.  References
 
 6.1.  Normative References
+
+   [I-D.havel-nmop-digital-map-concept]
+              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
+              "Digital Map: Concept, Requirements, and Use Cases", Work
+              in Progress, Internet-Draft, draft-havel-nmop-digital-map-
+              concept-00, 4 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-havel-nmop-
+              digital-map-concept-00>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
