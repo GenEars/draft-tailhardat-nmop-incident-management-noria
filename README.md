@@ -34,3 +34,13 @@ Satisfying pre-requisites might notably include running:
 sudo apt install ruby-bundler
 sudo apt install python3.10-venv
 ```
+
+## Useful links
+
+* ASCII diagram editor: [asciiflow.com](https://asciiflow.com/#/)
+
+## Maintainer
+
+* [Lionel TAILHARDAT](mailto:lionel.tailhardat@orange.com)
+* [Raphaël TRONCY](mailto:raphael.troncy@eurecom.fr)
+* [Yoan CHABOT](mailto:yoan.chabot@orange.com)
