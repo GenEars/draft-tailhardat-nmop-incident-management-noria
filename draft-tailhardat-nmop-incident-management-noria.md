@@ -6,8 +6,8 @@ category: info
 docname: draft-tailhardat-nmop-incident-management-noria-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 
-number: 00
-date: 2024-06-27
+#number: 00
+#date: 2024-06-27
 
 consensus: true
 v: 3
@@ -514,3 +514,5 @@ This document has no IANA actions.
 {:numbered="false"}
 
 We would like to thank Benoit Claise for spontaneously seeking to include the work of the NORIA research project in the vision of the NMOP working group through direct contact.
+
+We would also like to thank Fano Rampary for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.
