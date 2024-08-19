@@ -286,7 +286,7 @@ REQ-PROG-OPEN-MODEL:
 : Partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
 
 REQ-STD-API-BASED:
-:   - (/)
+: **/**
 : Same remark as for REQ-PROG-OPEN-MODEL.
 
 REQ-COMMON-APP:
