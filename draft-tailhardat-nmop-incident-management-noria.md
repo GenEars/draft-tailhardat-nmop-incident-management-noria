@@ -266,19 +266,19 @@ In addition to the main parts of the proposal, the document also covers data int
 TODO Security
 
 ~~~~ ascii-art
-               ┌──────────┐   ┌────────────────┐   ┌──────────┐   ┌───────────────┐   ┌────────┐
-┌──────────┐   │          │   │                │   │          │   │               │   │┌──────┐│
-│  Events  │──►│  E.S.B.  ├──►│ Stream mapping ├──►│  S.S.B.  ├──►│ Stream loader ├──►││ K.G. ││
-└──────────┘   │          │   │                │   │          │   │               │   │└──────┘│
-               └──────────┘   └────────────────┘   └────┬─────┘   └───────────────┘   └────────┘
-                                                        │
-                                    ┌───────────────────┴──────────────────────┐
-                                    │(event/LOG_login_03)=>(object/RES/router1)│
-                                    └─┌──────────────────────────────────────────┐
-                                      │(event/LOG_login_03)=>(object/RES/router1)│
-                                      └─┌──────────────────────────────────────────┐
-                                        │(event/LOG_login_03)=>(object/RES/router1)│
-                                        └──────────────────────────────────────────┘
+          ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
+┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+└──────┘  │      │  │         │  │      │  │        │  │└────┘│
+          └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+                                    │
+                ┌───────────────────┴──────────────────────┐
+                │(event/LOG_login_03)=>(object/RES/router1)│
+                └─┌──────────────────────────────────────────┐
+                  │(event/LOG_login_03)=>(object/RES/router1)│
+                  └─┌──────────────────────────────────────────┐
+                    │(event/LOG_login_03)=>(object/RES/router1)│
+                    └──────────────────────────────────────────┘
 ~~~~
 {: #fig-stream-kg-only title="KG-only data integration architecture for event data streams"}
 
