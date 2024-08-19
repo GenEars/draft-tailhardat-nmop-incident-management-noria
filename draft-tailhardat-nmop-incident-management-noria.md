@@ -273,10 +273,15 @@ To clarify this positioning, the following list reflects the compliance of the m
 A symbol to the left of each requirement indicates the nature of compliance: `+` for compatibility, `/` for partial satisfaction, `-` for non-compliance with the requirement.
 A comment is provided as necessary.
 
-* Core Requirements
-  - (+) REQ-BASIC-MODEL-SUPPORT
-  - (+) REQ-LAYERED-MODEL
-  - (/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
+#### Core Requirements
+
+REQ-BASIC-MODEL-SUPPORT:
+: **+**
+
+REQ-LAYERED-MODEL:
+: **+**
+
+- (/) REQ-PROG-OPEN-MODEL: partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
   - (/) REQ-STD-API-BASED: same remark as for REQ-PROG-OPEN-MODEL.
   - (+) REQ-COMMON-APP
   - (+) REQ-SEMANTIC
@@ -284,15 +289,18 @@ A comment is provided as necessary.
   - (+) REQ-EXTENSIBLE: knowledge graphs implicitly satisfy this requirement, notably with OWL {{OWL}} and SKOS {{SKOS}} constructs if considering RDF knowledge graphs for the meta-KG (e.g. `owl:sameAs` to relate a meta-KG entity to some other entity of another knowledge graph, `owl:equivalentClass` to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, `skos:inScheme` to group new items of a controled-vocabulary as part of a `skos:ConceptScheme`).
   - (+) REQ-PLUGG: same remark as for REQ-EXTENSIBLE.
   - (+) REQ-GRAPH-TRAVERSAL: this capability is naturally enabled as the meta-KG concept involves using a graph data structure.
-* Design Requirements
+
+#### Design Requirements
   - (-) REQ-TOPO-ONLY: requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.
   - (-) REQ-PROPERTIES: same remark as for REQ-TOPO-ONLY.
   - (-) REQ-RELATIONSHIPS: same remark as for REQ-TOPO-ONLY.
   - (+) REQ-CONDITIONAL: native, notably considering the expressiveness of SPARQL {{SPARQL11-QL}} if using the Semantic Web protocol stack to run the meta-KG concept.
   - (+) REQ-TEMPO-HISTO
-* Architectural Requirements
+#### Architectural Requirements
   - (+) REQ-DM-SCALES: this capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
   - (/) REQ-DM-DISCOVERY: same remark as for REQ-PROG-OPEN-MODEL.
+
+#### Data integration and data access considerations
 
 The following figures illustrate different scenarios for constructing a meta-KG through an Extract-Transform-Load (ETL) data integration pipeline.
 From the perspective of the Digital Map Requirements, the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
