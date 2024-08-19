@@ -1,0 +1,709 @@
+
+
+
+
+Network Management Operations                              L. Tailhardat
+Internet-Draft                                                    Orange
+Intended status: Informational                                 R. Troncy
+Expires: 20 February 2025                                        EURECOM
+                                                               Y. Chabot
+                                                                  Orange
+                                                          19 August 2024
+
+
+  Knowledge Graphs for Enhanced Cross-Operator Incident Management and
+                             Network Design
+         draft-tailhardat-nmop-incident-management-noria-latest
+
+Abstract
+
+   Operational efficiency in incident management on telecom and computer
+   networks requires correlating and interpreting large volumes of
+   heterogeneous technical information.  Knowledge graphs can provide a
+   unified view of complex systems through shared vocabularies.  YANG
+   data models enable describing network configurations and automating
+   their deployment.  However, both approaches face challenges in
+   vocabulary alignment and adoption, hindering knowledge capitalization
+   and sharing on network designs and best practices.  To address this,
+   the concept of a meta-knowledge graph is introduced to leverage
+   existing network infrastructure descriptions in YANG format and
+   enable abstract reasoning on network behaviors.  An experiment is
+   proposed to assess the potential of the meta-knowledge graph in
+   improving network quality and designs.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://genears.github.io/draft-tailhardat-nmop-incident-management-
+   noria/draft-tailhardat-nmop-incident-management-noria.html.  Status
+   information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-tailhardat-nmop-incident-
+   management-noria/.
+
+   Discussion of this document takes place on the Network Management
+   Operations Working Group mailing list (mailto:nmop@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/nmop/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/nmop/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/genears/draft-tailhardat-nmop-incident-management-
+   noria.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 20 February 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  A meta-knowledge graph to align operator-specificities and
+           share behavioral models of technical architectures
+     3.1.  Aligning operator-specificities with a multi-faceted
+           knowledge graph
+     3.2.  Learning and sharing behavioral models
+     3.3.  Relation to the Digital Map
+       3.3.1.  Core Requirements
+       3.3.2.  Architectural Requirements
+     3.4.  Experiments
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   Incident management on telecom and computer networks, whether it is
+   related to infrastructure or cybersecurity issues, requires the
+   ability to simultaneously and quickly correlate and interpret a large
+   number of heterogeneous technical information sources.  Knowledge
+   Graphs (KGs), by structuring heterogeneous data through shared
+   vocabularies, enable providing a unified view of complex technical
+   systems, their ecosystem, and the activities and operations related
+   to them (see [I-D.marcas-nmop-knowledge-graph-yang] and
+   [NORIA-O-2024]).  Using such formal knowledge representation allows
+   for a simplified interpretation of networks and their behavior, both
+   for NetOps & SecOps teams and artificial intelligence (AI) algorithms
+   (e.g. anomaly detection, root cause analysis, diagnostic aid,
+   situation summarization), and paves the way, in line with the Network
+   Digital Twin vision [I-D.irtf-nmrg-network-digital-twin-arch], for
+   the development of tools for detecting and analyzing complex network
+   incident situations through explainable, actionable, and shareable
+   models (see [FOLIO-2018], [SLKG-2023], and [GPL-2024]).
+
+   However, despite potential benefits of using knowledge graphs, these
+   are not mainstream yet in commercial network deployment systems and
+   decision support systems (see [NORIA-UI-2024] for more on the
+   decision support systems perspective).  YANG is a widely used
+   standard among operators for describing network configurations and
+   automating their deployment.  Using YANG representations in the form
+   of a KG, as suggested in [I-D.marcas-nmop-knowledge-graph-yang],
+   would minimize the effort required to adapt network management tools
+   towards the unified vision and applications evoked above.  The lack
+   of alignment between various YANG models on key concepts (e.g. for
+   describing network topology) is, however, hindering this evolution
+   [I-D.boucadair-nmop-rfc3535-20years-later].
+
+   Furthermore, although [I-D.netana-nmop-network-anomaly-lifecycle]
+   addresses the capitalization of incident management knowledge through
+   a YANG model, it can be observed that the overall scope of YANG
+   models does not naturally cover the description of the networks'
+   ecosystem (e.g. physical equipment location, operator organization,
+   supervision systems) or the description of network operations from an
+   IT service management (ITSM) perspective (e.g. business processes and
+   design rules used by the company, scheduled modification operations,
+   remediation actions performed during incident handling).  As a
+   consequence, the continuous improvement of network quality & designs
+   requires additional data cross-referencing operations to properly
+   contextualize incidents and learn from remediation actions taken
+   (e.g. analyzing intervention technicians' verbatim, comparing actions
+   performed on similar incidents but occurring on different networks).
+   As a result of these additional efforts of contextualization, the
+   capitalization of knowledge typically remains confined at the level
+   of each network operator.  This, in turn, hinders the sharing of
+   information within the community of researchers and system designers
+   regarding failure modes and best practices to adopt, considering the
+   concept of overall improvement of IT systems and the Internet.
+
+   Realizing an ITSM knowledge graph for network deployment, anomaly
+   detection and risk management applications has been studied for
+   several years in the Semantic Web community (i.e. knowledge
+   representation and automated reasoning leveraging Web technologies
+   such as [RDF], [RDFS], [OWL], and [SKOS]).  Among other examples: the
+   DevOpsInfra ontology [DevOpsInfra-2021] allows for describing sets of
+   computing resources and how they are allocated for hosting services;
+   the NORIA-O ontology [NORIA-UI-2024] allows for describing a network
+   infrastructure & ecosystem, its events, diagnosis and repair actions
+   performed during incident management.  Assuming the continuous
+   integration into a knowledge graph of data from ticketing systems,
+   network monitoring solutions, and network configuration management
+   databases, we remark that the resulting knowledge graph (Figure 1)
+   implicitely holds the necessary information to (automatically) learn
+   incident contexts (i.e. the network topology, its set of states and
+   set of events prior to the incident) and remediation procedures (i.e.
+   the set of actions and network configuration changes carried-out to
+   resolve the incident).
+
+  ┌───Incident context────────────────────────────┐
+  │                 ┌────────────┐                │
+  │                 │skos:Concept│                │
+  │                 └─┬┬─────────┘                │
+  │                  <server>                     │
+  │                    ▲                          │
+  │                    │                          │
+  │                 resourceType                  │
+  │         ┌────────┐ │                          │      ┌─────────────┐
+  │         │Resource│ │                          │      │TroubleTicket│
+  │         └──────┬┬┘ │                          │      └─────┬┬──────┘
+  │                ││  │                          │            ││
+  │        <ne_2>──<ne_1>◄──troubleTicketRelatedResource──<incident_01>
+  │           │      │                            │            │
+  │           │      │                            │      problemCategory
+  │<ne_5>──<ne_4>────┼──<ne_3>────<log_2>         │            │
+  │           │      │    │                       │            ▼
+  │           │      │    │                       │       <packet-loss>
+  │       <log_3>    │  <ne_6>                    │            ││
+  │                  │                            │       ┌────┴┴──────┐
+  │     logOriginatingManagedObject               │       │skos:Concept│
+  │                  │                            │       └────────────┘
+  │                  ▼                            │
+  │               <log_1>──────┐                  │
+  │      ┌─────────┴┴┐     dcterms:type           │
+  │      │EventRecord│         │                  │
+  │      └───────────┘         ▼                  │
+  │                    <integrityViolation>       │
+  │                       ┌────┴┴──────┐          │
+  │                       │skos:Concept│          │
+  │                       └────────────┘          │
+  └───────────────────────────────────────────────┘
+
+    Figure 1: Learning an incident signature seen as a classification
+    model that is trained on the relationship of the incident context
+    (i.e. a subgraph centered around a Resource entity concerned by a
+         given TroubleTicket) to the problem class defined at the
+      TroubleTicket entity level.  Arrows are for object properties
+       (owl:ObjectProperty), double line edges are for object class
+                        relationships (rdf:type).
+
+   By going a step further, we notice that a generic understanding of
+   incident context can be extracted and shared among operators from
+   knowledge graphs.  Indeed, a knowledge graph, being an instantiation
+   of shared vocabularies (e.g.  RDFS/OWL ontologies and controlled
+   vocabularies in SKOS syntax), sharing incident signatures can be done
+   without revealing infrastructure details (e.g. hostname, IP address),
+   but rather the abstract representation of the network (i.e. the class
+   of the knowlegde graph entities and relationships, such as "server"
+   or "router", and or "IPoWDM link").
+
+   The remainder of this document is organized as follows.  Firstly, the
+   concept of a _meta-knowledge graph_ is introduced to leverage
+   existing network infrastructure descriptions in YANG format and
+   enable abstract reasoning on network behaviors.  Secondly, an
+   experiment is proposed to assess the potential of the meta-knowledge
+   graph in improving network quality and designs.  In addition to the
+   main parts of the proposal, the document also covers data integration
+   and data federation architectures in the Security Considerations
+   section.  This section specifically addresses the handling of event
+   data streams and the provision of a unified view for different
+   stakeholders.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  A meta-knowledge graph to align operator-specificities and share
+    behavioral models of technical architectures
+
+   TODO Introduce and develop the following topics.
+
+   Topics:
+
+   *  Principles for implicit learning of incident characteristics and
+      resolution methods through a graph and activity tracing.
+
+      -  Aligning operator-specificities with a multi-faceted knowledge
+         graph.
+
+      -  Learning and sharing behavioral models.
+
+      -  Relation to the Network Anomaly Lifecycle experiment
+         [I-D.netana-nmop-network-anomaly-lifecycle].
+
+      -  Relation to the Digital Map concept
+         [I-D.havel-nmop-digital-map-concept].
+
+   *  Meta-KG construction
+
+      -  Integrating Service and Network topology data from YANG data
+         models, such as Network Topologies [RFC8345] and Service
+         Assurance [RFC9418]}.
+
+      -  Relation to the NORIA-O ontology [NORIA-O-2024].
+
+      -  Trends towards some Yang to OWL / Yang to RDF data
+         transformation tool.
+
+   *  Experiments towards the meta-KG proposal.
+
+3.1.  Aligning operator-specificities with a multi-faceted knowledge
+      graph
+
+   TODO Meta-KG construction
+
+   TODO Relate the Meta-KG construction part to the following REQ-DM-
+   SCALES related considerations.
+
+   The following figures illustrate different scenarios for constructing
+   a meta-KG through an Extract-Transform-Load (ETL) data integration
+   pipeline.  From the perspective of the Digital Map Requirements
+   (Section 3.3), the Figure 4, Figure 5 and Figure 6 particularly
+   address the REQ-DM-SCALES requirement.
+
+             ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
+   ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+   │Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+   └──────┘  │      │  │         │  │      │  │        │  │└────┘│
+             └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+                                       │
+                   ┌───────────────────┴──────────────────────┐
+                   │(event/LOG_login_03)=>(object/RES/router1)│
+                   └─┌──────────────────────────────────────────┐
+                     │(event/LOG_login_03)=>(object/RES/router1)│
+                     └─┌──────────────────────────────────────────┐
+                       │(event/LOG_login_03)=>(object/RES/router1)│
+                       └──────────────────────────────────────────┘
+
+       Figure 2: KG-only data integration architecture for event data
+                                  streams
+
+                            <object/RES_router3>
+   <object/RES_router2>          │
+                  │              │            ┌────────┐
+                <object/RES_router1>─rdf:type─┤Resource│
+                          │                   └────────┘
+                          │
+             logOriginatingManagedObject
+                          │
+                <event/LOG_login_01>             ┌───────────┐
+                  <event/LOG_login_02>──rdf:type─┤EventRecord│
+                    <event/LOG_login_03>         └───────────┘
+
+     Figure 3: Resulting knowledge representation for the KG-only data
+              integration architecture for event data streams
+
+                     ┌────────────┐
+                     │  Complex   │
+                     │   Event    │
+                     │ Processing │
+                     └────┬──┬────┘
+             ┌──────┐  ┌──┴──┴───┐  ┌──────┐  ┌────────┐  ┌──────┐
+   ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+   │Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+   └──────┘  │      │  │         │  │      │  │        │  │└────┘│
+             └──┬───┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+                │                      │
+                │  ┌───────────────────┴──────────────────────┐
+                │  │(event/AIS_login_01)=>(object/RES/router1)│
+                │  └──────────────────────────────────────────┘
+                │                             ┌────────┐  ┌──────┐
+                │                             │ Stream │  │┌────┐│
+                └────────────────────────────►│ loader ├─►││TSDB││
+                                              │        │  │└────┘│
+                                              └────────┘  └──────┘
+
+     Figure 4: Mixed KG/non-KG data integration architecture for event
+                                data streams
+
+                                   <object/RES_router3>
+          <object/RES_router2>          │
+                         │              │            ┌────────┐
+                       <object/RES_router1>─rdf:type─┤Resource│
+                                 │                   └────────┘
+                    logOriginatingManagedObject
+                                 │                    ┌───────────┐
+   ┌──────────────────►<event/AIS_login_01>──rdf:type─┤EventRecord│
+   │                    │             │  \            └───────────┘
+   │                duration          │   \
+   │                    │             │ dcterms:type
+   │  "P0Y0M0DT0H3M30S"^^xsd:duration │     \
+   │                                  │   <Notification/
+   │                          loggingTime   EventType/inferredAlert>
+   │                                  │                   │
+   │        "2024-02-07T16:22:42Z"^^xsd:dateTime       rdf:type
+   │                                                ┌─────┴──────┐
+   │                                                │skos:Concept│
+   │  KG knowledge representation                   └────────────┘
+   │  ==============================================================
+   │  Time series database (TSDB) data representation
+   │
+   │  Timestamp             Origin                Event
+   │  2024-02-07T16:22:42Z  <object/RES_router1>  Login Attempt
+   │  2024-02-07T16:23:13Z  <object/RES_router1>  Login Attempt
+   │  2024-02-07T16:26:12Z  <object/RES_router1>  Login Attempt
+   │                                 ▲
+   └──shared─identifier──────────────┘
+
+       Figure 5: Resulting knowledge representation for the mixed KG/
+        non-KG data integration architecture for event data streams
+
+  ───On-premise────────────────────────────  ┌─┐  Scope-based querying
+  ┌Dom.─A─┐                                  │ │
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+  │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
+  └UG.─2──┘                                  │ │           └───────────┘
+  ┌Dom. B─┐                                  │ │           ┌───────────┐
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+  │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
+  └UG.─1┬─┘                                  │E│
+        └────────────────────────────────────│D│─────────────┐
+  ───On-premise / public-cloud─────────────  │E│             │
+  ┌Dom.─C─┐                                  │R│             ▼  Usage
+  │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐  │A│           ┌────scope──┐
+─►││ RDB ││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├─►│T│           │*          │
+  │└─────┘│  └──────┘ └───┘     └─────────┘  │E│   Network │   *  *    │
+  └UG.─1&2┘                                  │D│   scope───│────────┐  │
+  ┌Dom.─D─┐                                  │ │       │   │ *  *   │  │
+  │┌─────┐│  ┌──────┐ ┌───┐     ┌─────────┐  │Q│       │  *└───────────┘
+─►││NoSQL││◄─┤RDBMS ├─┤VKG├─────┤SPARQL EP├─►│U│       │  ┌───────────┐
+  │└─────┘│  └──────┘ └───┘     └─────────┘  │E│       │* │ *  *    │ │
+  └UG.─1──┘                                  │R│       └──│─────────┘ │
+  ┌Dom.─E─┐                                  │I│        ▲ │     *     │
+  │┌─────┐│  ┌──────┐ ┌───────┐ ┌─────────┐  │E│        │ │ *       * │
+─►││ LPG ││◄─┤GDBMS ├─┤QL tlt.├─┤SPARQL EP├─►│S│        │ └──Security─┘
+  │└─────┘│  └──────┘ └───────┘ └─────────┘  │ │        │    scope ▲
+  └UG.┬2──┘                                  │ │        │          │
+      └──────────────────────────────────────│ │────────┼──────────┘
+                                             │ │        │
+  ───Public-cloud──────────────────────────  │ │        │
+  ┌Dom.─F─┐                                  │ │        │
+  │┌─────┐│  ┌──────┐           ┌─────────┐  │ │        │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ │        │
+  │└─────┘│  └──────┘           └─────────┘  │ │        │
+  └UG.┬1&2┘                                  └─┘        │
+      └─────────────────────────────────────────────────┘
+
+     Figure 6: Unified access to data distributed across various
+                       technological platforms
+
+3.2.  Learning and sharing behavioral models
+
+   TODO NetOps perspective
+
+   TODO SecOps perspective
+
+3.3.  Relation to the Digital Map
+
+   Similar to the concept of _meta-knowledge graph_ (meta-KG) discussed
+   here, the concept of _Digital Map_ discussed in
+   [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
+   heterogeneous data describing networks in order to simplify network
+   management operations through unified access to this data.  The meta-
+   knowledge graph extends the Digital Map concept by adding information
+   about the lifecycle of infrastructures and services, as well as the
+   context of their usage.  These additional pieces of information are
+   considered essential for learning shareable activity models of
+   systems.
+
+   To clarify this positioning, the following lists reflect the
+   compliance of the meta-KG concept with the Digital Map Requirements
+   defined in [I-D.havel-nmop-digital-map-concept].  A symbol to the
+   right of each requirement name indicates the nature of compliance:
+   *+* for compatibility, */* for partial satisfaction, *-* for non-
+   compliance with the requirement.  A comment is provided as necessary.
+
+3.3.1.  Core Requirements
+
+   *+* REQ-BASIC-MODEL-SUPPORT:  nothing to report (n.t.r.)
+
+   *+* REQ-LAYERED-MODEL:  n.t.r.
+
+   */* REQ-PROG-OPEN-MODEL:  Partially satifying the requirement as the
+      concept of meta-KG mainly relate to the knowledge representation
+      topic rather than to the platform running the Digital Map service
+      on top of the meta-knowledge graph.
+
+   */* REQ-STD-API-BASED:  Same remark as for REQ-PROG-OPEN-MODEL.
+
+   *+* REQ-COMMON-APP:  n.t.r.
+
+   *+* REQ-SEMANTIC:  n.t.r.
+
+   *+* REQ-LAYER-NAVIGATE:  n.t.r.
+
+   *+* REQ-EXTENSIBLE:  Knowledge graphs implicitly satisfy this
+      requirement, notably with OWL [OWL] and SKOS [SKOS] constructs if
+      considering RDF knowledge graphs for the meta-KG (e.g. owl:sameAs
+      to relate a meta-KG entity to some other entity of another
+      knowledge graph, owl:equivalentClass to link concepts and
+      properties used to interpret the meta-KG to concepts and
+      properties from other data models, skos:inScheme to group new
+      items of a controled-vocabulary as part of a skos:ConceptScheme).
+
+   *+* REQ-PLUGG:  Same remark as for REQ-EXTENSIBLE.
+
+   *+* REQ-GRAPH-TRAVERSAL:  This capability is naturally enabled as the
+      meta-KG concept involves using a graph data structure.
+
+3.3.1.1.  Design Requirements
+
+   *-* REQ-TOPO-ONLY:  Requirement not satisfied as the meta-KG involves
+      to have more than topological data to interpret and contextualize
+      the network behavior.
+
+   *-* REQ-PROPERTIES:  Same remark as for REQ-TOPO-ONLY.
+
+   *-* REQ-RELATIONSHIPS:  Same remark as for REQ-TOPO-ONLY.
+
+   *+* REQ-CONDITIONAL:  Native, notably considering the expressiveness
+      of SPARQL [SPARQL11-QL] if using the Semantic Web protocol stack
+      to run the meta-KG concept.
+
+   *+* REQ-TEMPO-HISTO:  n.t.r.
+
+3.3.2.  Architectural Requirements
+
+   *+* REQ-DM-SCALES:  This capability applies as we can use data
+      aggregation at the graph level (Figure 4 and Figure 5 compared to
+      Figure 2 and Figure 3), aggregation without loss of information
+      (Figure 4 and Figure 5), and load balancing (horizontal scaling)
+      by partitioning the meta-KG (Figure 6).  Further, ease of
+      integration is enabled thanks to existing standard graph data
+      access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
+      illustrated in Figure 6).
+
+   */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
+
+3.4.  Experiments
+
+   TODO Experiments
+
+4.  Security Considerations
+
+   As this document covers the _meta-knowledge graph_ concepts, and use
+   cases, there is no specific security considerations.
+
+   However, as the concept of a meta-knowledge graph involves the
+   construction of a multi-faceted graph (i.e. including network
+   topologies, operational data, and service and client data), it poses
+   the risk of simplifying access to network operational data and
+   functions that fall outside the knowledge graph users' responsibility
+   or that could facilitate the intervention of malicious individuals.
+   To support the discussion on mitigating this risk, we suggest
+   referring to Figure 6, which illustrates the concept of partial
+   access to the meta-knowledge graph based on rights associated with
+   each user group (UG) at the data domain level.  We also recommend
+   referring to [AMO-2012] for an example of implemention of access
+   rights in a content management system that relies on Semantic Web
+   models and technologies.  This implementation uses the AMO ontology,
+   which includes a set of classes and properties for annotating
+   resources that require access control, as well as a base of inference
+   rules that model the access management strategy to carry out.
+
+5.  IANA Considerations
+
+   This document has no IANA actions.
+
+6.  References
+
+6.1.  Normative References
+
+   [I-D.havel-nmop-digital-map-concept]
+              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
+              "Digital Map: Concept, Requirements, and Use Cases", Work
+              in Progress, Internet-Draft, draft-havel-nmop-digital-map-
+              concept-00, 4 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-havel-nmop-
+              digital-map-concept-00>.
+
+   [I-D.netana-nmop-network-anomaly-lifecycle]
+              Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
+              Feng, "Experiment: Network Anomaly Lifecycle", Work in
+              Progress, Internet-Draft, draft-netana-nmop-network-
+              anomaly-lifecycle-03, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
+              network-anomaly-lifecycle-03>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8345]  Clemm, A., Medved, J., Varga, R., Bahadur, N.,
+              Ananthakrishnan, H., and X. Liu, "A YANG Data Model for
+              Network Topologies", RFC 8345, DOI 10.17487/RFC8345, March
+              2018, <https://www.rfc-editor.org/rfc/rfc8345>.
+
+   [RFC9418]  Claise, B., Quilbeuf, J., Lucente, P., Fasano, P., and T.
+              Arumugam, "A YANG Data Model for Service Assurance",
+              RFC 9418, DOI 10.17487/RFC9418, July 2023,
+              <https://www.rfc-editor.org/rfc/rfc9418>.
+
+6.2.  Informative References
+
+   [AMO-2012] Buffa, M. and C. Faron-Zucker, "Ontology-Based Access
+              Rights Management", 2012,
+              <https://doi.org/10.1007/978-3-642-25838-1_3>.
+
+   [DevOpsInfra-2021]
+              Corcho, O., Chaves-Fraga, D., Toledo, J., Arenas-Guerrero,
+              J., Badenes-Olmedo, C., Wang, M., Peng, H., Burrett, N.,
+              Mora, J., and P. Zhang, "A High-Level Ontology Network for
+              ICT Infrastructures", 2021,
+              <https://doi.org/10.1007/978-3-030-88361-4_26>.
+
+   [FLAGSM-2021]
+              Steenwinckel, B., Paepe, D. D., Hautte, S. V., Heyvaert,
+              P., Bentefrit, M., Moens, P., Dimou, A., Bossche, B. V.
+              D., Turck, F. D., Hoecke, S. V., and F. Ongenae, "FLAGS: A
+              Methodology for Adaptive Anomaly Detection and Root Cause
+              Analysis on Sensor Data Streams by Fusing Expert Knowledge
+              with Machine Learning", 2021,
+              <https://doi.org/10.1016/j.future.2020.10.015>.
+
+   [FOLIO-2018]
+              Steenwinckel, B., Heyvaert, P., Paepe, D. D., Janssens,
+              O., Hautte, S. V., Dimou, A., Turck, F. D., Hoecke, S. V.,
+              and F. Ongenae, "Towards Adaptive Anomaly Detection and
+              Root Cause Analysis by Automated Extraction of Knowledge
+              from Risk Analyses", 2018,
+              <https://www.ceur-ws.org/Vol-2213/paper2.pdf>.
+
+   [GPL-2024] Tailhardat, L., Stach, B., Chabot, Y., and R. Troncy,
+              "Graphameleon: Relational Learning and Anomaly Detection
+              on Web Navigation Traces Captured as Knowledge Graphs",
+              2024, <https://doi.org/10.1145/3589335.3651447>.
+
+   [I-D.boucadair-nmop-rfc3535-20years-later]
+              Boucadair, M., Contreras, L. M., de Dios, O. G., Graf, T.,
+              and R. Rahman, "RFC 3535, 20 Years Later: An Update of
+              Operators Requirements on Network Management Protocols and
+              Modelling", Work in Progress, Internet-Draft, draft-
+              boucadair-nmop-rfc3535-20years-later-04, 22 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-boucadair-
+              nmop-rfc3535-20years-later-04>.
+
+   [I-D.irtf-nmrg-network-digital-twin-arch]
+              Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
+              Q., Boucadair, M., and C. Jacquenet, "Network Digital
+              Twin: Concepts and Reference Architecture", Work in
+              Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
+              twin-arch-06, 7 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
+              network-digital-twin-arch-06>.
+
+   [I-D.marcas-nmop-knowledge-graph-yang]
+              Martinez-Casanueva, I. D. and L. C. Rodríguez, "Knowledge
+              Graphs for YANG-based Network Management", Work in
+              Progress, Internet-Draft, draft-marcas-nmop-knowledge-
+              graph-yang-03, 5 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-marcas-nmop-
+              knowledge-graph-yang-03>.
+
+   [NORIA-O-2024]
+              Tailhardat, L., Troncy, R., and Y. Chabot, "NORIA-O: An
+              Ontology for Anomaly Detection and Incident Management in
+              ICT Systems", 2024,
+              <https://doi.org/10.1007/978-3-031-60635-9_2>.
+
+   [NORIA-UI-2024]
+              Tailhardat, L., Chabot, Y., Py, A., and P. Guillemette,
+              "NORIA UI: Efficient Incident Management on Large-Scale
+              ICT Systems Represented as Knowledge Graphs", 2024,
+              <https://doi.org/10.1145/3664476.3670438>.
+
+   [OWL]      W3C, "OWL 2 Web Ontology Language Document Overview
+              (Second Edition)", December 2012,
+              <https://www.w3.org/TR/owl2-overview/>.
+
+   [RDF]      W3C, "Resource Description Framework (RDF): Concepts and
+              Abstract Syntax", February 2014,
+              <https://www.w3.org/TR/rdf11-concepts/>.
+
+   [RDFS]     W3C, "RDF Schema 1.1", February 2014,
+              <https://www.w3.org/TR/rdf-schema/>.
+
+   [SKOS]     W3C, "SKOS Simple Knowledge Organization System
+              Reference", August 2009,
+              <https://www.w3.org/TR/skos-reference/>.
+
+   [SLKG-2023]
+              Tailhardat, L., Troncy, R., and Y. Chabot, "Leveraging
+              Knowledge Graphs For Classifying Incident Situations in
+              ICT Systems", 2023,
+              <https://doi.org/10.1145/3600160.3604991>.
+
+   [SPARQL11-FQ]
+              W3C, "SPARQL 1.1 Federated Query", March 2013,
+              <https://www.w3.org/TR/sparql11-federated-query/>.
+
+   [SPARQL11-QL]
+              W3C, "SPARQL 1.1 Query Language", March 2013,
+              <https://www.w3.org/TR/sparql11-query/>.
+
+Acknowledgments
+
+   We would like to thank Benoit Claise for spontaneously seeking to
+   include the work of the NORIA research project in the vision of the
+   NMOP working group through direct contact.
+
+   We would also like to thank Fano Rampary for his initial analysis of
+   the possibilities of defining a model conversion algebra for going
+   from Yang data models to OWL ontologies.
+
+Authors' Addresses
+
+   Lionel Tailhardat
+   Orange
+   Email: lionel.tailhardat@orange.com
+
+
+   Raphaël Troncy
+   EURECOM
+   Email: raphael.troncy@eurecom.fr
+
+
+   Yoan Chabot
+   Orange
+   Email: yoan.chabot@orange.com
