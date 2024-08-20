@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 20 February 2025                                        EURECOM
+Expires: 21 February 2025                                        EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                          19 August 2024
+                                                          20 August 2024
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2025.
+   This Internet-Draft will expire on 21 February 2025.
 
 Copyright Notice
 
@@ -95,6 +95,8 @@ Table of Contents
        3.3.1.  Core Requirements
        3.3.2.  Architectural Requirements
      3.4.  Experiments
+     3.5.  Implementation status
+       3.5.1.  NORIA
    4.  Security Considerations
    5.  IANA Considerations
    6.  References
@@ -224,7 +226,7 @@ Table of Contents
    vocabularies in SKOS syntax), sharing incident signatures can be done
    without revealing infrastructure details (e.g. hostname, IP address),
    but rather the abstract representation of the network (i.e. the class
-   of the knowlegde graph entities and relationships, such as "server"
+   of the knowledge graph entities and relationships, such as "server"
    or "router", and or "IPoWDM link").
 
    The remainder of this document is organized as follows.  Firstly, the
@@ -432,7 +434,7 @@ Table of Contents
 3.3.  Relation to the Digital Map
 
    Similar to the concept of _meta-knowledge graph_ (meta-KG) discussed
-   here, the concept of _Digital Map_ discussed in
+   in this document, the concept of _Digital Map_ discussed in
    [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
    heterogeneous data describing networks in order to simplify network
    management operations through unified access to this data.  The meta-
@@ -442,12 +444,13 @@ Table of Contents
    considered essential for learning shareable activity models of
    systems.
 
-   To clarify this positioning, the following lists reflect the
-   compliance of the meta-KG concept with the Digital Map Requirements
-   defined in [I-D.havel-nmop-digital-map-concept].  A symbol to the
-   right of each requirement name indicates the nature of compliance:
-   *+* for compatibility, */* for partial satisfaction, *-* for non-
-   compliance with the requirement.  A comment is provided as necessary.
+   To clarify this positioning, the following lists (Section 3.3.1,
+   Section 3.3.1.1, and Section 3.3.2) reflect the compliance of the
+   meta-KG concept with the Digital Map Requirements defined in
+   [I-D.havel-nmop-digital-map-concept].  A symbol to the right of each
+   requirement name indicates the nature of compliance: *+* for
+   compatibility, */* for partial satisfaction, *-* for non-compliance
+   with the requirement.  A comment is provided as necessary.
 
 3.3.1.  Core Requirements
 
@@ -514,6 +517,61 @@ Table of Contents
 3.4.  Experiments
 
    TODO Experiments
+
+3.5.  Implementation status
+
+   This section provides pointers to existing open source
+   implementations of this draft or in close relation to it.
+
+3.5.1.  NORIA
+
+   The NORIA project aims at enabling advanced network anomaly detection
+   using knowledge graphs.  Among the components resulting from this
+   project, the following ones serve the use case described in this
+   document:
+
+   *  NORIA-O [NORIA-O-2024], is a data model for IT networks, events
+      and operations information.  The ontology is developed using web
+      technologies (e.g.  RDF, OWL, SKOS) and is intended as a structure
+      for realizing an ITSM knowledge graph for Anomaly Detection (AD)
+      and Risk Management applications.  Its use for anomaly detection
+      is discussed in:
+
+      -  [SLKG-2023] with a model-based design approach (i.e. query the
+         graph to retrieve anomalies and their context) and a
+         statistical learning approach (i.e. relate entities based on
+         context similarities, then use this relatedness to alert and
+         guide the repair).
+
+      -  [GPL-2024] with a process mining approach to align a sequence
+         of entities to activity models, then use this relatedness to
+         guide the repair actions.
+
+      -  [NORIA-UI-2024] a Web-based knowledge graph exploration design
+         for incident management that combines the above [SLKG-2023] and
+         [GPL-2024] techniques for broader coverage of anomaly cases and
+         knowledge capitalization.
+
+   *  A knowledge graph-based platform design [NORIA-DI-2023] using
+      Semantic Web technologies and open source data integration tools
+      to build an ITSM knowledge graph:
+
+      -  SMASSIF-RML, a Semantic Web stream processing solution with
+         declarative data mapping capability.
+
+      -  ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end
+         Semantic Web data flow architecture with a Semantic Service Bus
+         (SSB) approach.
+
+      -  grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab
+         interface features to facilitate the call and versioning of
+         stored user queries in SPARQL syntax (e.g. for anomaly
+         detection following the model-based design approach).
+
+   *  SemNIDS [SemNIDS-2023], a test bench involving network trafic
+      generation, open source Network Intrusion Detection Systems
+      (NIDS), knowledge graphs, process mining and conformance checking
+      components.
 
 4.  Security Considerations
 
@@ -641,6 +699,12 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-marcas-nmop-
               knowledge-graph-yang-03>.
 
+   [NORIA-DI-2023]
+              Tailhardat, L., Troncy, R., and Y. Chabot, "Designing
+              NORIA: a Knowledge Graph-based Platform for Anomaly
+              Detection and Incident Management in ICT Systems", 2023,
+              <https://ceur-ws.org/Vol-3471/paper3.pdf>.
+
    [NORIA-O-2024]
               Tailhardat, L., Troncy, R., and Y. Chabot, "NORIA-O: An
               Ontology for Anomaly Detection and Incident Management in
@@ -663,6 +727,12 @@ Table of Contents
 
    [RDFS]     W3C, "RDF Schema 1.1", February 2014,
               <https://www.w3.org/TR/rdf-schema/>.
+
+   [SemNIDS-2023]
+              Ferrero, D., Agarwalla, Y., Tailhardat, L., and T.
+              Ehrhart, "SemNIDS, bringing semantics into Network
+              Intrusion Detection Systems", 2023,
+              <https://github.com/D2KLab/SemNIDS>.
 
    [SKOS]     W3C, "SKOS Simple Knowledge Organization System
               Reference", August 2009,
