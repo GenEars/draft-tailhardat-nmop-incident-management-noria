@@ -427,14 +427,14 @@ TODO SecOps perspective
 
 ## Relation to the Digital Map {#sec-digital-map}
 
-Similar to the concept of *meta-knowledge graph* (meta-KG) discussed here, the concept of *Digital Map* discussed in {{!I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+Similar to the concept of *meta-knowledge graph* (meta-KG) discussed in this document, the concept of *Digital Map* discussed in {{!I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
 The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
 
-To clarify this positioning, the following lists reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{!I-D.havel-nmop-digital-map-concept}}.
+To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{!I-D.havel-nmop-digital-map-concept}}.
 A symbol to the right of each requirement name indicates the nature of compliance: **+** for compatibility, **/** for partial satisfaction, **-** for non-compliance with the requirement.
 A comment is provided as necessary.
 
-### Core Requirements
+### Core Requirements {#sec-digital-map-core}
 
 **+** REQ-BASIC-MODEL-SUPPORT:
 : nothing to report (n.t.r.)
@@ -466,7 +466,7 @@ A comment is provided as necessary.
 **+** REQ-GRAPH-TRAVERSAL:
 : This capability is naturally enabled as the meta-KG concept involves using a graph data structure.
 
-#### Design Requirements
+#### Design Requirements {#sec-digital-map-design}
 
 **-** REQ-TOPO-ONLY:
 : Requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.
@@ -483,7 +483,7 @@ A comment is provided as necessary.
 **+** REQ-TEMPO-HISTO:
 : n.t.r.
 
-### Architectural Requirements
+### Architectural Requirements {#sec-digital-map-archi}
 
 **+** REQ-DM-SCALES:
 : This capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
