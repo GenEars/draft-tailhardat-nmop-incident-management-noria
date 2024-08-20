@@ -288,8 +288,8 @@ Topics:
 * Principles for implicit learning of incident characteristics and resolution methods through a graph and activity tracing.
   - Aligning operator-specificities with a multi-faceted knowledge graph.
   - Learning and sharing behavioral models.
-  - Relation to the Network Anomaly Lifecycle experiment {{!I-D.netana-nmop-network-anomaly-lifecycle}}.
-  - Relation to the Digital Map concept {{!I-D.havel-nmop-digital-map-concept}}.
+  - Relation to the Network Anomaly Lifecycle experiment {{?I-D.netana-nmop-network-anomaly-lifecycle}}.
+  - Relation to the Digital Map concept {{?I-D.havel-nmop-digital-map-concept}}.
 
 * Meta-KG construction
   - Integrating Service and Network topology data from YANG data models, such as Network Topologies {{!RFC8345}} and Service Assurance {{!RFC9418}}}.
