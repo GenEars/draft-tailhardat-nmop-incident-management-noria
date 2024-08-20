@@ -35,6 +35,14 @@ sudo apt install ruby-bundler
 sudo apt install python3.10-venv
 ```
 
+If running `make` behind a proxy, you might need to set the environment `HTTP_PROXY` and `HTTPS_PROXY` vars prior to run `make`:
+
+```shell
+export HTTPS_PROXY=http://<user>:<pass>@<proxy_fqdn>:<proxy_port>/
+export HTTP_PROXY=http://<user>:<pass>@<proxy_fqdn>:<proxy_port>/
+printenv | grep _PROXY
+```
+
 ## Useful links
 
 * ASCII diagram editor: [asciiflow.com](https://asciiflow.com/#/)
