@@ -103,6 +103,15 @@ informative:
     date: 2023
     target: https://doi.org/10.1145/3600160.3604991
 
+  NORIA-DI-2023:
+    author:
+      - name: Lionel Tailhardat
+      - name: Raphaël Troncy
+      - name: Yoan Chabot
+    title: "Designing NORIA: a Knowledge Graph-based Platform for Anomaly Detection and Incident Management in ICT Systems"
+    date: 2023
+    target: https://ceur-ws.org/Vol-3471/paper3.pdf
+
   GPL-2024:
     author:
       - name: Lionel Tailhardat
@@ -122,6 +131,16 @@ informative:
     title: "NORIA UI: Efficient Incident Management on Large-Scale ICT Systems Represented as Knowledge Graphs"
     date: 2024
     target: https://doi.org/10.1145/3664476.3670438
+
+  SemNIDS-2023:
+    author:
+      - name: Dario Ferrero
+      - name: Yash Agarwalla
+      - name: Lionel Tailhardat
+      - name: Thibault Ehrhart
+    title: "SemNIDS, bringing semantics into Network Intrusion Detection Systems"
+    date: 2023
+    target: https://github.com/D2KLab/SemNIDS
 
   FLAGSM-2021:
     author:
@@ -249,7 +268,7 @@ Assuming the continuous integration into a knowledge graph of data from ticketin
 {: #fig-incident-context title="Learning an incident signature seen as a classification model that is trained on the relationship of the incident context (i.e. a subgraph centered around a Resource entity concerned by a given TroubleTicket) to the problem class defined at the TroubleTicket entity level. Arrows are for object properties (owl:ObjectProperty), double line edges are for object class relationships (rdf:type)."}
 
 By going a step further, we notice that a generic understanding of incident context can be extracted and shared among operators from knowledge graphs.
-Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowlegde graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
+Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
 
 The remainder of this document is organized as follows.
 Firstly, the concept of a *meta-knowledge graph* is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
@@ -494,6 +513,30 @@ A comment is provided as necessary.
 ## Experiments
 
 TODO Experiments
+
+## Implementation status
+
+This section provides pointers to existing open source implementations of this draft or in close relation to it.
+
+### NORIA
+
+The NORIA project aims at enabling advanced network anomaly detection using knowledge graphs.
+Among the components resulting from this project, the following ones serve the use case described in this document:
+
+* NORIA-O {{NORIA-O-2024}}, is a data model for IT networks, events and operations information.
+The ontology is developed using web technologies (e.g. RDF, OWL, SKOS) and is intended as a structure for realizing an ITSM knowledge graph for Anomaly Detection (AD) and Risk Management applications.
+Its use for anomaly detection is discussed in:
+  - {{SLKG-2023}} with a model-based design approach (i.e. query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e. relate entities based on context
+similarities, then use this relatedness to alert and guide the repair).
+  - {{GPL-2024}} with a process mining approach to align a sequence of entities to activity models, then use this relatedness to guide the repair actions.
+  - {{NORIA-UI-2024}} a Web-based knowledge graph exploration design for incident management that combines the above {{SLKG-2023}} and {{GPL-2024}} techniques for broader coverage of anomaly cases and knowledge capitalization.
+
+* A knowledge graph-based platform design {{NORIA-DI-2023}} using Semantic Web technologies and open source data integration tools to build an ITSM knowledge graph:
+  - SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability.
+  - ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach.
+  - grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach).
+
+* SemNIDS {{SemNIDS-2023}}, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.
 
 # Security Considerations
 
