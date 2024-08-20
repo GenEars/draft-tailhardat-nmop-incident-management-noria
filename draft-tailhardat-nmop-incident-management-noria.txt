@@ -603,14 +603,6 @@ Table of Contents
 
 6.1.  Normative References
 
-   [I-D.havel-nmop-digital-map-concept]
-              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
-              "Digital Map: Concept, Requirements, and Use Cases", Work
-              in Progress, Internet-Draft, draft-havel-nmop-digital-map-
-              concept-00, 4 July 2024,
-              <https://datatracker.ietf.org/doc/html/draft-havel-nmop-
-              digital-map-concept-00>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -673,6 +665,14 @@ Table of Contents
               boucadair-nmop-rfc3535-20years-later-04, 22 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-boucadair-
               nmop-rfc3535-20years-later-04>.
+
+   [I-D.havel-nmop-digital-map-concept]
+              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
+              "Digital Map: Concept, Requirements, and Use Cases", Work
+              in Progress, Internet-Draft, draft-havel-nmop-digital-map-
+              concept-00, 4 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-havel-nmop-
+              digital-map-concept-00>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
