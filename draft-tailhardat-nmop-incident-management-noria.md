@@ -296,9 +296,10 @@ Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. R
 The remainder of this document is organized as follows.
 Firstly, the concept of an *ITSM-KG* is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
 The relation of the ITSM-KG proposal to the Digital Map {{?I-D.havel-nmop-digital-map-concept}} is notably discussed in this section.
-Secondly, strategies for the ITSM-KG construction are discussed in {{sec-kgc}} through the lenses of YANG models transformation ({{sec-gluing-techniques}}), implementing alignments of models with the ITSM-KG ({{sec-gluing-techniques}}), and knowledge graph construction pipeline designs ({{sec-etl-kgc}}).
-The {{sec-etl-kgc}} notably addresses the handling of event data streams and the provision of a unified view for different stakeholders (a.k.a. data federation architecture).
-Finally, an experiment is proposed in {{{sec-experiments}}} to assess the potential of the ITSM-KG in improving network quality and designs.
+Secondly, strategies for the ITSM-KG construction are discussed in {{sec-kgc}}.
+This include YANG models transformation in {{sec-gluing-techniques}}, implementing alignments of models with the ITSM-KG in {{sec-gluing-techniques}}, and knowledge graph construction pipeline designs in {{sec-etl-kgc}}.
+The {{sec-etl-kgc}} notably focuses on addressing the handling of event data streams and providing a unified view for different stakeholders, also known as the data federation architecture.
+Finally, an experiment is proposed in {{sec-experiments}} to assess the potential of the ITSM-KG in improving network quality and designs.
 The implementation status related to this document is also reported in this section.
 
 # Conventions and Definitions
