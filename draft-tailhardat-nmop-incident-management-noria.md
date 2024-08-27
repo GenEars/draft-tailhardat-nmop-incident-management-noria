@@ -305,7 +305,7 @@ In addition to the main parts of the proposal, the document also covers data int
 # From YANG-based configurations to meta-knowledge graph
 
 In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
-We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG models into a knowledge graph representation.
+We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG model(s) into a knowledge graph representation.
 
 For the realization of this data transformation, we identify the following scenarios:
 
@@ -528,7 +528,7 @@ TODO SecOps perspective
 
 ## Relation to the Digital Map {#sec-digital-map}
 
-Similar to the concept of *meta-knowledge graph* (meta-KG) discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+Similar to the concept of *ITSM-KG* discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
 The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
 
 To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{?I-D.havel-nmop-digital-map-concept}}.
@@ -594,7 +594,17 @@ A comment is provided as necessary.
 
 ## Experiments
 
-TODO Experiments
+In terms of experimentation, we recommend implementing a data processing pipeline that performs the following use cases:
+
+Y-MODEL-FROM-DATA:
+: Based on a dataset of configuration data expressed in YANG models, being able to extract the list of models involved for their conversion to their RDFS/OWL equivalent.
+
+Y-MODEL-DEPENDENCIES:
+: Based on a given YANG model, identify and retrieve all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.
+
+Y-MODEL-TO-RDFS-OWL:
+: Based on a YANG model and the associated model corpus (see Y-MODEL-DEPENDENCIES), being able to produce a semantically equivalent RDFS/OWL representation.
+: Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.
 
 ## Implementation status
 
