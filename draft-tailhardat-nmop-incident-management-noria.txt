@@ -241,16 +241,16 @@ Table of Contents
    the ITSM-KG proposal to the Digital Map
    [I-D.havel-nmop-digital-map-concept] is notably discussed in this
    section.  Secondly, strategies for the ITSM-KG construction are
-   discussed in Section 4 through the lenses of YANG models
-   transformation (Section 4.2), implementing alignments of models with
-   the ITSM-KG (Section 4.2), and knowledge graph construction pipeline
-   designs (Section 4.3).  The Section 4.3 notably addresses the
-   handling of event data streams and the provision of a unified view
-   for different stakeholders (a.k.a. data federation architecture).
-   Finally, an experiment is proposed in sec-experiments to assess the
-   potential of the ITSM-KG in improving network quality and designs.
-   The implementation status related to this document is also reported
-   in this section.
+   discussed in Section 4.  This include YANG models transformation in
+   Section 4.2, implementing alignments of models with the ITSM-KG in
+   Section 4.2, and knowledge graph construction pipeline designs in
+   Section 4.3.  The Section 4.3 notably focuses on addressing the
+   handling of event data streams and providing a unified view for
+   different stakeholders, also known as the data federation
+   architecture.  Finally, an experiment is proposed in Section 5 to
+   assess the potential of the ITSM-KG in improving network quality and
+   designs.  The implementation status related to this document is also
+   reported in this section.
 
 2.  Conventions and Definitions
 
