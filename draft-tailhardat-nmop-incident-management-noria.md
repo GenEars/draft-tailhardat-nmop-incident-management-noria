@@ -610,7 +610,7 @@ From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the 
 
 # Experiments {#sec-experiments}
 
-In terms of experimentation, we recommend implementing a data processing pipeline that performs the following use cases:
+In terms of experimentation, we consider the YANG-KG-SEMANTIC-GENERALIZATION case defined in {{sec-kgc}} as the reference approach and recommend implementing a data processing pipeline that performs the following use cases:
 
 Y-MODEL-FROM-DATA:
 : Based on a dataset of configuration data expressed in YANG models, being able to extract the list of models involved for their conversion to their RDFS/OWL equivalent.
@@ -622,11 +622,12 @@ Y-MODEL-TO-RDFS-OWL:
 : Based on a YANG model and the associated model corpus (see Y-MODEL-DEPENDENCIES), being able to produce a semantically equivalent RDFS/OWL representation.
 : Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.
 
-Y-MODEL-META-KG-ALIGNMENT:
-TODO details
-
 Y-INSTANCE-TO-KG:
 TODO details
+
+Y-MODEL-META-KG-ALIGNMENT:
+: Based on a corpus of YANG models transformed into RDFS/OWL (see Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, being able to query the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.
+: In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.
 
 META-KG-BEHAVIORAL-MODEL:
 TODO details
