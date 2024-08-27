@@ -205,8 +205,9 @@ Operational efficiency in incident management on telecom and computer networks r
 Knowledge graphs can provide a unified view of complex systems through shared vocabularies.
 YANG data models enable describing network configurations and automating their deployment.
 However, both approaches face challenges in vocabulary alignment and adoption, hindering knowledge capitalization and sharing on network designs and best practices.
-To address this, the concept of a meta-knowledge graph is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
-An experiment is proposed to assess the potential of the meta-knowledge graph in improving network quality and designs.
+To address this, the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
+The principle of ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
+An experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs.
 
 
 --- middle
