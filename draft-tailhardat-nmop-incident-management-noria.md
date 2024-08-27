@@ -294,13 +294,86 @@ By going a step further, we notice that a generic understanding of incident cont
 Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
 
 The remainder of this document is organized as follows.
-Firstly, the concept of an *ITSM-KG* is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
-Secondly, an experiment is proposed to assess the potential of the meta-knowledge graph in improving network quality and designs.
+Firstly, the concept of an *ITSM-KG* is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
+Secondly, an experiment is proposed in {{{sec-itsm-base}} to assess the potential of the meta-knowledge graph in improving network quality and designs.
 In addition to the main parts of the proposal, the document also covers data integration and data federation architectures in the Security Considerations section. This section specifically addresses the handling of event data streams and the provision of a unified view for different stakeholders.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
+
+
+# An ITSM-KG for learning and sharing network behavioral models {#sec-itsm-base}
+
+TODO NetOps perspective
+
+TODO SecOps perspective
+
+## Relation to the Digital Map {#sec-digital-map}
+
+Similar to the concept of *ITSM-KG* discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
+
+To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{?I-D.havel-nmop-digital-map-concept}}.
+A symbol to the right of each requirement name indicates the nature of compliance: **+** for compatibility, **/** for partial satisfaction, **-** for non-compliance with the requirement.
+A comment is provided as necessary.
+
+### Core Requirements {#sec-digital-map-core}
+
+**+** REQ-BASIC-MODEL-SUPPORT:
+: nothing to report (n.t.r.)
+
+**+** REQ-LAYERED-MODEL:
+: n.t.r.
+
+**/** REQ-PROG-OPEN-MODEL:
+: Partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
+
+**/** REQ-STD-API-BASED:
+: Same remark as for REQ-PROG-OPEN-MODEL.
+
+**+** REQ-COMMON-APP:
+: n.t.r.
+
+**+** REQ-SEMANTIC:
+: n.t.r.
+
+**+** REQ-LAYER-NAVIGATE:
+: n.t.r.
+
+**+** REQ-EXTENSIBLE:
+: Knowledge graphs implicitly satisfy this requirement, notably with OWL {{OWL}} and SKOS {{SKOS}} constructs if considering RDF knowledge graphs for the meta-KG (e.g. `owl:sameAs` to relate a meta-KG entity to some other entity of another knowledge graph, `owl:equivalentClass` to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, `skos:inScheme` to group new items of a controled-vocabulary as part of a `skos:ConceptScheme`).
+
+**+** REQ-PLUGG:
+: Same remark as for REQ-EXTENSIBLE.
+
+**+** REQ-GRAPH-TRAVERSAL:
+: This capability is naturally enabled as the meta-KG concept involves using a graph data structure.
+
+#### Design Requirements {#sec-digital-map-design}
+
+**-** REQ-TOPO-ONLY:
+: Requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.
+
+**-** REQ-PROPERTIES:
+: Same remark as for REQ-TOPO-ONLY.
+
+**-** REQ-RELATIONSHIPS:
+: Same remark as for REQ-TOPO-ONLY.
+
+**+** REQ-CONDITIONAL:
+: Native, notably considering the expressiveness of SPARQL {{SPARQL11-QL}} if using the Semantic Web protocol stack to run the meta-KG concept.
+
+**+** REQ-TEMPO-HISTO:
+: n.t.r.
+
+### Architectural Requirements {#sec-digital-map-archi}
+
+**+** REQ-DM-SCALES:
+: This capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
+
+**/** REQ-DM-DISCOVERY:
+: Same remark as for REQ-PROG-OPEN-MODEL.
 
 # From YANG-based configurations to meta-knowledge graph
 
@@ -333,9 +406,16 @@ Examples of approaches for linking ontologies are provided in {{sec-gluing-techn
 As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
 
 
+
+# Strategies for the ITSM-KG construction
+
+TODO Introduce the section.
+
 ## Aligning operator-specificities with a multi-faceted knowledge graph {#sec-gluing-techniques}
 
+TODO Introduce the main case and subcases
 
+TODO Briefly explain challenges in model to RDF transformation
 
 ~~~~
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -382,11 +462,13 @@ noria:Resource
 .
 ~~~
 
-TODO Meta-KG construction
+## Extract-Transform-Load pipelines for the ITSM-KG
+
+TODO Introduce the section.
 
 TODO Relate the Meta-KG construction part to the following REQ-DM-SCALES related considerations.
 
-The following figures illustrate different scenarios for constructing a meta-KG through an Extract-Transform-Load (ETL) data integration pipeline.
+The following figures illustrate different scenarios for constructing a ITSM-KG through an Extract-Transform-Load (ETL) data integration pipeline.
 From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
 
 ~~~~ ascii-art
@@ -519,80 +601,7 @@ From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the 
 ~~~~
 {: #fig-multi-store title="Unified access to data distributed across various technological platforms"}
 
-
-## Learning and sharing behavioral models
-
-TODO NetOps perspective
-
-TODO SecOps perspective
-
-## Relation to the Digital Map {#sec-digital-map}
-
-Similar to the concept of *ITSM-KG* discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
-The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
-
-To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{?I-D.havel-nmop-digital-map-concept}}.
-A symbol to the right of each requirement name indicates the nature of compliance: **+** for compatibility, **/** for partial satisfaction, **-** for non-compliance with the requirement.
-A comment is provided as necessary.
-
-### Core Requirements {#sec-digital-map-core}
-
-**+** REQ-BASIC-MODEL-SUPPORT:
-: nothing to report (n.t.r.)
-
-**+** REQ-LAYERED-MODEL:
-: n.t.r.
-
-**/** REQ-PROG-OPEN-MODEL:
-: Partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
-
-**/** REQ-STD-API-BASED:
-: Same remark as for REQ-PROG-OPEN-MODEL.
-
-**+** REQ-COMMON-APP:
-: n.t.r.
-
-**+** REQ-SEMANTIC:
-: n.t.r.
-
-**+** REQ-LAYER-NAVIGATE:
-: n.t.r.
-
-**+** REQ-EXTENSIBLE:
-: Knowledge graphs implicitly satisfy this requirement, notably with OWL {{OWL}} and SKOS {{SKOS}} constructs if considering RDF knowledge graphs for the meta-KG (e.g. `owl:sameAs` to relate a meta-KG entity to some other entity of another knowledge graph, `owl:equivalentClass` to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, `skos:inScheme` to group new items of a controled-vocabulary as part of a `skos:ConceptScheme`).
-
-**+** REQ-PLUGG:
-: Same remark as for REQ-EXTENSIBLE.
-
-**+** REQ-GRAPH-TRAVERSAL:
-: This capability is naturally enabled as the meta-KG concept involves using a graph data structure.
-
-#### Design Requirements {#sec-digital-map-design}
-
-**-** REQ-TOPO-ONLY:
-: Requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.
-
-**-** REQ-PROPERTIES:
-: Same remark as for REQ-TOPO-ONLY.
-
-**-** REQ-RELATIONSHIPS:
-: Same remark as for REQ-TOPO-ONLY.
-
-**+** REQ-CONDITIONAL:
-: Native, notably considering the expressiveness of SPARQL {{SPARQL11-QL}} if using the Semantic Web protocol stack to run the meta-KG concept.
-
-**+** REQ-TEMPO-HISTO:
-: n.t.r.
-
-### Architectural Requirements {#sec-digital-map-archi}
-
-**+** REQ-DM-SCALES:
-: This capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
-
-**/** REQ-DM-DISCOVERY:
-: Same remark as for REQ-PROG-OPEN-MODEL.
-
-## Experiments
+# Experiments {#sec-experiments}
 
 In terms of experimentation, we recommend implementing a data processing pipeline that performs the following use cases:
 
@@ -605,6 +614,16 @@ Y-MODEL-DEPENDENCIES:
 Y-MODEL-TO-RDFS-OWL:
 : Based on a YANG model and the associated model corpus (see Y-MODEL-DEPENDENCIES), being able to produce a semantically equivalent RDFS/OWL representation.
 : Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.
+
+Y-MODEL-META-KG-ALIGNMENT:
+TODO details
+
+Y-INSTANCE-TO-KG:
+TODO details
+
+META-KG-BEHAVIORAL-MODEL:
+TODO details
+
 
 ## Implementation status
 
@@ -632,7 +651,7 @@ similarities, then use this relatedness to alert and guide the repair).
 
 # Security Considerations
 
-As this document covers the *meta-knowledge graph* concepts, and use cases, there is no specific security considerations.
+As this document covers the *ITSM-KG* concepts, and use cases, there is no specific security considerations.
 
 However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
 To support the discussion on mitigating this risk, we suggest referring to {{fig-multi-store}}, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
