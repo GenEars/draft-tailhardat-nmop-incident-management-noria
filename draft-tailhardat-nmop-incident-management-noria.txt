@@ -90,21 +90,23 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  From YANG-based configurations to meta-knowledge graph
-     3.1.  Aligning operator-specificities with a multi-faceted
+   3.  An ITSM-KG for learning and sharing network behavioral models
+     3.1.  Relation to the Digital Map
+       3.1.1.  Core Requirements
+       3.1.2.  Architectural Requirements
+   4.  From YANG-based configurations to meta-knowledge graph
+   5.  Strategies for the ITSM-KG construction
+     5.1.  Aligning operator-specificities with a multi-faceted
            knowledge graph
-     3.2.  Learning and sharing behavioral models
-     3.3.  Relation to the Digital Map
-       3.3.1.  Core Requirements
-       3.3.2.  Architectural Requirements
-     3.4.  Experiments
-     3.5.  Implementation status
-       3.5.1.  NORIA
-   4.  Security Considerations
-   5.  IANA Considerations
-   6.  References
-     6.1.  Normative References
-     6.2.  Informative References
+     5.2.  Extract-Transform-Load pipelines for the ITSM-KG
+   6.  Experiments
+     6.1.  Implementation status
+       6.1.1.  NORIA
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -233,16 +235,16 @@ Table of Contents
    or "router", and or "IPoWDM link").
 
    The remainder of this document is organized as follows.  Firstly, the
-   concept of an _ITSM-KG_ is introduced to leverage existing network
-   infrastructure descriptions in YANG format and enable abstract
-   reasoning on network behaviors.  Secondly, an experiment is proposed
-   to assess the potential of the meta-knowledge graph in improving
-   network quality and designs.  In addition to the main parts of the
-   proposal, the document also covers data integration and data
-   federation architectures in the Security Considerations section.
-   This section specifically addresses the handling of event data
-   streams and the provision of a unified view for different
-   stakeholders.
+   concept of an _ITSM-KG_ is introduced in Section 3 towards leveraging
+   existing network infrastructure descriptions in YANG format and
+   enabling abstract reasoning on network behaviors.  Secondly, an
+   experiment is proposed in sec-itsm-base to assess the potential of
+   the meta-knowledge graph in improving network quality and designs.
+   In addition to the main parts of the proposal, the document also
+   covers data integration and data federation architectures in the
+   Security Considerations section.  This section specifically addresses
+   the handling of event data streams and the provision of a unified
+   view for different stakeholders.
 
 2.  Conventions and Definitions
 
@@ -252,7 +254,96 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  From YANG-based configurations to meta-knowledge graph
+3.  An ITSM-KG for learning and sharing network behavioral models
+
+   TODO NetOps perspective
+
+   TODO SecOps perspective
+
+3.1.  Relation to the Digital Map
+
+   Similar to the concept of _ITSM-KG_ discussed in this document, the
+   concept of _Digital Map_ discussed in
+   [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
+   heterogeneous data describing networks in order to simplify network
+   management operations through unified access to this data.  The meta-
+   knowledge graph extends the Digital Map concept by adding information
+   about the lifecycle of infrastructures and services, as well as the
+   context of their usage.  These additional pieces of information are
+   considered essential for learning shareable activity models of
+   systems.
+
+   To clarify this positioning, the following lists (Section 3.1.1,
+   Section 3.1.1.1, and Section 3.1.2) reflect the compliance of the
+   meta-KG concept with the Digital Map Requirements defined in
+   [I-D.havel-nmop-digital-map-concept].  A symbol to the right of each
+   requirement name indicates the nature of compliance: *+* for
+   compatibility, */* for partial satisfaction, *-* for non-compliance
+   with the requirement.  A comment is provided as necessary.
+
+3.1.1.  Core Requirements
+
+   *+* REQ-BASIC-MODEL-SUPPORT:  nothing to report (n.t.r.)
+
+   *+* REQ-LAYERED-MODEL:  n.t.r.
+
+   */* REQ-PROG-OPEN-MODEL:  Partially satifying the requirement as the
+      concept of meta-KG mainly relate to the knowledge representation
+      topic rather than to the platform running the Digital Map service
+      on top of the meta-knowledge graph.
+
+   */* REQ-STD-API-BASED:  Same remark as for REQ-PROG-OPEN-MODEL.
+
+   *+* REQ-COMMON-APP:  n.t.r.
+
+   *+* REQ-SEMANTIC:  n.t.r.
+
+   *+* REQ-LAYER-NAVIGATE:  n.t.r.
+
+   *+* REQ-EXTENSIBLE:  Knowledge graphs implicitly satisfy this
+      requirement, notably with OWL [OWL] and SKOS [SKOS] constructs if
+      considering RDF knowledge graphs for the meta-KG (e.g. owl:sameAs
+      to relate a meta-KG entity to some other entity of another
+      knowledge graph, owl:equivalentClass to link concepts and
+      properties used to interpret the meta-KG to concepts and
+      properties from other data models, skos:inScheme to group new
+      items of a controled-vocabulary as part of a skos:ConceptScheme).
+
+   *+* REQ-PLUGG:  Same remark as for REQ-EXTENSIBLE.
+
+   *+* REQ-GRAPH-TRAVERSAL:  This capability is naturally enabled as the
+      meta-KG concept involves using a graph data structure.
+
+3.1.1.1.  Design Requirements
+
+   *-* REQ-TOPO-ONLY:  Requirement not satisfied as the meta-KG involves
+      to have more than topological data to interpret and contextualize
+      the network behavior.
+
+   *-* REQ-PROPERTIES:  Same remark as for REQ-TOPO-ONLY.
+
+   *-* REQ-RELATIONSHIPS:  Same remark as for REQ-TOPO-ONLY.
+
+   *+* REQ-CONDITIONAL:  Native, notably considering the expressiveness
+      of SPARQL [SPARQL11-QL] if using the Semantic Web protocol stack
+      to run the meta-KG concept.
+
+   *+* REQ-TEMPO-HISTO:  n.t.r.
+
+3.1.2.  Architectural Requirements
+
+   *+* REQ-DM-SCALES:  This capability applies as we can use data
+      aggregation at the graph level (Figure 4 and Figure 5 compared to
+      Figure 2 and Figure 3), aggregation without loss of information
+      (Figure 4 and Figure 5), and load balancing (horizontal scaling)
+      by partitioning the meta-KG (Figure 6).  Further, ease of
+      integration is enabled thanks to existing standard graph data
+      access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
+      illustrated in Figure 6).
+
+   */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
+
+4.  From YANG-based configurations to meta-knowledge graph
 
    In the following, we consider the use of Semantic Web technologies as
    the foundation for representing data in the form of a knowledge
@@ -312,13 +403,21 @@ Table of Contents
    alignment may mean asserting a semantic equivalence between the RDFS/
    OWL representation of the "node" concept from [RFC8345] with the
    "noria:Resource" concept from [NORIA-O-2024].  Examples of approaches
-   for linking ontologies are provided in Section 3.1.  As techniques
+   for linking ontologies are provided in Section 5.1.  As techniques
    for identifying alignments between data models is beyond the scope of
    this document, we refer interested readers to specialized literature
    in this field, such as [ONTO-MATCH-2022].
 
-3.1.  Aligning operator-specificities with a multi-faceted knowledge
+5.  Strategies for the ITSM-KG construction
+
+   TODO Introduce the section.
+
+5.1.  Aligning operator-specificities with a multi-faceted knowledge
       graph
+
+   TODO Introduce the main case and subcases
+
+   TODO Briefly explain challenges in model to RDF transformation
 
    @prefix owl: <http://www.w3.org/2002/07/owl#> .
    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -358,15 +457,17 @@ noria:Resource
     rdfs:isDefinedBy noria: ;
 .
 
-   TODO Meta-KG construction
+5.2.  Extract-Transform-Load pipelines for the ITSM-KG
+
+   TODO Introduce the section.
 
    TODO Relate the Meta-KG construction part to the following REQ-DM-
    SCALES related considerations.
 
    The following figures illustrate different scenarios for constructing
-   a meta-KG through an Extract-Transform-Load (ETL) data integration
+   a ITSM-KG through an Extract-Transform-Load (ETL) data integration
    pipeline.  From the perspective of the Digital Map Requirements
-   (Section 3.3), the Figure 4, Figure 5 and Figure 6 particularly
+   (Section 3.1), the Figure 4, Figure 5 and Figure 6 particularly
    address the REQ-DM-SCALES requirement.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
@@ -497,96 +598,7 @@ noria:Resource
      Figure 6: Unified access to data distributed across various
                        technological platforms
 
-3.2.  Learning and sharing behavioral models
-
-   TODO NetOps perspective
-
-   TODO SecOps perspective
-
-3.3.  Relation to the Digital Map
-
-   Similar to the concept of _ITSM-KG_ discussed in this document, the
-   concept of _Digital Map_ discussed in
-   [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
-   heterogeneous data describing networks in order to simplify network
-   management operations through unified access to this data.  The meta-
-   knowledge graph extends the Digital Map concept by adding information
-   about the lifecycle of infrastructures and services, as well as the
-   context of their usage.  These additional pieces of information are
-   considered essential for learning shareable activity models of
-   systems.
-
-   To clarify this positioning, the following lists (Section 3.3.1,
-   Section 3.3.1.1, and Section 3.3.2) reflect the compliance of the
-   meta-KG concept with the Digital Map Requirements defined in
-   [I-D.havel-nmop-digital-map-concept].  A symbol to the right of each
-   requirement name indicates the nature of compliance: *+* for
-   compatibility, */* for partial satisfaction, *-* for non-compliance
-   with the requirement.  A comment is provided as necessary.
-
-3.3.1.  Core Requirements
-
-   *+* REQ-BASIC-MODEL-SUPPORT:  nothing to report (n.t.r.)
-
-   *+* REQ-LAYERED-MODEL:  n.t.r.
-
-   */* REQ-PROG-OPEN-MODEL:  Partially satifying the requirement as the
-      concept of meta-KG mainly relate to the knowledge representation
-      topic rather than to the platform running the Digital Map service
-      on top of the meta-knowledge graph.
-
-   */* REQ-STD-API-BASED:  Same remark as for REQ-PROG-OPEN-MODEL.
-
-   *+* REQ-COMMON-APP:  n.t.r.
-
-   *+* REQ-SEMANTIC:  n.t.r.
-
-   *+* REQ-LAYER-NAVIGATE:  n.t.r.
-
-   *+* REQ-EXTENSIBLE:  Knowledge graphs implicitly satisfy this
-      requirement, notably with OWL [OWL] and SKOS [SKOS] constructs if
-      considering RDF knowledge graphs for the meta-KG (e.g. owl:sameAs
-      to relate a meta-KG entity to some other entity of another
-      knowledge graph, owl:equivalentClass to link concepts and
-      properties used to interpret the meta-KG to concepts and
-      properties from other data models, skos:inScheme to group new
-      items of a controled-vocabulary as part of a skos:ConceptScheme).
-
-   *+* REQ-PLUGG:  Same remark as for REQ-EXTENSIBLE.
-
-   *+* REQ-GRAPH-TRAVERSAL:  This capability is naturally enabled as the
-      meta-KG concept involves using a graph data structure.
-
-3.3.1.1.  Design Requirements
-
-   *-* REQ-TOPO-ONLY:  Requirement not satisfied as the meta-KG involves
-      to have more than topological data to interpret and contextualize
-      the network behavior.
-
-   *-* REQ-PROPERTIES:  Same remark as for REQ-TOPO-ONLY.
-
-   *-* REQ-RELATIONSHIPS:  Same remark as for REQ-TOPO-ONLY.
-
-   *+* REQ-CONDITIONAL:  Native, notably considering the expressiveness
-      of SPARQL [SPARQL11-QL] if using the Semantic Web protocol stack
-      to run the meta-KG concept.
-
-   *+* REQ-TEMPO-HISTO:  n.t.r.
-
-3.3.2.  Architectural Requirements
-
-   *+* REQ-DM-SCALES:  This capability applies as we can use data
-      aggregation at the graph level (Figure 4 and Figure 5 compared to
-      Figure 2 and Figure 3), aggregation without loss of information
-      (Figure 4 and Figure 5), and load balancing (horizontal scaling)
-      by partitioning the meta-KG (Figure 6).  Further, ease of
-      integration is enabled thanks to existing standard graph data
-      access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
-      illustrated in Figure 6).
-
-   */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
-
-3.4.  Experiments
+6.  Experiments
 
    In terms of experimentation, we recommend implementing a data
    processing pipeline that performs the following use cases:
@@ -609,12 +621,18 @@ noria:Resource
       mechanisms should be implemented as a fallback to provide a proof
       of equivalence.
 
-3.5.  Implementation status
+   Y-MODEL-META-KG-ALIGNMENT: TODO details
+
+   Y-INSTANCE-TO-KG: TODO details
+
+   META-KG-BEHAVIORAL-MODEL: TODO details
+
+6.1.  Implementation status
 
    This section provides pointers to existing open source
    implementations of this draft or in close relation to it.
 
-3.5.1.  NORIA
+6.1.1.  NORIA
 
    The NORIA project aims at enabling advanced network anomaly detection
    using knowledge graphs.  Among the components resulting from this
@@ -664,10 +682,10 @@ noria:Resource
       (NIDS), knowledge graphs, process mining and conformance checking
       components.
 
-4.  Security Considerations
+7.  Security Considerations
 
-   As this document covers the _meta-knowledge graph_ concepts, and use
-   cases, there is no specific security considerations.
+   As this document covers the _ITSM-KG_ concepts, and use cases, there
+   is no specific security considerations.
 
    However, as the concept of a meta-knowledge graph involves the
    construction of a multi-faceted graph (i.e. including network
@@ -686,13 +704,13 @@ noria:Resource
    resources that require access control, as well as a base of inference
    rules that model the access management strategy to carry out.
 
-5.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-6.  References
+9.  References
 
-6.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -713,7 +731,7 @@ noria:Resource
               RFC 9418, DOI 10.17487/RFC9418, July 2023,
               <https://www.rfc-editor.org/rfc/rfc9418>.
 
-6.2.  Informative References
+9.2.  Informative References
 
    [AMO-2012] Buffa, M. and C. Faron-Zucker, "Ontology-Based Access
               Rights Management", 2012,
