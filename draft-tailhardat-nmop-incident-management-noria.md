@@ -295,8 +295,9 @@ Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. R
 
 The remainder of this document is organized as follows.
 Firstly, the concept of an *ITSM-KG* is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
-Secondly, an experiment is proposed in {{{sec-itsm-base}} to assess the potential of the meta-knowledge graph in improving network quality and designs.
-In addition to the main parts of the proposal, the document also covers data integration and data federation architectures in the Security Considerations section. This section specifically addresses the handling of event data streams and the provision of a unified view for different stakeholders.
+Secondly, strategies for the ITSM-KG construction are discussed in {{sec-kgc}} through the lenses of YANG models transformation ({{sec-gluing-techniques}}), implementing alignments of models with the ITSM-KG ({{sec-gluing-techniques}}), and knowledge graph construction pipeline designs ({{sec-etl-kgc}}).
+The {{sec-etl-kgc}} notably addresses the handling of event data streams and the provision of a unified view for different stakeholders (a.k.a. data federation architecture).
+Finally, an experiment is proposed in {{sec-itsm-base}} to assess the potential of the ITSM-KG in improving network quality and designs. Implementation status is also reported in this section.
 
 # Conventions and Definitions
 
@@ -375,7 +376,13 @@ A comment is provided as necessary.
 **/** REQ-DM-DISCOVERY:
 : Same remark as for REQ-PROG-OPEN-MODEL.
 
-# From YANG-based configurations to meta-knowledge graph
+
+
+# Strategies for the ITSM-KG construction {#sec-kgc}
+
+TODO Introduce the section.
+
+## From YANG-based configurations to meta-knowledge graph
 
 In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
 We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG model(s) into a knowledge graph representation.
@@ -406,14 +413,9 @@ Examples of approaches for linking ontologies are provided in {{sec-gluing-techn
 As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
 
 
+## Implementing alignments of model-specificities to a multi-faceted knowledge graph {#sec-gluing-techniques}
 
-# Strategies for the ITSM-KG construction
-
-TODO Introduce the section.
-
-## Aligning operator-specificities with a multi-faceted knowledge graph {#sec-gluing-techniques}
-
-TODO Introduce the main case and subcases
+TODO Introduce the main case and subcases / Aligning operator-specificities with a multi-faceted knowledge graph
 
 TODO Briefly explain challenges in model to RDF transformation
 
@@ -462,7 +464,7 @@ noria:Resource
 .
 ~~~
 
-## Extract-Transform-Load pipelines for the ITSM-KG
+## Extract-Transform-Load pipelines for the ITSM-KG {#sec-etl-kgc}
 
 TODO Introduce the section.
 
