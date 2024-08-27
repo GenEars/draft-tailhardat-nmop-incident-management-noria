@@ -215,7 +215,7 @@ An experiment is proposed to assess the potential of the ITSM-KG in improving ne
 # Introduction
 
 Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge Graphs (KGs), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
+Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
 Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision {{?I-D.irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
 However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
@@ -272,7 +272,7 @@ By going a step further, we notice that a generic understanding of incident cont
 Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
 
 The remainder of this document is organized as follows.
-Firstly, the concept of a *meta-knowledge graph* is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
+Firstly, the concept of an *ITSM-KG* is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
 Secondly, an experiment is proposed to assess the potential of the meta-knowledge graph in improving network quality and designs.
 In addition to the main parts of the proposal, the document also covers data integration and data federation architectures in the Security Considerations section. This section specifically addresses the handling of event data streams and the provision of a unified view for different stakeholders.
 
@@ -298,6 +298,19 @@ Topics:
   - Trends towards some Yang to OWL / Yang to RDF data transformation tool.
 
 * Experiments towards the meta-KG proposal.
+
+In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
+We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG models into a knowledge graph representation.
+
+For the realization of this data transformation, we identify the following scenarios:
+
+YANG-KG-SEMANTIC-EQUIVALENCE:
+: The ontology structuring the target knowledge graph is an exact equivalence of the many YANG models organizing the configuration data.
+
+YANG-KG-SEMANTIC-GENERALIZATION:
+: The ontology structuring the target KG is a generalization of the YANG models organizing the configuration data.
+
+
 
 ## Aligning operator-specificities with a multi-faceted knowledge graph
 
