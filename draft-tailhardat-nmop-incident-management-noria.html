@@ -1301,7 +1301,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-from-yang-based-configurati" class="section-name selfRef">From YANG-based configurations to meta-knowledge graph</a>
       </h2>
 <p id="section-3-1">In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
-We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG models into a knowledge graph representation.<a href="#section-3-1" class="pilcrow">¶</a></p>
+We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG model(s) into a knowledge graph representation.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">For the realization of this data transformation, we identify the following scenarios:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3-3">
         <dt id="section-3-3.1">YANG-KG-SEMANTIC-EQUIVALENCE:</dt>
@@ -1562,7 +1562,7 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
         <h3 id="name-relation-to-the-digital-map">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-relation-to-the-digital-map" class="section-name selfRef">Relation to the Digital Map</a>
         </h3>
-<p id="section-3.3-1">Similar to the concept of <em>meta-knowledge graph</em> (meta-KG) discussed in this document, the concept of <em>Digital Map</em> discussed in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span> emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+<p id="section-3.3-1">Similar to the concept of <em>ITSM-KG</em> discussed in this document, the concept of <em>Digital Map</em> discussed in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span> emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
 The meta-knowledge graph extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">To clarify this positioning, the following lists (<a href="#sec-digital-map-core" class="auto internal xref">Section 3.3.1</a>, <a href="#sec-digital-map-design" class="auto internal xref">Section 3.3.1.1</a>, and <a href="#sec-digital-map-archi" class="auto internal xref">Section 3.3.2</a>) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span>.
 A symbol to the right of each requirement name indicates the nature of compliance: <strong>+</strong> for compatibility, <strong>/</strong> for partial satisfaction, <strong>-</strong> for non-compliance with the requirement.
@@ -1703,7 +1703,29 @@ A comment is provided as necessary.<a href="#section-3.3-2" class="pilcrow">¶</
         <h3 id="name-experiments">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
         </h3>
-<p id="section-3.4-1">TODO Experiments<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">In terms of experimentation, we recommend implementing a data processing pipeline that performs the following use cases:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.4-2">
+          <dt id="section-3.4-2.1">Y-MODEL-FROM-DATA:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1">Based on a dataset of configuration data expressed in YANG models, being able to extract the list of models involved for their conversion to their RDFS/OWL equivalent.<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.4-2.3">Y-MODEL-DEPENDENCIES:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.4-2.4">
+            <p id="section-3.4-2.4.1">Based on a given YANG model, identify and retrieve all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.<a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.4-2.5">Y-MODEL-TO-RDFS-OWL:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.4-2.6">
+            <p id="section-3.4-2.6.1">Based on a YANG model and the associated model corpus (see Y-MODEL-DEPENDENCIES), being able to produce a semantically equivalent RDFS/OWL representation.<a href="#section-3.4-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.4-2.7"></dt>
+          <dd style="margin-left: 1.5em" id="section-3.4-2.8">
+            <p id="section-3.4-2.8.1">Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.<a href="#section-3.4-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <div id="implementation-status">
