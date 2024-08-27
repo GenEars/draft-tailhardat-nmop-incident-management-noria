@@ -64,6 +64,17 @@ informative:
     target: https://www.w3.org/TR/rdf-schema/
     date: February 2014
 
+  RML:
+    title: "RDF Mappling Language (RML)"
+    author:
+      - name: Anastasia Dimou
+      - name: Miel Vander Sande
+      - name: Ben De Meester
+      - name: Pieter Heyvaert
+      - name: Thomas Delva
+    target: https://rml.io/specs/rml/
+    date: June 2024
+
   SPARQL11-QL:
     title: "SPARQL 1.1 Query Language"
     author:
@@ -198,6 +209,17 @@ informative:
     date: 2012
     target: https://doi.org/10.1007/978-3-642-25838-1_3
 
+  ONTO-MATCH-2022:
+    author:
+      - name: Portisch, Jan
+      - name: Costa, Guilherme
+      - name: Stefani, Karolin
+      - name: Kreplin, Katharina
+      - name: Hladik, Michael
+      - name: Paulheim, Heiko
+    title: "Ontology Matching Through Absolute Orientation of Embedding Spaces"
+    date: 2022
+    target: https://doi.org/10.1007/978-3-031-11609-4_29
 
 --- abstract
 
@@ -206,7 +228,7 @@ Knowledge graphs can provide a unified view of complex systems through shared vo
 YANG data models enable describing network configurations and automating their deployment.
 However, both approaches face challenges in vocabulary alignment and adoption, hindering knowledge capitalization and sharing on network designs and best practices.
 To address this, the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
-The principle of ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
+The key principle to achieve the construction of such ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
 An experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs.
 
 
@@ -280,24 +302,7 @@ In addition to the main parts of the proposal, the document also covers data int
 
 {::boilerplate bcp14-tagged}
 
-# A meta-knowledge graph to align operator-specificities and share behavioral models of technical architectures
-
-TODO Introduce and develop the following topics.
-
-Topics:
-
-* Principles for implicit learning of incident characteristics and resolution methods through a graph and activity tracing.
-  - Aligning operator-specificities with a multi-faceted knowledge graph.
-  - Learning and sharing behavioral models.
-  - Relation to the Network Anomaly Lifecycle experiment {{?I-D.netana-nmop-network-anomaly-lifecycle}}.
-  - Relation to the Digital Map concept {{?I-D.havel-nmop-digital-map-concept}}.
-
-* Meta-KG construction
-  - Integrating Service and Network topology data from YANG data models, such as Network Topologies {{!RFC8345}} and Service Assurance {{!RFC9418}}}.
-  - Relation to the NORIA-O ontology {{NORIA-O-2024}}.
-  - Trends towards some Yang to OWL / Yang to RDF data transformation tool.
-
-* Experiments towards the meta-KG proposal.
+# From YANG-based configurations to meta-knowledge graph
 
 In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
 We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG models into a knowledge graph representation.
@@ -310,9 +315,72 @@ YANG-KG-SEMANTIC-EQUIVALENCE:
 YANG-KG-SEMANTIC-GENERALIZATION:
 : The ontology structuring the target KG is a generalization of the YANG models organizing the configuration data.
 
+We note that the YANG-KG-SEMANTIC-EQUIVALENCE case requires a significant knowledge engineering effort to align all YANG models into a coherent ontology with a sufficient level of abstraction to enable the discovery and analysis of emergent behavioral models of networks independently of local configuration specifics.
+However, this case has the advantage of being relatively easy to implement based on the available configuration data of an operator, for example, by implementing {{RML}} rules for constructing a knowledge graph from this data.
+
+For the YANG-KG-SEMANTIC-GENERALIZATION case, we observe that the transformation effort involves:
+
+1. Being able to transform YANG models into their RDFS/OWL equivalent to provide a consistent interpretation of configuration data in a knowledge graph that aligns with each data source.
+2. Being able to provide a generalized interpretation of these transformed YANG models by identifying alignments between key concepts in these models and those in a more expressive ontology.
+
+As an example, the YANG-KG-SEMANTIC-GENERALIZATION case could involve wanting to integrate Service and Network topology data, matching the Network Topologies {{!RFC8345}} and Service Assurance {{!RFC9418}} YANG data models, into a knowledge graph structured by the NORIA-O ontology {{NORIA-O-2024}}.
+
+Although identifying alignments in the YANG-KG-SEMANTIC-GENERALIZATION case may appear non-trivial for "constructor" YANG models, it is worth noting that the design of YANG models generally relies on principles of concept hierarchies and reuse of common concepts between models to promote model interoperability, as is the case with the Abstract Network Model of {{!RFC8345}}.
+Therefore, the task of identifying alignments can theoretically benefit from these design principles.
+
+In continuity of the above RFC8345 / NORIA-O example, providing an alignment may mean asserting a semantic equivalence between the RDFS/OWL representation of the "node" concept from {{!RFC8345}} with the "noria:Resource" concept from {{NORIA-O-2024}}.
+Examples of approaches for linking ontologies are provided in {{sec-gluing-techniques}}.
+As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
 
 
-## Aligning operator-specificities with a multi-faceted knowledge graph
+## Aligning operator-specificities with a multi-faceted knowledge graph {#sec-gluing-techniques}
+
+
+
+~~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.com/ontologies/itsm/>
+    rdf:type owl:Ontology ;
+    owl:imports
+        <https://w3id.org/noria/ontology/> ,  #
+        <https://example.com/ontologies/ietf-noria-linker> ,
+        <https://example.com/ontologies/ietf-network-topology> ;
+.
+~~~~
+
+~~~
+<urn:ietf:params:xml:ns:yang:ietf-network#node>
+    rdf:type owl:Class ;
+    rdfs:comment  "The inventory of nodes of this network." ;
+.
+~~~
+
+
+~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix noria: <https://w3id.org/noria/ontology/> .
+
+noria:Resource
+    rdf:type owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment """General resource record of the Communication Device kind from the logistics park. It is a managed entity that can be either Physical or Virtual."""@en ;
+    rdfs:subClassOf noria:StructuralElement ;
+    rdfs:subClassOf
+        seas:System,
+        seas:CommunicationDevice,
+        bot:Element ,
+        observable:Device ,
+        log:Host ;
+    rdfs:isDefinedBy noria: ;
+.
+~~~
 
 TODO Meta-KG construction
 
