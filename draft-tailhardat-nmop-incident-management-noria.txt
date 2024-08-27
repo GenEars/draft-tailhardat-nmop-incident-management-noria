@@ -237,17 +237,20 @@ Table of Contents
    The remainder of this document is organized as follows.  Firstly, the
    concept of an _ITSM-KG_ is introduced in Section 3 towards leveraging
    existing network infrastructure descriptions in YANG format and
-   enabling abstract reasoning on network behaviors.  Secondly,
-   strategies for the ITSM-KG construction are discussed in Section 4
-   through the lenses of YANG models transformation (Section 4.2),
-   implementing alignments of models with the ITSM-KG (Section 4.2), and
-   knowledge graph construction pipeline designs (Section 4.3).  The
-   Section 4.3 notably addresses the handling of event data streams and
-   the provision of a unified view for different stakeholders (a.k.a.
-   data federation architecture).  Finally, an experiment is proposed in
-   Section 3 to assess the potential of the ITSM-KG in improving network
-   quality and designs.  Implementation status is also reported in this
-   section.
+   enabling abstract reasoning on network behaviors.  The relation of
+   the ITSM-KG proposal to the Digital Map
+   [I-D.havel-nmop-digital-map-concept] is notably discussed in this
+   section.  Secondly, strategies for the ITSM-KG construction are
+   discussed in Section 4 through the lenses of YANG models
+   transformation (Section 4.2), implementing alignments of models with
+   the ITSM-KG (Section 4.2), and knowledge graph construction pipeline
+   designs (Section 4.3).  The Section 4.3 notably addresses the
+   handling of event data streams and the provision of a unified view
+   for different stakeholders (a.k.a. data federation architecture).
+   Finally, an experiment is proposed in sec-experiments to assess the
+   potential of the ITSM-KG in improving network quality and designs.
+   The implementation status related to this document is also reported
+   in this section.
 
 2.  Conventions and Definitions
 
@@ -269,12 +272,12 @@ Table of Contents
    concept of _Digital Map_ discussed in
    [I-D.havel-nmop-digital-map-concept] emphasizes the need to structure
    heterogeneous data describing networks in order to simplify network
-   management operations through unified access to this data.  The meta-
-   knowledge graph extends the Digital Map concept by adding information
-   about the lifecycle of infrastructures and services, as well as the
-   context of their usage.  These additional pieces of information are
-   considered essential for learning shareable activity models of
-   systems.
+   management operations through unified access to this data.  The ITSM-
+   KG can be seen as a meta-knowledge graph that extends the Digital Map
+   concept by adding information about the lifecycle of infrastructures
+   and services, as well as the context of their usage.  These
+   additional pieces of information are considered essential for
+   learning shareable activity models of systems.
 
    To clarify this positioning, the following lists (Section 3.1.1,
    Section 3.1.1.1, and Section 3.1.2) reflect the compliance of the
