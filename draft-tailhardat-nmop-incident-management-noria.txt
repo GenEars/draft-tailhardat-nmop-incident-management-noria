@@ -94,19 +94,19 @@ Table of Contents
      3.1.  Relation to the Digital Map
        3.1.1.  Core Requirements
        3.1.2.  Architectural Requirements
-   4.  From YANG-based configurations to meta-knowledge graph
-   5.  Strategies for the ITSM-KG construction
-     5.1.  Aligning operator-specificities with a multi-faceted
-           knowledge graph
-     5.2.  Extract-Transform-Load pipelines for the ITSM-KG
-   6.  Experiments
-     6.1.  Implementation status
-       6.1.1.  NORIA
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   4.  Strategies for the ITSM-KG construction
+     4.1.  From YANG-based configurations to meta-knowledge graph
+     4.2.  Implementing alignments of model-specificities to a
+           multi-faceted knowledge graph
+     4.3.  Extract-Transform-Load pipelines for the ITSM-KG
+   5.  Experiments
+     5.1.  Implementation status
+       5.1.1.  NORIA
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -237,14 +237,17 @@ Table of Contents
    The remainder of this document is organized as follows.  Firstly, the
    concept of an _ITSM-KG_ is introduced in Section 3 towards leveraging
    existing network infrastructure descriptions in YANG format and
-   enabling abstract reasoning on network behaviors.  Secondly, an
-   experiment is proposed in sec-itsm-base to assess the potential of
-   the meta-knowledge graph in improving network quality and designs.
-   In addition to the main parts of the proposal, the document also
-   covers data integration and data federation architectures in the
-   Security Considerations section.  This section specifically addresses
-   the handling of event data streams and the provision of a unified
-   view for different stakeholders.
+   enabling abstract reasoning on network behaviors.  Secondly,
+   strategies for the ITSM-KG construction are discussed in Section 4
+   through the lenses of YANG models transformation (Section 4.2),
+   implementing alignments of models with the ITSM-KG (Section 4.2), and
+   knowledge graph construction pipeline designs (Section 4.3).  The
+   Section 4.3 notably addresses the handling of event data streams and
+   the provision of a unified view for different stakeholders (a.k.a.
+   data federation architecture).  Finally, an experiment is proposed in
+   Section 3 to assess the potential of the ITSM-KG in improving network
+   quality and designs.  Implementation status is also reported in this
+   section.
 
 2.  Conventions and Definitions
 
@@ -343,7 +346,11 @@ Table of Contents
 
    */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
 
-4.  From YANG-based configurations to meta-knowledge graph
+4.  Strategies for the ITSM-KG construction
+
+   TODO Introduce the section.
+
+4.1.  From YANG-based configurations to meta-knowledge graph
 
    In the following, we consider the use of Semantic Web technologies as
    the foundation for representing data in the form of a knowledge
@@ -403,19 +410,16 @@ Table of Contents
    alignment may mean asserting a semantic equivalence between the RDFS/
    OWL representation of the "node" concept from [RFC8345] with the
    "noria:Resource" concept from [NORIA-O-2024].  Examples of approaches
-   for linking ontologies are provided in Section 5.1.  As techniques
+   for linking ontologies are provided in Section 4.2.  As techniques
    for identifying alignments between data models is beyond the scope of
    this document, we refer interested readers to specialized literature
    in this field, such as [ONTO-MATCH-2022].
 
-5.  Strategies for the ITSM-KG construction
+4.2.  Implementing alignments of model-specificities to a multi-faceted
+      knowledge graph
 
-   TODO Introduce the section.
-
-5.1.  Aligning operator-specificities with a multi-faceted knowledge
-      graph
-
-   TODO Introduce the main case and subcases
+   TODO Introduce the main case and subcases / Aligning operator-
+   specificities with a multi-faceted knowledge graph
 
    TODO Briefly explain challenges in model to RDF transformation
 
@@ -457,7 +461,7 @@ noria:Resource
     rdfs:isDefinedBy noria: ;
 .
 
-5.2.  Extract-Transform-Load pipelines for the ITSM-KG
+4.3.  Extract-Transform-Load pipelines for the ITSM-KG
 
    TODO Introduce the section.
 
@@ -598,7 +602,7 @@ noria:Resource
      Figure 6: Unified access to data distributed across various
                        technological platforms
 
-6.  Experiments
+5.  Experiments
 
    In terms of experimentation, we recommend implementing a data
    processing pipeline that performs the following use cases:
@@ -627,12 +631,12 @@ noria:Resource
 
    META-KG-BEHAVIORAL-MODEL: TODO details
 
-6.1.  Implementation status
+5.1.  Implementation status
 
    This section provides pointers to existing open source
    implementations of this draft or in close relation to it.
 
-6.1.1.  NORIA
+5.1.1.  NORIA
 
    The NORIA project aims at enabling advanced network anomaly detection
    using knowledge graphs.  Among the components resulting from this
@@ -682,7 +686,7 @@ noria:Resource
       (NIDS), knowledge graphs, process mining and conformance checking
       components.
 
-7.  Security Considerations
+6.  Security Considerations
 
    As this document covers the _ITSM-KG_ concepts, and use cases, there
    is no specific security considerations.
@@ -704,13 +708,13 @@ noria:Resource
    resources that require access control, as well as a base of inference
    rules that model the access management strategy to carry out.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+8.  References
 
-9.1.  Normative References
+8.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -731,7 +735,7 @@ noria:Resource
               RFC 9418, DOI 10.17487/RFC9418, July 2023,
               <https://www.rfc-editor.org/rfc/rfc9418>.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [AMO-2012] Buffa, M. and C. Faron-Zucker, "Ontology-Based Access
               Rights Management", 2012,
