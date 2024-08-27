@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 21 February 2025                                        EURECOM
+Expires: 28 February 2025                                        EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                          20 August 2024
+                                                          27 August 2024
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -25,10 +25,14 @@ Abstract
    their deployment.  However, both approaches face challenges in
    vocabulary alignment and adoption, hindering knowledge capitalization
    and sharing on network designs and best practices.  To address this,
-   the concept of a meta-knowledge graph is introduced to leverage
-   existing network infrastructure descriptions in YANG format and
-   enable abstract reasoning on network behaviors.  An experiment is
-   proposed to assess the potential of the meta-knowledge graph in
+   the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is
+   introduced to leverage existing network infrastructure descriptions
+   in YANG format and enable abstract reasoning on network behaviors.
+   The principle of ITSM-KG is to transform YANG representations of
+   network infrastructures into an equivalent knowledge graph
+   representation, and then embed it into a more extensive data model
+   for Anomaly Detection (AD) and Risk Management applications.  An
+   experiment is proposed to assess the potential of the ITSM-KG in
    improving network quality and designs.
 
 About This Document
@@ -66,7 +70,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 February 2025.
+   This Internet-Draft will expire on 28 February 2025.
 
 Copyright Notice
 
@@ -111,7 +115,7 @@ Table of Contents
    related to infrastructure or cybersecurity issues, requires the
    ability to simultaneously and quickly correlate and interpret a large
    number of heterogeneous technical information sources.  Knowledge
-   Graphs (KGs), by structuring heterogeneous data through shared
+   graphs, by structuring heterogeneous data through shared
    vocabularies, enable providing a unified view of complex technical
    systems, their ecosystem, and the activities and operations related
    to them (see [I-D.marcas-nmop-knowledge-graph-yang] and
@@ -230,15 +234,15 @@ Table of Contents
    or "router", and or "IPoWDM link").
 
    The remainder of this document is organized as follows.  Firstly, the
-   concept of a _meta-knowledge graph_ is introduced to leverage
-   existing network infrastructure descriptions in YANG format and
-   enable abstract reasoning on network behaviors.  Secondly, an
-   experiment is proposed to assess the potential of the meta-knowledge
-   graph in improving network quality and designs.  In addition to the
-   main parts of the proposal, the document also covers data integration
-   and data federation architectures in the Security Considerations
-   section.  This section specifically addresses the handling of event
-   data streams and the provision of a unified view for different
+   concept of an _ITSM-KG_ is introduced to leverage existing network
+   infrastructure descriptions in YANG format and enable abstract
+   reasoning on network behaviors.  Secondly, an experiment is proposed
+   to assess the potential of the meta-knowledge graph in improving
+   network quality and designs.  In addition to the main parts of the
+   proposal, the document also covers data integration and data
+   federation architectures in the Security Considerations section.
+   This section specifically addresses the handling of event data
+   streams and the provision of a unified view for different
    stakeholders.
 
 2.  Conventions and Definitions
@@ -282,6 +286,23 @@ Table of Contents
          transformation tool.
 
    *  Experiments towards the meta-KG proposal.
+
+   In the following, we consider the use of Semantic Web technologies as
+   the foundation for representing data in the form of a knowledge
+   graph.  We also assume the ability to transform a description of
+   configurations and network infrastructures expressed accordingly to a
+   given (set of) YANG models into a knowledge graph representation.
+
+   For the realization of this data transformation, we identify the
+   following scenarios:
+
+   YANG-KG-SEMANTIC-EQUIVALENCE:  The ontology structuring the target
+      knowledge graph is an exact equivalence of the many YANG models
+      organizing the configuration data.
+
+   YANG-KG-SEMANTIC-GENERALIZATION:  The ontology structuring the target
+      KG is a generalization of the YANG models organizing the
+      configuration data.
 
 3.1.  Aligning operator-specificities with a multi-faceted knowledge
       graph
