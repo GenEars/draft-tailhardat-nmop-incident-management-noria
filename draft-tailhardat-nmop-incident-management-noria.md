@@ -599,10 +599,18 @@ noria:Resource
 
 ## Extract-Transform-Load pipelines for the ITSM-KG {#sec-etl-kgc}
 
-The following figures illustrate different scenarios for constructing a ITSM-KG through an Extract-Transform-Load (ETL) data integration pipeline.
+Based on XXX and {{NORIA-DI-2023}}, which present the technical means to implement a pipeline for constructing the ITSM-KG, this section focuses on two complementary viewpoints:
+{{sec-etl-kgc-streams}} the management of streaming data such as alarms and logs,
+and {{sec-etl-kgc-fq}} the deployment of a federated data architecture when various technical foundations or business units are involved in providing the ITSM-KG.
+
 From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
 
-TBC : on the capability to record event streams into a knowledge graph ({{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}).
+### Handling event streams {#sec-etl-kgc-streams}
+
+The following figures illustrate different scenarios for constructing a ITSM-KG through an Extract-Transform-Load (ETL) data integration pipeline.
+
+{{fig-stream-kg-only}} illustrates a common design pattern providing the capability to record event streams into a knowledge graph, such as an ITMS-KG if considering that event data are mapped to ONTO-META concepts and network entities to ONTO-YANG-MODEL concepts.
+The {{fig-stream-kg-only-kr}} provides an example of the resulting representation in the form of a knowledge graph.
 
 ~~~~ ascii-art
           ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
@@ -636,8 +644,10 @@ TBC : on the capability to record event streams into a knowledge graph ({{fig-st
 ~~~~
 {: #fig-stream-kg-only-kr title="Resulting knowledge representation for the KG-only data integration architecture for event data streams"}
 
-
-TBC : on the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations although each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}).
+As event streams can be high-paced, it could be beneficial to leverage input/output (I/O) performance optimizations specific to each type of database management system (DBMS), such as Time-Series DataBases (TSDBs) for streaming data and graph databases for knowledge graphs.
+{{fig-stream-mixed}} illustrates the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations ({{fig-stream-mixed-kr}}).
+Each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB.
+Thanks to the linking between the two storage systems, users browsing aggregated data from the knowledge graph can access the raw data within the relevant time span for further analysis, and vice versa.
 
 ~~~~ ascii-art
                   ┌────────────┐
@@ -696,7 +706,9 @@ TBC : on the capability to handle both a knowledge graph and a time-series repre
 {: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams"}
 
 
-TBC : on the capability to provide unified access to data distributed across various technological platforms thanks to Federated Queries and the use of an ONTO-ITSM ({{fig-multi-store}}).
+### Federated data architecture {#sec-etl-kgc-fq}
+
+The {{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
 
 ~~~~ ascii-art
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
