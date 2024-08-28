@@ -463,7 +463,28 @@ The following sub-sections build on the ONTO-YANG-MODEL example from {{snippet-i
 
 ### The network of ontologies approach
 
-TBC
+The network of ontologies approach is a common practice in the field of knowledge engineering and Semantic Web technologies.
+The principle involves assembling vocabularies from different domains to form a coherent set, for example to infer - through graph traversal or reasoning - relationships between entities in the graph, starting from a concept defined in one of the vocabularies and leading to an instance of a concept from another vocabulary.
+
+In our example, the code snippet of {{snippet-onto-itsm}} implements the ONTO-ITSM by importing concepts from the ONTO-YANG-MODEL ({{snippet-ietf-network-node}}) and concepts from the ONTO-META ({{snippet-noria-o-as-it-is}}).
+An additional import in {{snippet-onto-linker}} relates to the ONTO-LINKER.
+
+~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<https://example.com/ontologies/itsm/>
+  rdf:type owl:Ontology ;
+  owl:imports
+    # ===> Import of one of the ONTO-YANG-MODEL <===
+    <https://example.com/ontologies/ietf-network-topology> ,
+    # ===> Import of the ONTO-META <===
+    <https://w3id.org/noria/ontology/> ,
+    # ===> Import of the ONTO-LINKER definitions <===
+    <https://example.com/ontologies/ietf-noria-linker> ;
+.
+~~~
+{: #snippet-onto-itsm title="The implementation of the ONTO-ITSM to structure the relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax."}
 
 ~~~
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -507,27 +528,35 @@ noria:Resource
   owl:equivalentClass <urn:ietf:params:xml:ns:yang:ietf-network#node> ;
 .
 ~~~
-{: #snippet-onto-itsm title="Snippet of the ONTO-LINKER to relate ONTO-YANG-MODEL definition(s) with ONTO-META definition(s), in Turtle syntax."}
+{: #snippet-onto-linker title="Snippet of the ONTO-LINKER to relate ONTO-YANG-MODEL definition(s) with ONTO-META definition(s), in Turtle syntax."}
 
+As a result, querying any ITSM-KG structured by the ONTO-ITSM, as shown in {{snippet-sparql-equivalent}}, enables retrieving entities of the ITSM-KG using ONTO-META concepts, even if entities are described with ONTO-YANG-MODEL concepts.
 
 ~~~
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX noria: <http://data-noria.securite.fr.intraorange/ontology/>
 
-<https://example.com/ontologies/itsm/>
-  rdf:type owl:Ontology ;
-  owl:imports
-    # ===> Import of one of the ONTO-YANG-MODEL <===
-    <https://example.com/ontologies/ietf-network-topology> ,
-    # ===> Import of the ONTO-META <===
-    <https://w3id.org/noria/ontology/> ,
-    # ===> Import of the ONTO-LINKER definitions <===
-    <https://example.com/ontologies/ietf-noria-linker> ;
-.
+SELECT ?res ?name ?supRes ?supName
+
+WHERE {
+  # Pattern for the base class from ONTO-META
+  # or any equivalent class from ONTO-YANG-MODEL
+  ?resClass (owl:equivalentClass|^owl:equivalentClass)* noria:Resource .
+
+  # Pattern to retrieve instances from the ITSM-KG
+  ?res rdf:type ?resClass .
+}
 ~~~
-{: #snippet-onto-linker title="The implementation of the ONTO-ITSM to structure the relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax."}
+{: #snippet-sparql-equivalent title="Snippet to retrieve entities of the ITSM-KG assuming the relatedness of ONTO-META concepts with ONTO-YANG-MODEL concepts, in SPARQL syntax."}
 
 ### Explicit linking in the ONTO-META
+
+In this approach, we assume that we have the means to evolve ONTO-META, which allows for the implementation of equivalence relationships between the concepts of ONTO-META and ONTO-YANG-MODEL directly within ONTO-META, as shown in {{snippet-noria-o-extended}}.
+
+In this sense, ONTO-ITSM is part of ONTO-META, and ONTO-LINKER is within ONTO-META.
+The query in {{snippet-sparql-equivalent}} applies here as well and will yield the same results.
 
 ~~~
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
