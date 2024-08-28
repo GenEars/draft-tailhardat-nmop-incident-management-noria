@@ -363,7 +363,15 @@ Table of Contents
 
 4.  Strategies for the ITSM-KG construction
 
-   TODO Introduce the section.
+   In this section, we firstly define in Section 4.1 two YANG-based data
+   transformation scenario, namely the YANG-KG-SEMANTIC-EQUIVALENCE and
+   YANG-KG-SEMANTIC-GENERALIZATION scenarios.  The YANG-KG-SEMANTIC-
+   GENERALIZATION scenario is then used as a basis in Section 4.2 to
+   illustrate strategies to reuse YANG models transformed in RDFS/OWL
+   syntax in a higher-level ontology that would structure the ITSM-KG.
+   Finally, two Extract-Transform-Load (ETL) pipeline approaches and a
+   data federation architecture are presented in Section 4.3 to meet the
+   needs of constructing and exploiting the ITSM-KG.
 
 4.1.  From YANG-based configurations to meta-knowledge graph
 
