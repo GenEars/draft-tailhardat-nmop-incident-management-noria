@@ -710,6 +710,8 @@ TBC : on the capability to provide unified access to data distributed across var
 
 # Experiments {#sec-experiments}
 
+## Experimental plan
+
 In terms of experimentation, we consider the YANG-KG-SEMANTIC-GENERALIZATION case defined in {{sec-kgc}} as the reference approach and recommend implementing a data processing pipeline that performs the following use cases:
 
 Y-MODEL-FROM-DATA:
@@ -734,7 +736,7 @@ META-KG-BEHAVIORAL-MODEL:
 
 ## Implementation status
 
-This section provides pointers to existing open source implementations of this draft or in close relation to it.
+This section provides pointers to existing open source implementations of this document or in close relation to it.
 
 ### NORIA
 
