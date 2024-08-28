@@ -1203,10 +1203,13 @@ An experiment is proposed to assess the potential of the ITSM-KG in improving ne
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-experiments" class="internal xref">Experiments</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-implementation-status" class="internal xref">Implementation status</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-experimental-plan" class="internal xref">Experimental plan</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-implementation-status" class="internal xref">Implementation status</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-noria" class="internal xref">NORIA</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-noria" class="internal xref">NORIA</a></p>
 </li>
                 </ul>
 </li>
@@ -1344,21 +1347,6 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <dt id="section-3.1-3.3">ONTO-META:</dt>
           <dd style="margin-left: 1.5em" id="section-3.1-3.4">
             <p id="section-3.1-3.4.1">TBC<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-<dt id="section-3.1-3.5">ONTO-YANG-MODEL:</dt>
-          <dd style="margin-left: 1.5em" id="section-3.1-3.6">
-            <p id="section-3.1-3.6.1">TBC<a href="#section-3.1-3.6.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-<dt id="section-3.1-3.7">ONTO-ITSM:</dt>
-          <dd style="margin-left: 1.5em" id="section-3.1-3.8">
-            <p id="section-3.1-3.8.1">TBC<a href="#section-3.1-3.8.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-<dt id="section-3.1-3.9">ONTO-LINKER</dt>
-          <dd style="margin-left: 1.5em" id="section-3.1-3.10">
-            <p id="section-3.1-3.10.1">TBC<a href="#section-3.1-3.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1550,8 +1538,7 @@ However, this case has the advantage of being relatively easy to implement based
 <p id="section-4.1-8">Although identifying alignments in the YANG-KG-SEMANTIC-GENERALIZATION case may appear non-trivial for "constructor" YANG models, it is worth noting that the design of YANG models generally relies on principles of concept hierarchies and reuse of common concepts between models to promote model interoperability, as is the case with the Abstract Network Model of <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>.
 Therefore, the task of identifying alignments can theoretically benefit from these design principles.<a href="#section-4.1-8" class="pilcrow">¶</a></p>
 <p id="section-4.1-9">In continuity of the above RFC8345 / NORIA-O example, providing an alignment may mean asserting a semantic equivalence between the RDFS/OWL representation of the "node" concept from <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> with the "noria:Resource" concept from <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>.
-Examples of approaches for linking ontologies are provided in <a href="#sec-gluing-techniques" class="auto internal xref">Section 4.2</a>.
-As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as <span>[<a href="#ONTO-MATCH-2022" class="cite xref">ONTO-MATCH-2022</a>]</span>.<a href="#section-4.1-9" class="pilcrow">¶</a></p>
+Examples of approaches for linking ontologies are provided in <a href="#sec-gluing-techniques" class="auto internal xref">Section 4.2</a>.<a href="#section-4.1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-gluing-techniques">
@@ -1559,12 +1546,31 @@ As techniques for identifying alignments between data models is beyond the scope
         <h3 id="name-implementing-alignments-of-">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-implementing-alignments-of-" class="section-name selfRef">Implementing alignments of model-specificities to a multi-faceted knowledge graph</a>
         </h3>
-<p id="section-4.2-1">Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">To present the approaches, we assume the ability to convert a given YANG model into its equivalent RDFS/OWL representation.
-The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a> is a fictional example of translating the "node" concept from <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> into its RDFS/OWL equivalent.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
+As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as <span>[<a href="#ONTO-MATCH-2022" class="cite xref">ONTO-MATCH-2022</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">For the sake of clarity, we introduce the following additional definitions:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4.2-3">
+          <dt id="section-4.2-3.1">ONTO-YANG-MODEL:</dt>
+          <dd style="margin-left: 1.5em" id="section-4.2-3.2">
+            <p id="section-4.2-3.2.1">For a given YANG model, its equivalent RDFS/OWL representation.<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-4.2-3.3">ONTO-ITSM:</dt>
+          <dd style="margin-left: 1.5em" id="section-4.2-3.4">
+            <p id="section-4.2-3.4.1">For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.<a href="#section-4.2-3.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-4.2-3.5">ONTO-LINKER</dt>
+          <dd style="margin-left: 1.5em" id="section-4.2-3.6">
+            <p id="section-4.2-3.6.1">For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.<a href="#section-4.2-3.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+<p id="section-4.2-4">To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
+The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a> is a fictional example of translating the "node" concept from <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> into its RDFS/OWL equivalent.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <span id="name-snippet-of-the-onto-yang-mo"></span><div id="snippet-ietf-network-node">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-4.2-3.1">
+          <div class="alignLeft art-text artwork" id="section-4.2-5.1">
 <pre>
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -1580,7 +1586,7 @@ The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xr
 <a href="#name-snippet-of-the-onto-yang-mo" class="selfRef">Snippet of the ONTO-YANG-MODEL describing the 'node' concept from RFC8345 into its RDFS/OWL equivalent, in Turtle syntax.</a>
           </figcaption></figure>
 </div>
-<p id="section-4.2-4">TBC<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-6">The following sub-sections build on the ONTO-YANG-MODEL example from <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a>.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
 <div id="the-network-of-ontologies-approach">
 <section id="section-4.2.1">
           <h4 id="name-the-network-of-ontologies-a">
@@ -1897,99 +1903,106 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
       <h2 id="name-experiments">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-experiments" class="section-name selfRef">Experiments</a>
       </h2>
-<p id="section-5-1">In terms of experimentation, we consider the YANG-KG-SEMANTIC-GENERALIZATION case defined in <a href="#sec-kgc" class="auto internal xref">Section 4</a> as the reference approach and recommend implementing a data processing pipeline that performs the following use cases:<a href="#section-5-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5-2">
-        <dt id="section-5-2.1">Y-MODEL-FROM-DATA:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.2">
-          <p id="section-5-2.2.1">Based on a dataset of configuration data expressed in YANG models, the goal is to enable extracting the list of models involved for their conversion to their RDFS/OWL equivalent.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.3">Y-MODEL-DEPENDENCIES:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.4">
-          <p id="section-5-2.4.1">Based on a given YANG model, the goal is to enable identifying and retrieving all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.5">Y-MODEL-TO-RDFS-OWL:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.6">
-          <p id="section-5-2.6.1">Based on a YANG model and the associated model corpus (i.e. Y-MODEL-DEPENDENCIES), the goal is to enable producing a semantically equivalent RDFS/OWL representation (i.e. ONTO-YANG-MODEL).<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.7"></dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.8">
-          <p id="section-5-2.8.1">Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.9">Y-INSTANCE-TO-KG:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.10">
-          <p id="section-5-2.10.1">Based on a dataset of configuration data expressed in YANG models and the related (set of) ONTO-YANG-MODEL, the goal is to enable constructing a knowledge graph from the configuration data, with the knowledge graph structured by the (set of) ONTO-YANG-MODEL.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.11">Y-MODEL-META-KG-ALIGNMENT:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.12">
-          <p id="section-5-2.12.1">Based on a corpus of YANG models transformed into RDFS/OWL (i.e. Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, the goal is to enable querying of the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.13"></dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.14">
-          <p id="section-5-2.14.1">In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.<a href="#section-5-2.14.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-2.15">META-KG-BEHAVIORAL-MODEL:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-2.16">
-          <p id="section-5-2.16.1">Based on the ITSM-KG, which results from the composition of the Y-INSTANCE-TO-KG case with Y-MODEL-META-KG-ALIGNMENT and additional operational data structured by ONTO-META, the goal is to learn behavioral models (e.g. incident signatures) in a formalism that can be interpreted through the lenses of ONTO-ITSM and shared with other stakeholders with minimal discrepancies in the underlying configuration data.<a href="#section-5-2.16.1" class="pilcrow">¶</a></p>
-</dd>
-      <dd class="break"></dd>
-</dl>
-<div id="implementation-status">
+<div id="experimental-plan">
 <section id="section-5.1">
-        <h3 id="name-implementation-status">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation status</a>
+        <h3 id="name-experimental-plan">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-experimental-plan" class="section-name selfRef">Experimental plan</a>
         </h3>
-<p id="section-5.1-1">This section provides pointers to existing open source implementations of this draft or in close relation to it.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">In terms of experimentation, we consider the YANG-KG-SEMANTIC-GENERALIZATION case defined in <a href="#sec-kgc" class="auto internal xref">Section 4</a> as the reference approach and recommend implementing a data processing pipeline that performs the following use cases:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.1-2">
+          <dt id="section-5.1-2.1">Y-MODEL-FROM-DATA:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.2">
+            <p id="section-5.1-2.2.1">Based on a dataset of configuration data expressed in YANG models, the goal is to enable extracting the list of models involved for their conversion to their RDFS/OWL equivalent.<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.3">Y-MODEL-DEPENDENCIES:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.4">
+            <p id="section-5.1-2.4.1">Based on a given YANG model, the goal is to enable identifying and retrieving all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.<a href="#section-5.1-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.5">Y-MODEL-TO-RDFS-OWL:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.6">
+            <p id="section-5.1-2.6.1">Based on a YANG model and the associated model corpus (i.e. Y-MODEL-DEPENDENCIES), the goal is to enable producing a semantically equivalent RDFS/OWL representation (i.e. ONTO-YANG-MODEL).<a href="#section-5.1-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.7"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.8">
+            <p id="section-5.1-2.8.1">Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.<a href="#section-5.1-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.9">Y-INSTANCE-TO-KG:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.10">
+            <p id="section-5.1-2.10.1">Based on a dataset of configuration data expressed in YANG models and the related (set of) ONTO-YANG-MODEL, the goal is to enable constructing a knowledge graph from the configuration data, with the knowledge graph structured by the (set of) ONTO-YANG-MODEL.<a href="#section-5.1-2.10.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.11">Y-MODEL-META-KG-ALIGNMENT:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.12">
+            <p id="section-5.1-2.12.1">Based on a corpus of YANG models transformed into RDFS/OWL (i.e. Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, the goal is to enable querying of the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.<a href="#section-5.1-2.12.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.13"></dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.14">
+            <p id="section-5.1-2.14.1">In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.<a href="#section-5.1-2.14.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.15">META-KG-BEHAVIORAL-MODEL:</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.16">
+            <p id="section-5.1-2.16.1">Based on the ITSM-KG, which results from the composition of the Y-INSTANCE-TO-KG case with Y-MODEL-META-KG-ALIGNMENT and additional operational data structured by ONTO-META, the goal is to learn behavioral models (e.g. incident signatures) in a formalism that can be interpreted through the lenses of ONTO-ITSM and shared with other stakeholders with minimal discrepancies in the underlying configuration data.<a href="#section-5.1-2.16.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="implementation-status">
+<section id="section-5.2">
+        <h3 id="name-implementation-status">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation status</a>
+        </h3>
+<p id="section-5.2-1">This section provides pointers to existing open source implementations of this document or in close relation to it.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div id="noria">
-<section id="section-5.1.1">
+<section id="section-5.2.1">
           <h4 id="name-noria">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-noria" class="section-name selfRef">NORIA</a>
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-noria" class="section-name selfRef">NORIA</a>
           </h4>
-<p id="section-5.1.1-1">The NORIA project aims at enabling advanced network anomaly detection using knowledge graphs.
-Among the components resulting from this project, the following ones serve the use case described in this document:<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-1">The NORIA project aims at enabling advanced network anomaly detection using knowledge graphs.
+Among the components resulting from this project, the following ones serve the use case described in this document:<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.1-2.1">
-              <p id="section-5.1.1-2.1.1">NORIA-O <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>, is a data model for IT networks, events and operations information.
+<li class="normal" id="section-5.2.1-2.1">
+              <p id="section-5.2.1-2.1.1">NORIA-O <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span>, is a data model for IT networks, events and operations information.
 The ontology is developed using web technologies (e.g. RDF, OWL, SKOS) and is intended as a structure for realizing an ITSM knowledge graph for Anomaly Detection (AD) and Risk Management applications.
-Its use for anomaly detection is discussed in:<a href="#section-5.1.1-2.1.1" class="pilcrow">¶</a></p>
+Its use for anomaly detection is discussed in:<a href="#section-5.2.1-2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.1-2.1.2.1">
-                  <p id="section-5.1.1-2.1.2.1.1"><span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span> with a model-based design approach (i.e. query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e. relate entities based on context
-similarities, then use this relatedness to alert and guide the repair).<a href="#section-5.1.1-2.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2.1-2.1.2.1">
+                  <p id="section-5.2.1-2.1.2.1.1"><span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span> with a model-based design approach (i.e. query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e. relate entities based on context
+similarities, then use this relatedness to alert and guide the repair).<a href="#section-5.2.1-2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.1-2.1.2.2">
-                  <p id="section-5.1.1-2.1.2.2.1"><span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span> with a process mining approach to align a sequence of entities to activity models, then use this relatedness to guide the repair actions.<a href="#section-5.1.1-2.1.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-5.2.1-2.1.2.2">
+                  <p id="section-5.2.1-2.1.2.2.1"><span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span> with a process mining approach to align a sequence of entities to activity models, then use this relatedness to guide the repair actions.<a href="#section-5.2.1-2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.1-2.1.2.3">
-                  <p id="section-5.1.1-2.1.2.3.1"><span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> a Web-based knowledge graph exploration design for incident management that combines the above <span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span> and <span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span> techniques for broader coverage of anomaly cases and knowledge capitalization.<a href="#section-5.1.1-2.1.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-5.2.1-2.1.2.3">
+                  <p id="section-5.2.1-2.1.2.3.1"><span>[<a href="#NORIA-UI-2024" class="cite xref">NORIA-UI-2024</a>]</span> a Web-based knowledge graph exploration design for incident management that combines the above <span>[<a href="#SLKG-2023" class="cite xref">SLKG-2023</a>]</span> and <span>[<a href="#GPL-2024" class="cite xref">GPL-2024</a>]</span> techniques for broader coverage of anomaly cases and knowledge capitalization.<a href="#section-5.2.1-2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
-            <li class="normal" id="section-5.1.1-2.2">
-              <p id="section-5.1.1-2.2.1">A knowledge graph-based platform design <span>[<a href="#NORIA-DI-2023" class="cite xref">NORIA-DI-2023</a>]</span> using Semantic Web technologies and open source data integration tools to build an ITSM knowledge graph:<a href="#section-5.1.1-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.2.1-2.2">
+              <p id="section-5.2.1-2.2.1">A knowledge graph-based platform design <span>[<a href="#NORIA-DI-2023" class="cite xref">NORIA-DI-2023</a>]</span> using Semantic Web technologies and open source data integration tools to build an ITSM knowledge graph:<a href="#section-5.2.1-2.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.1-2.2.2.1">
-                  <p id="section-5.1.1-2.2.2.1.1">SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability.<a href="#section-5.1.1-2.2.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2.1-2.2.2.1">
+                  <p id="section-5.2.1-2.2.2.1.1">SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability.<a href="#section-5.2.1-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.1-2.2.2.2">
-                  <p id="section-5.1.1-2.2.2.2.1">ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach.<a href="#section-5.1.1-2.2.2.2.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-5.2.1-2.2.2.2">
+                  <p id="section-5.2.1-2.2.2.2.1">ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach.<a href="#section-5.2.1-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.1-2.2.2.3">
-                  <p id="section-5.1.1-2.2.2.3.1">grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach).<a href="#section-5.1.1-2.2.2.3.1" class="pilcrow">¶</a></p>
+                <li class="normal" id="section-5.2.1-2.2.2.3">
+                  <p id="section-5.2.1-2.2.2.3.1">grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach).<a href="#section-5.2.1-2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
-            <li class="normal" id="section-5.1.1-2.3">
-              <p id="section-5.1.1-2.3.1">SemNIDS <span>[<a href="#SemNIDS-2023" class="cite xref">SemNIDS-2023</a>]</span>, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.<a href="#section-5.1.1-2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.2.1-2.3">
+              <p id="section-5.2.1-2.3.1">SemNIDS <span>[<a href="#SemNIDS-2023" class="cite xref">SemNIDS-2023</a>]</span>, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.<a href="#section-5.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.1.1-3">Note that the NORIA project does not currently address the Y-MODEL-FROM-DATA, Y-MODEL-DEPENDENCIES, and Y-MODEL-TO-RDFS-OWL use cases.<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-3">Note that the NORIA project does not currently address the Y-MODEL-FROM-DATA, Y-MODEL-DEPENDENCIES, and Y-MODEL-TO-RDFS-OWL use cases.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

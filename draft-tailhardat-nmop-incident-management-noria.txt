@@ -104,8 +104,9 @@ Table of Contents
        4.2.2.  Explicit linking in the ONTO-META
      4.3.  Extract-Transform-Load pipelines for the ITSM-KG
    5.  Experiments
-     5.1.  Implementation status
-       5.1.1.  NORIA
+     5.1.  Experimental plan
+     5.2.  Implementation status
+       5.2.1.  NORIA
    6.  Security Considerations
    7.  IANA Considerations
    8.  References
@@ -281,12 +282,6 @@ Table of Contents
 
    ONTO-META:  TBC
 
-   ONTO-YANG-MODEL:  TBC
-
-   ONTO-ITSM:  TBC
-
-   ONTO-LINKER  TBC
-
 3.2.  Relation to the Digital Map
 
    Similar to the concept of _ITSM-KG_ discussed in this document, the
@@ -442,10 +437,7 @@ Table of Contents
    alignment may mean asserting a semantic equivalence between the RDFS/
    OWL representation of the "node" concept from [RFC8345] with the
    "noria:Resource" concept from [NORIA-O-2024].  Examples of approaches
-   for linking ontologies are provided in Section 4.2.  As techniques
-   for identifying alignments between data models is beyond the scope of
-   this document, we refer interested readers to specialized literature
-   in this field, such as [ONTO-MATCH-2022].
+   for linking ontologies are provided in Section 4.2.
 
 4.2.  Implementing alignments of model-specificities to a multi-faceted
       knowledge graph
@@ -454,12 +446,30 @@ Table of Contents
    scenario, this section presents two approaches to construct the
    structuring ontology of the ITSM-KG by combining YANG models
    translated into RDFS/OWL and a meta-ontology enabling the analysis of
-   the operational context of the network lifecycle.
+   the operational context of the network lifecycle.  As techniques for
+   identifying alignments between data models is beyond the scope of
+   this document, we refer interested readers to specialized literature
+   in this field, such as [ONTO-MATCH-2022].
+
+   For the sake of clarity, we introduce the following additional
+   definitions:
+
+   ONTO-YANG-MODEL:  For a given YANG model, its equivalent RDFS/OWL
+      representation.
+
+   ONTO-ITSM:  For a given ITSM-KG, the RDFS/OWL ontology that
+      structures the ITSM-KG.
+
+   ONTO-LINKER  For a given (set of) ONTO-YANG-MODEL and a given ONTO-
+      META, the implementation of the equivalence relationships between
+      the key concepts and key properties of the (set of) ONTO-YANG-
+      MODEL and ONTO-META.
 
    To present the approaches, we assume the ability to convert a given
-   YANG model into its equivalent RDFS/OWL representation.  The code
-   snippet in Figure 2 is a fictional example of translating the "node"
-   concept from [RFC8345] into its RDFS/OWL equivalent.
+   YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL
+   representation).  The code snippet in Figure 2 is a fictional example
+   of translating the "node" concept from [RFC8345] into its RDFS/OWL
+   equivalent.
 
    @prefix owl: <http://www.w3.org/2002/07/owl#> .
    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -474,7 +484,8 @@ Table of Contents
         concept from RFC8345 into its RDFS/OWL equivalent, in Turtle
                                   syntax.
 
-   TBC
+   The following sub-sections build on the ONTO-YANG-MODEL example from
+   Figure 2.
 
 4.2.1.  The network of ontologies approach
 
@@ -733,6 +744,8 @@ noria:Resource
 
 5.  Experiments
 
+5.1.  Experimental plan
+
    In terms of experimentation, we consider the YANG-KG-SEMANTIC-
    GENERALIZATION case defined in Section 4 as the reference approach
    and recommend implementing a data processing pipeline that performs
@@ -785,12 +798,12 @@ noria:Resource
       ITSM and shared with other stakeholders with minimal discrepancies
       in the underlying configuration data.
 
-5.1.  Implementation status
+5.2.  Implementation status
 
    This section provides pointers to existing open source
-   implementations of this draft or in close relation to it.
+   implementations of this document or in close relation to it.
 
-5.1.1.  NORIA
+5.2.1.  NORIA
 
    The NORIA project aims at enabling advanced network anomaly detection
    using knowledge graphs.  Among the components resulting from this
