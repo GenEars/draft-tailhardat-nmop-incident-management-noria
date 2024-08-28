@@ -321,14 +321,6 @@ ITSM-KG:
 ONTO-META:
 : TBC
 
-ONTO-YANG-MODEL:
-: TBC
-
-ONTO-ITSM:
-: TBC
-
-ONTO-LINKER
-: TBC
 
 ## Relation to the Digital Map {#sec-digital-map}
 
@@ -433,14 +425,26 @@ Therefore, the task of identifying alignments can theoretically benefit from the
 
 In continuity of the above RFC8345 / NORIA-O example, providing an alignment may mean asserting a semantic equivalence between the RDFS/OWL representation of the "node" concept from {{!RFC8345}} with the "noria:Resource" concept from {{NORIA-O-2024}}.
 Examples of approaches for linking ontologies are provided in {{sec-gluing-techniques}}.
-As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
 
 
 ## Implementing alignments of model-specificities to a multi-faceted knowledge graph {#sec-gluing-techniques}
 
 Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
+As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
 
-To present the approaches, we assume the ability to convert a given YANG model into its equivalent RDFS/OWL representation.
+For the sake of clarity, we introduce the following additional definitions:
+
+ONTO-YANG-MODEL:
+: For a given YANG model, its equivalent RDFS/OWL representation.
+
+ONTO-ITSM:
+: For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.
+
+ONTO-LINKER
+: For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.
+
+
+To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
 The code snippet in {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
 
 ~~~
@@ -455,7 +459,7 @@ The code snippet in {{snippet-ietf-network-node}} is a fictional example of tran
 ~~~
 {: #snippet-ietf-network-node title="Snippet of the ONTO-YANG-MODEL describing the 'node' concept from RFC8345 into its RDFS/OWL equivalent, in Turtle syntax."}
 
-TBC
+The following sub-sections build on the ONTO-YANG-MODEL example from {{snippet-ietf-network-node}}.
 
 ### The network of ontologies approach
 
