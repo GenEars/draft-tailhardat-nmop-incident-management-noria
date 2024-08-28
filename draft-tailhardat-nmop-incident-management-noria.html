@@ -1479,7 +1479,7 @@ A comment is provided as necessary.<a href="#section-3.2-2" class="pilcrow">¶</
             <dt id="section-3.2.3-1.1">
 <strong>+</strong> REQ-DM-SCALES:</dt>
             <dd style="margin-left: 1.5em" id="section-3.2.3-1.2">
-              <p id="section-3.2.3-1.2.1">This capability applies as we can use data aggregation at the graph level (<a href="#fig-stream-mixed" class="auto internal xref">Figure 9</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 10</a> compared to <a href="#fig-stream-kg-only" class="auto internal xref">Figure 7</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 8</a>), aggregation without loss of information (<a href="#fig-stream-mixed" class="auto internal xref">Figure 9</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 10</a>), and load balancing (horizontal scaling) by partitioning the meta-KG (<a href="#fig-multi-store" class="auto internal xref">Figure 11</a>). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries <span>[<a href="#SPARQL11-FQ" class="cite xref">SPARQL11-FQ</a>]</span>, as illustrated in <a href="#fig-multi-store" class="auto internal xref">Figure 11</a>).<a href="#section-3.2.3-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.3-1.2.1">This capability applies as we can use data aggregation at the graph level (<a href="#fig-stream-mixed" class="auto internal xref">Figure 10</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 11</a> compared to <a href="#fig-stream-kg-only" class="auto internal xref">Figure 8</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 9</a>), aggregation without loss of information (<a href="#fig-stream-mixed" class="auto internal xref">Figure 10</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 11</a>), and load balancing (horizontal scaling) by partitioning the meta-KG (<a href="#fig-multi-store" class="auto internal xref">Figure 12</a>). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries <span>[<a href="#SPARQL11-FQ" class="cite xref">SPARQL11-FQ</a>]</span>, as illustrated in <a href="#fig-multi-store" class="auto internal xref">Figure 12</a>).<a href="#section-3.2.3-1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-3.2.3-1.3">
@@ -1592,10 +1592,36 @@ The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xr
           <h4 id="name-the-network-of-ontologies-a">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-the-network-of-ontologies-a" class="section-name selfRef">The network of ontologies approach</a>
           </h4>
-<p id="section-4.2.1-1">TBC<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
-<span id="name-snippet-of-the-onto-meta-de"></span><div id="snippet-noria-o-as-it-is">
+<p id="section-4.2.1-1">The network of ontologies approach is a common practice in the field of knowledge engineering and Semantic Web technologies.
+The principle involves assembling vocabularies from different domains to form a coherent set, for example to infer - through graph traversal or reasoning - relationships between entities in the graph, starting from a concept defined in one of the vocabularies and leading to an instance of a concept from another vocabulary.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">In our example, the code snippet of <a href="#snippet-onto-itsm" class="auto internal xref">Figure 3</a> implements the ONTO-ITSM by importing concepts from the ONTO-YANG-MODEL (<a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a>) and concepts from the ONTO-META (<a href="#snippet-noria-o-as-it-is" class="auto internal xref">Figure 4</a>).
+An additional import in <a href="#snippet-onto-linker" class="auto internal xref">Figure 5</a> relates to the ONTO-LINKER.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
+<span id="name-the-implementation-of-the-o"></span><div id="snippet-onto-itsm">
 <figure id="figure-3">
-            <div class="alignLeft art-text artwork" id="section-4.2.1-2.1">
+            <div class="alignLeft art-text artwork" id="section-4.2.1-3.1">
+<pre>
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+
+&lt;https://example.com/ontologies/itsm/&gt;
+  rdf:type owl:Ontology ;
+  owl:imports
+    # ===&gt; Import of one of the ONTO-YANG-MODEL &lt;===
+    &lt;https://example.com/ontologies/ietf-network-topology&gt; ,
+    # ===&gt; Import of the ONTO-META &lt;===
+    &lt;https://w3id.org/noria/ontology/&gt; ,
+    # ===&gt; Import of the ONTO-LINKER definitions &lt;===
+    &lt;https://example.com/ontologies/ietf-noria-linker&gt; ;
+.
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-the-implementation-of-the-o" class="selfRef">The implementation of the ONTO-ITSM to structure the relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax.</a>
+            </figcaption></figure>
+</div>
+<span id="name-snippet-of-the-onto-meta-de"></span><div id="snippet-noria-o-as-it-is">
+<figure id="figure-4">
+            <div class="alignLeft art-text artwork" id="section-4.2.1-4.1">
 <pre>
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -1626,13 +1652,13 @@ noria:Resource
 .
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-snippet-of-the-onto-meta-de" class="selfRef">Snippet of the ONTO-META describing the 'noria:Resource' concept from NORIA-O v0.3, in Turtle syntax.</a>
             </figcaption></figure>
 </div>
-<span id="name-snippet-of-the-onto-linker-"></span><div id="snippet-onto-itsm">
-<figure id="figure-4">
-            <div class="alignLeft art-text artwork" id="section-4.2.1-3.1">
+<span id="name-snippet-of-the-onto-linker-"></span><div id="snippet-onto-linker">
+<figure id="figure-5">
+            <div class="alignLeft art-text artwork" id="section-4.2.1-5.1">
 <pre>
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -1644,31 +1670,34 @@ noria:Resource
 .
 </pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
 <a href="#name-snippet-of-the-onto-linker-" class="selfRef">Snippet of the ONTO-LINKER to relate ONTO-YANG-MODEL definition(s) with ONTO-META definition(s), in Turtle syntax.</a>
             </figcaption></figure>
 </div>
-<span id="name-the-implementation-of-the-o"></span><div id="snippet-onto-linker">
-<figure id="figure-5">
-            <div class="alignLeft art-text artwork" id="section-4.2.1-4.1">
+<p id="section-4.2.1-6">As a result, querying any ITSM-KG structured by the ONTO-ITSM, as shown in <a href="#snippet-sparql-equivalent" class="auto internal xref">Figure 6</a>, enables retrieving entities of the ITSM-KG using ONTO-META concepts, even if entities are described with ONTO-YANG-MODEL concepts.<a href="#section-4.2.1-6" class="pilcrow">¶</a></p>
+<span id="name-snippet-to-retrieve-entitie"></span><div id="snippet-sparql-equivalent">
+<figure id="figure-6">
+            <div class="alignLeft art-text artwork" id="section-4.2.1-7.1">
 <pre>
-@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
-@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX noria: &lt;http://data-noria.securite.fr.intraorange/ontology/&gt;
 
-&lt;https://example.com/ontologies/itsm/&gt;
-  rdf:type owl:Ontology ;
-  owl:imports
-    # ===&gt; Import of one of the ONTO-YANG-MODEL &lt;===
-    &lt;https://example.com/ontologies/ietf-network-topology&gt; ,
-    # ===&gt; Import of the ONTO-META &lt;===
-    &lt;https://w3id.org/noria/ontology/&gt; ,
-    # ===&gt; Import of the ONTO-LINKER definitions &lt;===
-    &lt;https://example.com/ontologies/ietf-noria-linker&gt; ;
-.
+SELECT ?res ?name ?supRes ?supName
+
+WHERE {
+  # Pattern for the base class from ONTO-META
+  # or any equivalent class from ONTO-YANG-MODEL
+  ?resClass (owl:equivalentClass|^owl:equivalentClass)* noria:Resource .
+
+  # Pattern to retrieve instances from the ITSM-KG
+  ?res rdf:type ?resClass .
+}
 </pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
-<a href="#name-the-implementation-of-the-o" class="selfRef">The implementation of the ONTO-ITSM to structure the relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax.</a>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-snippet-to-retrieve-entitie" class="selfRef">Snippet to retrieve entities of the ITSM-KG assuming the relatedness of ONTO-META concepts with ONTO-YANG-MODEL concepts, in SPARQL syntax.</a>
             </figcaption></figure>
 </div>
 </section>
@@ -1678,9 +1707,12 @@ noria:Resource
           <h4 id="name-explicit-linking-in-the-ont">
 <a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-explicit-linking-in-the-ont" class="section-name selfRef">Explicit linking in the ONTO-META</a>
           </h4>
+<p id="section-4.2.2-1">In this approach, we assume that we have the means to evolve ONTO-META, which allows for the implementation of equivalence relationships between the concepts of ONTO-META and ONTO-YANG-MODEL directly within ONTO-META, as shown in <a href="#snippet-noria-o-extended" class="auto internal xref">Figure 7</a>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-2">In this sense, ONTO-ITSM is part of ONTO-META, and ONTO-LINKER is within ONTO-META.
+The query in <a href="#snippet-sparql-equivalent" class="auto internal xref">Figure 6</a> applies here as well and will yield the same results.<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
 <span id="name-snippet-of-the-onto-meta-des"></span><div id="snippet-noria-o-extended">
-<figure id="figure-6">
-            <div class="alignLeft art-text artwork" id="section-4.2.2-1.1">
+<figure id="figure-7">
+            <div class="alignLeft art-text artwork" id="section-4.2.2-3.1">
 <pre>
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -1718,7 +1750,7 @@ noria:Resource
 .
 </pre>
 </div>
-<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
 <a href="#name-snippet-of-the-onto-meta-des" class="selfRef">Snippet of the ONTO-META describing the 'noria:Resource' concept from NORIA-O v0.3 with added linking to ONTO-YANG-MODEL, in Turtle syntax.</a>
             </figcaption></figure>
 </div>
@@ -1732,10 +1764,10 @@ noria:Resource
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-extract-transform-load-pipe" class="section-name selfRef">Extract-Transform-Load pipelines for the ITSM-KG</a>
         </h3>
 <p id="section-4.3-1">The following figures illustrate different scenarios for constructing a ITSM-KG through an Extract-Transform-Load (ETL) data integration pipeline.
-From the perspective of the Digital Map Requirements (<a href="#sec-digital-map" class="auto internal xref">Section 3.2</a>), the <a href="#fig-stream-mixed" class="auto internal xref">Figure 9</a>, <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 10</a> and <a href="#fig-multi-store" class="auto internal xref">Figure 11</a> particularly address the REQ-DM-SCALES requirement.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">TBC : on the capability to record event streams into a knowledge graph (<a href="#fig-stream-kg-only" class="auto internal xref">Figure 7</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 8</a>).<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+From the perspective of the Digital Map Requirements (<a href="#sec-digital-map" class="auto internal xref">Section 3.2</a>), the <a href="#fig-stream-mixed" class="auto internal xref">Figure 10</a>, <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 11</a> and <a href="#fig-multi-store" class="auto internal xref">Figure 12</a> particularly address the REQ-DM-SCALES requirement.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">TBC : on the capability to record event streams into a knowledge graph (<a href="#fig-stream-kg-only" class="auto internal xref">Figure 8</a> and <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 9</a>).<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <span id="name-kg-only-data-integration-ar"></span><div id="fig-stream-kg-only">
-<figure id="figure-7">
+<figure id="figure-8">
           <div class="alignLeft art-ascii-art art-text artwork" id="section-4.3-3.1">
 <pre>
           ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
@@ -1753,12 +1785,12 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
                     └──────────────────────────────────────────┘
 </pre>
 </div>
-<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-kg-only-data-integration-ar" class="selfRef">KG-only data integration architecture for event data streams</a>
           </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represe"></span><div id="fig-stream-kg-only-kr">
-<figure id="figure-8">
+<figure id="figure-9">
           <div class="alignLeft art-ascii-art art-text artwork" id="section-4.3-4.1">
 <pre>
                          &lt;object/RES_router3&gt;
@@ -1774,13 +1806,13 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
                  &lt;event/LOG_login_03&gt;         └───────────┘
 </pre>
 </div>
-<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-resulting-knowledge-represe" class="selfRef">Resulting knowledge representation for the KG-only data integration architecture for event data streams</a>
           </figcaption></figure>
 </div>
-<p id="section-4.3-5">TBC : on the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations although each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB (<a href="#fig-stream-mixed" class="auto internal xref">Figure 9</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 10</a>).<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-5">TBC : on the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations although each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB (<a href="#fig-stream-mixed" class="auto internal xref">Figure 10</a> and <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 11</a>).<a href="#section-4.3-5" class="pilcrow">¶</a></p>
 <span id="name-mixed-kg-non-kg-data-integr"></span><div id="fig-stream-mixed">
-<figure id="figure-9">
+<figure id="figure-10">
           <div class="alignLeft art-ascii-art art-text artwork" id="section-4.3-6.1">
 <pre>
                   ┌────────────┐
@@ -1804,12 +1836,12 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
                                            └────────┘  └──────┘
 </pre>
 </div>
-<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-mixed-kg-non-kg-data-integr" class="selfRef">Mixed KG/non-KG data integration architecture for event data streams</a>
           </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represen"></span><div id="fig-stream-mixed-kr">
-<figure id="figure-10">
+<figure id="figure-11">
           <div class="alignLeft art-ascii-art art-text artwork" id="section-4.3-7.1">
 <pre>
                                 &lt;object/RES_router3&gt;
@@ -1842,13 +1874,13 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
 └──shared─identifier──────────────┘
 </pre>
 </div>
-<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
+<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
 <a href="#name-resulting-knowledge-represen" class="selfRef">Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams</a>
           </figcaption></figure>
 </div>
-<p id="section-4.3-8">TBC : on the capability to provide unified access to data distributed across various technological platforms thanks to Federated Queries and the use of an ONTO-ITSM (<a href="#fig-multi-store" class="auto internal xref">Figure 11</a>).<a href="#section-4.3-8" class="pilcrow">¶</a></p>
+<p id="section-4.3-8">TBC : on the capability to provide unified access to data distributed across various technological platforms thanks to Federated Queries and the use of an ONTO-ITSM (<a href="#fig-multi-store" class="auto internal xref">Figure 12</a>).<a href="#section-4.3-8" class="pilcrow">¶</a></p>
 <span id="name-unified-access-to-data-dist"></span><div id="fig-multi-store">
-<figure id="figure-11">
+<figure id="figure-12">
           <div class="alignLeft art-ascii-art art-text artwork" id="section-4.3-9.1">
 <pre>
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
@@ -1890,7 +1922,7 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
       └─────────────────────────────────────────────────┘
 </pre>
 </div>
-<figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
+<figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
 <a href="#name-unified-access-to-data-dist" class="selfRef">Unified access to data distributed across various technological platforms</a>
           </figcaption></figure>
 </div>
@@ -2016,7 +2048,7 @@ similarities, then use this relatedness to alert and guide the repair).<a href="
       </h2>
 <p id="section-6-1">As this document covers the <em>ITSM-KG</em> concepts, and use cases, there is no specific security considerations.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
-To support the discussion on mitigating this risk, we suggest referring to <a href="#fig-multi-store" class="auto internal xref">Figure 11</a>, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
+To support the discussion on mitigating this risk, we suggest referring to <a href="#fig-multi-store" class="auto internal xref">Figure 12</a>, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
 We also recommend referring to <span>[<a href="#AMO-2012" class="cite xref">AMO-2012</a>]</span> for an example of implementation of access rights in a content management system that relies on Semantic Web models and technologies.
 This implementation uses the AMO ontology, which includes a set of classes and properties for annotating resources that require access control, as well as a base of inference rules that model the access management strategy to carry out.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
