@@ -325,6 +325,9 @@ ONTO-YANG-MODEL:
 ONTO-ITSM:
 : TBC
 
+ONTO-LINKER
+:
+
 ## Relation to the Digital Map {#sec-digital-map}
 
 Similar to the concept of *ITSM-KG* discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
@@ -437,44 +440,44 @@ TODO Briefly explain challenges in model to RDF transformation
 In this section, we present two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
 
 To present the approaches, we assume the ability to convert a given YANG model into its equivalent RDFS/OWL representation.
-The code snippet {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
+The code snippet in {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
 
 ~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
 <urn:ietf:params:xml:ns:yang:ietf-network#node>
-rdf:type owl:Class ;
-rdfs:comment  "The inventory of nodes of this network." ;
+  rdf:type owl:Class ;
+  rdfs:comment  "The inventory of nodes of this network." ;
 .
 ~~~
-{: #snippet-ietf-network-node title="The 'node' concept from {{!RFC8345}} into its RDFS/OWL equivalent, in Turtle syntax." sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
-
-~~~~
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-<https://example.com/ontologies/itsm/>
-    rdf:type owl:Ontology ;
-    owl:imports
-        <https://w3id.org/noria/ontology/> ,  #
-        <https://example.com/ontologies/ietf-noria-linker> ,
-        <https://example.com/ontologies/ietf-network-topology> ;
-.
-~~~~
+{: #snippet-ietf-network-node title="Snippet of the ONTO-YANG-MODEL describing the 'node' concept from RFC8345 into its RDFS/OWL equivalent, in Turtle syntax."}
 
 
+### The network of ontologies approach
+
+TBC
 
 ~~~
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
+@prefix observable:  # Unified Cybersecurity Ontology (UCO)
+  <https://unifiedcyberontology.org/ontology/uco/observable#> .
+@prefix log: <https://w3id.org/sepses/ns/log#> .  # a.k.a. SLOGERT
+
 @prefix noria: <https://w3id.org/noria/ontology/> .
 
 noria:Resource
     rdf:type owl:Class ;
     rdfs:label "Resource" ;
-    rdfs:comment """General resource record of the Communication Device kind from the logistics park. It is a managed entity that can be either Physical or Virtual."""@en ;
+    rdfs:comment """General resource record of the Communication Device
+      kind from the logistics park. It is a managed entity that can be
+      either Physical or Virtual."""@en ;
     rdfs:subClassOf noria:StructuralElement ;
     rdfs:subClassOf
         seas:System,
@@ -485,6 +488,79 @@ noria:Resource
     rdfs:isDefinedBy noria: ;
 .
 ~~~
+{: #snippet-noria-o-as-it-is title="Snippet of the ONTO-META describing the 'noria:Resource' concept from NORIA-O v0.3, in Turtle syntax."}
+
+
+~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix noria: <https://w3id.org/noria/ontology/> .
+
+noria:Resource
+  owl:equivalentClass <urn:ietf:params:xml:ns:yang:ietf-network#node> ;
+.
+~~~
+{: #snippet-onto-itsm title="Snippet of the ONTO-LINKER to relate ONTO-YANG-MODEL definition(s) with ONTO-META definition(s), in Turtle syntax."}
+
+
+~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<https://example.com/ontologies/itsm/>
+  rdf:type owl:Ontology ;
+  owl:imports
+    # ===> Import of one of the ONTO-YANG-MODEL <===
+    <https://example.com/ontologies/ietf-network-topology> ,
+    # ===> Import of the ONTO-META <===
+    <https://w3id.org/noria/ontology/> ,
+    # ===> Import of the ONTO-LINKER definitions <===
+    <https://example.com/ontologies/ietf-noria-linker> ;
+.
+~~~
+{: #snippet-onto-linker title="The implementation of the ONTO-ITSM to structure the relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax."}
+
+### Explicit linking in the ONTO-META
+
+~~~
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
+@prefix observable:  # Unified Cybersecurity Ontology (UCO)
+  <https://unifiedcyberontology.org/ontology/uco/observable#> .
+@prefix log: <https://w3id.org/sepses/ns/log#> .  # a.k.a. SLOGERT
+
+@prefix noria: <https://w3id.org/noria/ontology/> .
+
+<https://w3id.org/noria/ontology/>
+  a owl:Ontology ;
+  # ===> Import of one of the ONTO-YANG-MODEL <===
+  <https://example.com/ontologies/ietf-network-topology> .
+
+noria:Resource
+    rdf:type owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment """General resource record of the Communication Device
+      kind from the logistics park. It is a managed entity that can be
+      either Physical or Virtual."""@en ;
+    rdfs:subClassOf noria:StructuralElement ;
+    rdfs:subClassOf
+        seas:System,
+        seas:CommunicationDevice,
+        bot:Element ,
+        observable:Device ,
+        log:Host ;
+    rdfs:isDefinedBy noria: ;
+    # ===> Explicit linking to ONTO-YANG-MODEL <===
+    owl:equivalentClass <urn:ietf:params:xml:ns:yang:ietf-network#node>
+.
+~~~
+{: #snippet-noria-o-extended title="Snippet of the ONTO-META describing the 'noria:Resource' concept from NORIA-O v0.3 with added linking to ONTO-YANG-MODEL, in Turtle syntax."}
+
 
 ## Extract-Transform-Load pipelines for the ITSM-KG {#sec-etl-kgc}
 
