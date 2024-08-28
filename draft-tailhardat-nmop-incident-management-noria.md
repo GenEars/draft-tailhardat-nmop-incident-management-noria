@@ -234,7 +234,7 @@ An experiment is proposed to assess the potential of the ITSM-KG in improving ne
 
 --- middle
 
-# Introduction
+# Introduction {#sec-intro}
 
 Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
 Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
@@ -309,12 +309,14 @@ The implementation status related to this document is also reported in this sect
 
 # An ITSM-KG for learning and sharing network behavioral models {#sec-itsm-base}
 
+## Principles
+
 TODO NetOps perspective
 
 TODO SecOps perspective
 
 ITSM-KG:
-: TBC
+: A knowledge graph enabling change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.
 
 ONTO-META:
 : TBC
@@ -369,7 +371,7 @@ A comment is provided as necessary.
 **+** REQ-GRAPH-TRAVERSAL:
 : This capability is naturally enabled as the meta-KG concept involves using a graph data structure.
 
-#### Design Requirements {#sec-digital-map-design}
+### Design Requirements {#sec-digital-map-design}
 
 **-** REQ-TOPO-ONLY:
 : Requirement not satisfied as the meta-KG involves to have more than topological data to interpret and contextualize the network behavior.
