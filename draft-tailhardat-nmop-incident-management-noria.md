@@ -440,7 +440,7 @@ ONTO-YANG-MODEL:
 ONTO-ITSM:
 : For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.
 
-ONTO-LINKER
+ONTO-LINKER:
 : For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.
 
 
@@ -491,7 +491,7 @@ An additional import in {{snippet-onto-linker}} relates to the ONTO-LINKER.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems
 @prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
 @prefix observable:  # Unified Cybersecurity Ontology (UCO)
   <https://unifiedcyberontology.org/ontology/uco/observable#> .
@@ -538,7 +538,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX noria: <http://data-noria.securite.fr.intraorange/ontology/>
 
-SELECT ?res ?name ?supRes ?supName
+SELECT ?res
 
 WHERE {
   # Pattern for the base class from ONTO-META
@@ -563,7 +563,7 @@ The query in {{snippet-sparql-equivalent}} applies here as well and will yield t
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems
 @prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
 @prefix observable:  # Unified Cybersecurity Ontology (UCO)
   <https://unifiedcyberontology.org/ontology/uco/observable#> .
@@ -627,7 +627,7 @@ The {{fig-stream-kg-only-kr}} provides an example of the resulting representatio
                     │(event/LOG_login_03)=>(object/RES/router1)│
                     └──────────────────────────────────────────┘
 ~~~~
-{: #fig-stream-kg-only title="KG-only data integration architecture for event data streams"}
+{: #fig-stream-kg-only title="KG-only data integration architecture for event data streams."}
 
 ~~~~ ascii-art
                          <object/RES_router3>
@@ -670,7 +670,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
                                            │        │  │└────┘│
                                            └────────┘  └──────┘
 ~~~~
-{: #fig-stream-mixed title="Mixed KG/non-KG data integration architecture for event data streams"}
+{: #fig-stream-mixed title="Mixed KG/non-KG data integration architecture for event data streams."}
 
 
 ~~~~ ascii-art
@@ -703,7 +703,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 │                                 ▲
 └──shared─identifier──────────────┘
 ~~~~
-{: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams"}
+{: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams."}
 
 
 ### Federated data architecture {#sec-etl-kgc-fq}
@@ -749,7 +749,7 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 ~~~~
-{: #fig-multi-store title="Unified access to data distributed across various technological platforms"}
+{: #fig-multi-store title="Unified access to data distributed across various technological platforms."}
 
 
 
@@ -825,4 +825,4 @@ This document has no IANA actions.
 
 We would like to thank Benoit Claise for spontaneously seeking to include the work of the NORIA research project in the vision of the NMOP working group through direct contact.
 
-We would also like to thank Fano Rampary for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.
+We would also like to thank Fano Ramparany for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.
