@@ -285,7 +285,7 @@ Table of Contents
 
    ONTO-ITSM:  TBC
 
-   ONTO-LINKER :
+   ONTO-LINKER  TBC
 
 3.2.  Relation to the Digital Map
 
@@ -450,12 +450,8 @@ Table of Contents
 4.2.  Implementing alignments of model-specificities to a multi-faceted
       knowledge graph
 
-   TODO Introduce the main case and subcases / Aligning operator-
-   specificities with a multi-faceted knowledge graph
-
-   TODO Briefly explain challenges in model to RDF transformation
-
-   In this section, we present two approaches to construct the
+   Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION
+   scenario, this section presents two approaches to construct the
    structuring ontology of the ITSM-KG by combining YANG models
    translated into RDFS/OWL and a meta-ontology enabling the analysis of
    the operational context of the network lifecycle.
@@ -477,6 +473,8 @@ Table of Contents
        Figure 2: Snippet of the ONTO-YANG-MODEL describing the 'node'
         concept from RFC8345 into its RDFS/OWL equivalent, in Turtle
                                   syntax.
+
+   TBC
 
 4.2.1.  The network of ontologies approach
 
@@ -585,16 +583,14 @@ noria:Resource
 
 4.3.  Extract-Transform-Load pipelines for the ITSM-KG
 
-   TODO Introduce the section.
-
-   TODO Relate the Meta-KG construction part to the following REQ-DM-
-   SCALES related considerations.
-
    The following figures illustrate different scenarios for constructing
    a ITSM-KG through an Extract-Transform-Load (ETL) data integration
    pipeline.  From the perspective of the Digital Map Requirements
    (Section 3.2), the Figure 9, Figure 10 and Figure 11 particularly
    address the REQ-DM-SCALES requirement.
+
+   TBC : on the capability to record event streams into a knowledge
+   graph (Figure 7 and Figure 8).
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
    ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
@@ -627,6 +623,13 @@ noria:Resource
 
      Figure 8: Resulting knowledge representation for the KG-only data
               integration architecture for event data streams
+
+   TBC : on the capability to handle both a knowledge graph and a time-
+   series representation of the network's lifecycle while maintaining a
+   link between the two representations although each serve different
+   purposes, such as context analysis with the knowledge graph
+   representation and trend analysis with the TSDB (Figure 9 and
+   Figure 10).
 
                      ┌────────────┐
                      │  Complex   │
@@ -682,6 +685,10 @@ noria:Resource
 
       Figure 10: Resulting knowledge representation for the mixed KG/
         non-KG data integration architecture for event data streams
+
+   TBC : on the capability to provide unified access to data distributed
+   across various technological platforms thanks to Federated Queries
+   and the use of an ONTO-ITSM (Figure 11).
 
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
