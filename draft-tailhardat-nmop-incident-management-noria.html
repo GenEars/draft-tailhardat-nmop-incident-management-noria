@@ -1901,41 +1901,45 @@ From the perspective of the Digital Map Requirements (<a href="#sec-digital-map"
 <span class="break"></span><dl class="dlParallel" id="section-5-2">
         <dt id="section-5-2.1">Y-MODEL-FROM-DATA:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.2">
-          <p id="section-5-2.2.1">Based on a dataset of configuration data expressed in YANG models, being able to extract the list of models involved for their conversion to their RDFS/OWL equivalent.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.2.1">Based on a dataset of configuration data expressed in YANG models, the goal is to enable extracting the list of models involved for their conversion to their RDFS/OWL equivalent.<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.3">Y-MODEL-DEPENDENCIES:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.4">
-          <p id="section-5-2.4.1">Based on a given YANG model, identify and retrieve all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.4.1">Based on a given YANG model, the goal is to enable identifying and retrieving all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.<a href="#section-5-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.5">Y-MODEL-TO-RDFS-OWL:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.6">
-          <p id="section-5-2.6.1">Based on a YANG model and the associated model corpus (see Y-MODEL-DEPENDENCIES), being able to produce a semantically equivalent RDFS/OWL representation.<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.6.1">Based on a YANG model and the associated model corpus (i.e. Y-MODEL-DEPENDENCIES), the goal is to enable producing a semantically equivalent RDFS/OWL representation (i.e. ONTO-YANG-MODEL).<a href="#section-5-2.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.7"></dt>
         <dd style="margin-left: 1.5em" id="section-5-2.8">
           <p id="section-5-2.8.1">Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.<a href="#section-5-2.8.1" class="pilcrow">¶</a></p>
 </dd>
-      <dd class="break"></dd>
-</dl>
-<p id="section-5-3">Y-INSTANCE-TO-KG:
-TODO details<a href="#section-5-3" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5-4">
-        <dt id="section-5-4.1">Y-MODEL-META-KG-ALIGNMENT:</dt>
-        <dd style="margin-left: 1.5em" id="section-5-4.2">
-          <p id="section-5-4.2.1">Based on a corpus of YANG models transformed into RDFS/OWL (see Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, being able to query the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.<a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
+        <dd class="break"></dd>
+<dt id="section-5-2.9">Y-INSTANCE-TO-KG:</dt>
+        <dd style="margin-left: 1.5em" id="section-5-2.10">
+          <p id="section-5-2.10.1">Based on a dataset of configuration data expressed in YANG models and the related (set of) ONTO-YANG-MODEL, the goal is to enable constructing a knowledge graph from the configuration data, with the knowledge graph structured by the (set of) ONTO-YANG-MODEL.<a href="#section-5-2.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-5-4.3"></dt>
-        <dd style="margin-left: 1.5em" id="section-5-4.4">
-          <p id="section-5-4.4.1">In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.<a href="#section-5-4.4.1" class="pilcrow">¶</a></p>
+<dt id="section-5-2.11">Y-MODEL-META-KG-ALIGNMENT:</dt>
+        <dd style="margin-left: 1.5em" id="section-5-2.12">
+          <p id="section-5-2.12.1">Based on a corpus of YANG models transformed into RDFS/OWL (i.e. Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, the goal is to enable querying of the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-5-2.13"></dt>
+        <dd style="margin-left: 1.5em" id="section-5-2.14">
+          <p id="section-5-2.14.1">In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.<a href="#section-5-2.14.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-5-2.15">META-KG-BEHAVIORAL-MODEL:</dt>
+        <dd style="margin-left: 1.5em" id="section-5-2.16">
+          <p id="section-5-2.16.1">Based on the ITSM-KG, which results from the composition of the Y-INSTANCE-TO-KG case with Y-MODEL-META-KG-ALIGNMENT and additional operational data structured by ONTO-META, the goal is to learn behavioral models (e.g. incident signatures) in a formalism that can be interpreted through the lenses of ONTO-ITSM and shared with other stakeholders with minimal discrepancies in the underlying configuration data.<a href="#section-5-2.16.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-5">META-KG-BEHAVIORAL-MODEL:
-TODO details<a href="#section-5-5" class="pilcrow">¶</a></p>
 <div id="implementation-status">
 <section id="section-5.1">
         <h3 id="name-implementation-status">
@@ -1985,6 +1989,7 @@ similarities, then use this relatedness to alert and guide the repair).<a href="
               <p id="section-5.1.1-2.3.1">SemNIDS <span>[<a href="#SemNIDS-2023" class="cite xref">SemNIDS-2023</a>]</span>, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.<a href="#section-5.1.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
+<p id="section-5.1.1-3">Note that the NORIA project does not currently address the Y-MODEL-FROM-DATA, Y-MODEL-DEPENDENCIES, and Y-MODEL-TO-RDFS-OWL use cases.<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1999,7 +2004,7 @@ similarities, then use this relatedness to alert and guide the repair).<a href="
 <p id="section-6-1">As this document covers the <em>ITSM-KG</em> concepts, and use cases, there is no specific security considerations.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
 To support the discussion on mitigating this risk, we suggest referring to <a href="#fig-multi-store" class="auto internal xref">Figure 11</a>, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
-We also recommend referring to <span>[<a href="#AMO-2012" class="cite xref">AMO-2012</a>]</span> for an example of implemention of access rights in a content management system that relies on Semantic Web models and technologies.
+We also recommend referring to <span>[<a href="#AMO-2012" class="cite xref">AMO-2012</a>]</span> for an example of implementation of access rights in a content management system that relies on Semantic Web models and technologies.
 This implementation uses the AMO ontology, which includes a set of classes and properties for annotating resources that require access control, as well as a base of inference rules that model the access management strategy to carry out.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
