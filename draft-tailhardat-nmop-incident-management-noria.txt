@@ -103,6 +103,8 @@ Table of Contents
        4.2.1.  The network of ontologies approach
        4.2.2.  Explicit linking in the ONTO-META
      4.3.  Extract-Transform-Load pipelines for the ITSM-KG
+       4.3.1.  Handling event streams
+       4.3.2.  Federated data architecture
    5.  Experiments
      5.1.  Experimental plan
      5.2.  Implementation status
@@ -639,14 +641,29 @@ noria:Resource
 
 4.3.  Extract-Transform-Load pipelines for the ITSM-KG
 
+   Based on XXX and [NORIA-DI-2023], which present the technical means
+   to implement a pipeline for constructing the ITSM-KG, this section
+   focuses on two complementary viewpoints: Section 4.3.1 the management
+   of streaming data such as alarms and logs, and Section 4.3.2 the
+   deployment of a federated data architecture when various technical
+   foundations or business units are involved in providing the ITSM-KG.
+
+   From the perspective of the Digital Map Requirements (Section 3.2),
+   the Figure 10, Figure 11 and Figure 12 particularly address the REQ-
+   DM-SCALES requirement.
+
+4.3.1.  Handling event streams
+
    The following figures illustrate different scenarios for constructing
    a ITSM-KG through an Extract-Transform-Load (ETL) data integration
-   pipeline.  From the perspective of the Digital Map Requirements
-   (Section 3.2), the Figure 10, Figure 11 and Figure 12 particularly
-   address the REQ-DM-SCALES requirement.
+   pipeline.
 
-   TBC : on the capability to record event streams into a knowledge
-   graph (Figure 8 and Figure 9).
+   Figure 8 illustrates a common design pattern providing the capability
+   to record event streams into a knowledge graph, such as an ITMS-KG if
+   considering that event data are mapped to ONTO-META concepts and
+   network entities to ONTO-YANG-MODEL concepts.  The Figure 9 provides
+   an example of the resulting representation in the form of a knowledge
+   graph.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
    ┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
@@ -680,12 +697,19 @@ noria:Resource
      Figure 9: Resulting knowledge representation for the KG-only data
               integration architecture for event data streams
 
-   TBC : on the capability to handle both a knowledge graph and a time-
-   series representation of the network's lifecycle while maintaining a
-   link between the two representations although each serve different
-   purposes, such as context analysis with the knowledge graph
-   representation and trend analysis with the TSDB (Figure 10 and
-   Figure 11).
+   As event streams can be high-paced, it could be beneficial to
+   leverage input/output (I/O) performance optimizations specific to
+   each type of database management system (DBMS), such as Time-Series
+   DataBases (TSDBs) for streaming data and graph databases for
+   knowledge graphs.  Figure 10 illustrates the capability to handle
+   both a knowledge graph and a time-series representation of the
+   network's lifecycle while maintaining a link between the two
+   representations (Figure 11).  Each serve different purposes, such as
+   context analysis with the knowledge graph representation and trend
+   analysis with the TSDB.  Thanks to the linking between the two
+   storage systems, users browsing aggregated data from the knowledge
+   graph can access the raw data within the relevant time span for
+   further analysis, and vice versa.
 
                      ┌────────────┐
                      │  Complex   │
@@ -742,9 +766,12 @@ noria:Resource
       Figure 11: Resulting knowledge representation for the mixed KG/
         non-KG data integration architecture for event data streams
 
-   TBC : on the capability to provide unified access to data distributed
-   across various technological platforms thanks to Federated Queries
-   and the use of an ONTO-ITSM (Figure 12).
+4.3.2.  Federated data architecture
+
+   The Figure 12 illustrates the principles for providing unified access
+   to data distributed across various technological platforms and
+   stakeholders thanks to Federated Queries [SPARQL11-FQ] and the use of
+   a shared ONTO-ITSM across data management platforms.
 
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
