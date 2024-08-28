@@ -294,10 +294,10 @@ By going a step further, we notice that a generic understanding of incident cont
 Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
 
 The remainder of this document is organized as follows.
-Firstly, the concept of an *ITSM-KG* is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
+Firstly, the concept of an ITSM-KG is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
 The relation of the ITSM-KG proposal to the Digital Map {{?I-D.havel-nmop-digital-map-concept}} is notably discussed in this section.
 Secondly, strategies for the ITSM-KG construction are discussed in {{sec-kgc}}.
-This include YANG models transformation in {{sec-gluing-techniques}}, implementing alignments of models with the ITSM-KG in {{sec-gluing-techniques}}, and knowledge graph construction pipeline designs in {{sec-etl-kgc}}.
+This include YANG models transformation in {{sec-yang-to-kg}}, implementing alignments of models with the ITSM-KG in {{sec-gluing-techniques}}, and knowledge graph construction pipeline designs in {{sec-etl-kgc}}.
 The {{sec-etl-kgc}} notably focuses on addressing the handling of event data streams and providing a unified view for different stakeholders, also known as the data federation architecture.
 Finally, an experiment is proposed in {{sec-experiments}} to assess the potential of the ITSM-KG in improving network quality and designs.
 The implementation status related to this document is also reported in this section.
@@ -311,16 +311,27 @@ The implementation status related to this document is also reported in this sect
 
 ## Principles
 
-TODO NetOps perspective
-
-TODO SecOps perspective
+As evoked in {{sec-intro}}, a detailed characterization of network behavior requires combining several facets of data related both to the configuration of the networks and to their lifecycle, as well as the ecosystem in which they are operated.
+In this document, we will consider the following fundamental definitions as a means to achieve the combination of all these facets of data in a convenient way, regardless of their origin, for operational efficiency in incident management and change management with the aid of AI tools:
 
 ITSM-KG:
-: A knowledge graph enabling change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.
+: A knowledge graph in RDFS/OWL syntax tha enables change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.
+
+ONTO-ITSM:
+: For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.
+
+ONTO-YANG-MODEL:
+: For a given YANG model, its equivalent RDFS/OWL representation.
 
 ONTO-META:
-: TBC
+: An ontology that contributes to structuring some ITSM-KG, regardless of the specifics of a given application domain or ITSM-KG instance, in the sense that it provides an abstract IT Service Management model (i.e. it holds generic concept and property definitions for realizing IT Service Management activities).
 
+ONTO-LINKER:
+: For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.
+
+Based on these definitions, which will be discussed in more detail later in this document, {{fig-incident-context}} can be seen as an illustration of ITSM-KG from which a subgraph has been extracted, allowing for incident situation to be analyzed through querying.
+For example, close to ideas from {{?I-D.netana-nmop-network-anomaly-lifecycle}}, querying the evolution of network entities states from the ITSM-KG during some incident remediation stage could bring to identify the causal graph underlying incident resolution.
+As the querying would go through the ONTO-ITSM, the causal graph would de-facto be an abstraction of the situation, thereby enabling knowledge capitalization and sharing for similar incidents that could occur later.
 
 ## Relation to the Digital Map {#sec-digital-map}
 
@@ -431,18 +442,6 @@ Examples of approaches for linking ontologies are provided in {{sec-gluing-techn
 
 Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
 As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
-
-For the sake of clarity, we introduce the following additional definitions:
-
-ONTO-YANG-MODEL:
-: For a given YANG model, its equivalent RDFS/OWL representation.
-
-ONTO-ITSM:
-: For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.
-
-ONTO-LINKER:
-: For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.
-
 
 To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
 The code snippet in {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
