@@ -91,9 +91,11 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  An ITSM-KG for learning and sharing network behavioral models
-     3.1.  Relation to the Digital Map
-       3.1.1.  Core Requirements
-       3.1.2.  Architectural Requirements
+     3.1.  Principles
+     3.2.  Relation to the Digital Map
+       3.2.1.  Core Requirements
+       3.2.2.  Design Requirements
+       3.2.3.  Architectural Requirements
    4.  Strategies for the ITSM-KG construction
      4.1.  From YANG-based configurations to meta-knowledge graph
      4.2.  Implementing alignments of model-specificities to a
@@ -264,11 +266,18 @@ Table of Contents
 
 3.  An ITSM-KG for learning and sharing network behavioral models
 
+3.1.  Principles
+
    TODO NetOps perspective
 
    TODO SecOps perspective
 
-   ITSM-KG:  TBC
+   ITSM-KG:  A knowledge graph enabling change management activities,
+      anomaly detection, and risk analysis at the organizational level
+      by combining heterogeneous data sources from the configuration
+      data of the network's structural elements, events occurring on
+      this network, and any other data useful to the business for the
+      effective management of the services provided by this network.
 
    ONTO-META:  TBC
 
@@ -278,7 +287,7 @@ Table of Contents
 
    ONTO-LINKER :
 
-3.1.  Relation to the Digital Map
+3.2.  Relation to the Digital Map
 
    Similar to the concept of _ITSM-KG_ discussed in this document, the
    concept of _Digital Map_ discussed in
@@ -291,15 +300,15 @@ Table of Contents
    additional pieces of information are considered essential for
    learning shareable activity models of systems.
 
-   To clarify this positioning, the following lists (Section 3.1.1,
-   Section 3.1.1.1, and Section 3.1.2) reflect the compliance of the
-   meta-KG concept with the Digital Map Requirements defined in
+   To clarify this positioning, the following lists (Section 3.2.1,
+   Section 3.2.2, and Section 3.2.3) reflect the compliance of the meta-
+   KG concept with the Digital Map Requirements defined in
    [I-D.havel-nmop-digital-map-concept].  A symbol to the right of each
    requirement name indicates the nature of compliance: *+* for
    compatibility, */* for partial satisfaction, *-* for non-compliance
    with the requirement.  A comment is provided as necessary.
 
-3.1.1.  Core Requirements
+3.2.1.  Core Requirements
 
    *+* REQ-BASIC-MODEL-SUPPORT:  nothing to report (n.t.r.)
 
@@ -332,7 +341,7 @@ Table of Contents
    *+* REQ-GRAPH-TRAVERSAL:  This capability is naturally enabled as the
       meta-KG concept involves using a graph data structure.
 
-3.1.1.1.  Design Requirements
+3.2.2.  Design Requirements
 
    *-* REQ-TOPO-ONLY:  Requirement not satisfied as the meta-KG involves
       to have more than topological data to interpret and contextualize
@@ -348,7 +357,7 @@ Table of Contents
 
    *+* REQ-TEMPO-HISTO:  n.t.r.
 
-3.1.2.  Architectural Requirements
+3.2.3.  Architectural Requirements
 
    *+* REQ-DM-SCALES:  This capability applies as we can use data
       aggregation at the graph level (Figure 9 and Figure 10 compared to
@@ -584,7 +593,7 @@ noria:Resource
    The following figures illustrate different scenarios for constructing
    a ITSM-KG through an Extract-Transform-Load (ETL) data integration
    pipeline.  From the perspective of the Digital Map Requirements
-   (Section 3.1), the Figure 9, Figure 10 and Figure 11 particularly
+   (Section 3.2), the Figure 9, Figure 10 and Figure 11 particularly
    address the REQ-DM-SCALES requirement.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
