@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 28 February 2025                                        EURECOM
+Expires: 1 March 2025                                            EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                          27 August 2024
+                                                          28 August 2024
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -70,7 +70,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 February 2025.
+   This Internet-Draft will expire on 1 March 2025.
 
 Copyright Notice
 
@@ -98,6 +98,8 @@ Table of Contents
      4.1.  From YANG-based configurations to meta-knowledge graph
      4.2.  Implementing alignments of model-specificities to a
            multi-faceted knowledge graph
+       4.2.1.  The network of ontologies approach
+       4.2.2.  Explicit linking in the ONTO-META
      4.3.  Extract-Transform-Load pipelines for the ITSM-KG
    5.  Experiments
      5.1.  Implementation status
@@ -266,6 +268,16 @@ Table of Contents
 
    TODO SecOps perspective
 
+   ITSM-KG:  TBC
+
+   ONTO-META:  TBC
+
+   ONTO-YANG-MODEL:  TBC
+
+   ONTO-ITSM:  TBC
+
+   ONTO-LINKER :
+
 3.1.  Relation to the Digital Map
 
    Similar to the concept of _ITSM-KG_ discussed in this document, the
@@ -339,13 +351,13 @@ Table of Contents
 3.1.2.  Architectural Requirements
 
    *+* REQ-DM-SCALES:  This capability applies as we can use data
-      aggregation at the graph level (Figure 4 and Figure 5 compared to
-      Figure 2 and Figure 3), aggregation without loss of information
-      (Figure 4 and Figure 5), and load balancing (horizontal scaling)
-      by partitioning the meta-KG (Figure 6).  Further, ease of
+      aggregation at the graph level (Figure 9 and Figure 10 compared to
+      Figure 7 and Figure 8), aggregation without loss of information
+      (Figure 9 and Figure 10), and load balancing (horizontal scaling)
+      by partitioning the meta-KG (Figure 11).  Further, ease of
       integration is enabled thanks to existing standard graph data
       access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
-      illustrated in Figure 6).
+      illustrated in Figure 11).
 
    */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
 
@@ -426,34 +438,51 @@ Table of Contents
 
    TODO Briefly explain challenges in model to RDF transformation
 
+   In this section, we present two approaches to construct the
+   structuring ontology of the ITSM-KG by combining YANG models
+   translated into RDFS/OWL and a meta-ontology enabling the analysis of
+   the operational context of the network lifecycle.
+
+   To present the approaches, we assume the ability to convert a given
+   YANG model into its equivalent RDFS/OWL representation.  The code
+   snippet in Figure 2 is a fictional example of translating the "node"
+   concept from [RFC8345] into its RDFS/OWL equivalent.
+
    @prefix owl: <http://www.w3.org/2002/07/owl#> .
    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-   @prefix xml: <http://www.w3.org/XML/1998/namespace> .
-   @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-   <https://example.com/ontologies/itsm/>
-       rdf:type owl:Ontology ;
-       owl:imports
-           <https://w3id.org/noria/ontology/> ,  #
-           <https://example.com/ontologies/ietf-noria-linker> ,
-           <https://example.com/ontologies/ietf-network-topology> ;
-   .
 
    <urn:ietf:params:xml:ns:yang:ietf-network#node>
-       rdf:type owl:Class ;
-       rdfs:comment  "The inventory of nodes of this network." ;
+     rdf:type owl:Class ;
+     rdfs:comment  "The inventory of nodes of this network." ;
    .
+
+       Figure 2: Snippet of the ONTO-YANG-MODEL describing the 'node'
+        concept from RFC8345 into its RDFS/OWL equivalent, in Turtle
+                                  syntax.
+
+4.2.1.  The network of ontologies approach
+
+   TBC
 
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
+@prefix observable:  # Unified Cybersecurity Ontology (UCO)
+  <https://unifiedcyberontology.org/ontology/uco/observable#> .
+@prefix log: <https://w3id.org/sepses/ns/log#> .  # a.k.a. SLOGERT
+
 @prefix noria: <https://w3id.org/noria/ontology/> .
 
 noria:Resource
     rdf:type owl:Class ;
     rdfs:label "Resource" ;
-    rdfs:comment """General resource record of the Communication Device kind from the logistics park. It is a managed entity that can be either Physical or Virtual."""@en ;
+    rdfs:comment """General resource record of the Communication Device
+      kind from the logistics park. It is a managed entity that can be
+      either Physical or Virtual."""@en ;
     rdfs:subClassOf noria:StructuralElement ;
     rdfs:subClassOf
         seas:System,
@@ -463,6 +492,79 @@ noria:Resource
         log:Host ;
     rdfs:isDefinedBy noria: ;
 .
+
+          Figure 3: Snippet of the ONTO-META describing the
+    'noria:Resource' concept from NORIA-O v0.3, in Turtle syntax.
+
+ @prefix owl: <http://www.w3.org/2002/07/owl#> .
+ @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+ @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+ @prefix noria: <https://w3id.org/noria/ontology/> .
+
+ noria:Resource
+   owl:equivalentClass <urn:ietf:params:xml:ns:yang:ietf-network#node> ;
+ .
+
+     Figure 4: Snippet of the ONTO-LINKER to relate ONTO-YANG-MODEL
+     definition(s) with ONTO-META definition(s), in Turtle syntax.
+
+   @prefix owl: <http://www.w3.org/2002/07/owl#> .
+   @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+   <https://example.com/ontologies/itsm/>
+     rdf:type owl:Ontology ;
+     owl:imports
+       # ===> Import of one of the ONTO-YANG-MODEL <===
+       <https://example.com/ontologies/ietf-network-topology> ,
+       # ===> Import of the ONTO-META <===
+       <https://w3id.org/noria/ontology/> ,
+       # ===> Import of the ONTO-LINKER definitions <===
+       <https://example.com/ontologies/ietf-noria-linker> ;
+   .
+
+       Figure 5: The implementation of the ONTO-ITSM to structure the
+      relation of ONTO-YANG-MODEL(s) with ONTO-META, in Turtle syntax.
+
+4.2.2.  Explicit linking in the ONTO-META
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix seas: <https://w3id.org/seas/>.  # Smart Energy Aware Systems (SEAS)
+@prefix bot:  <https://w3id.org/bot#> .  # Building Topology Ontology
+@prefix observable:  # Unified Cybersecurity Ontology (UCO)
+  <https://unifiedcyberontology.org/ontology/uco/observable#> .
+@prefix log: <https://w3id.org/sepses/ns/log#> .  # a.k.a. SLOGERT
+
+@prefix noria: <https://w3id.org/noria/ontology/> .
+
+<https://w3id.org/noria/ontology/>
+  a owl:Ontology ;
+  # ===> Import of one of the ONTO-YANG-MODEL <===
+  <https://example.com/ontologies/ietf-network-topology> .
+
+noria:Resource
+    rdf:type owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment """General resource record of the Communication Device
+      kind from the logistics park. It is a managed entity that can be
+      either Physical or Virtual."""@en ;
+    rdfs:subClassOf noria:StructuralElement ;
+    rdfs:subClassOf
+        seas:System,
+        seas:CommunicationDevice,
+        bot:Element ,
+        observable:Device ,
+        log:Host ;
+    rdfs:isDefinedBy noria: ;
+    # ===> Explicit linking to ONTO-YANG-MODEL <===
+    owl:equivalentClass <urn:ietf:params:xml:ns:yang:ietf-network#node>
+.
+
+          Figure 6: Snippet of the ONTO-META describing the
+   'noria:Resource' concept from NORIA-O v0.3 with added linking to
+                  ONTO-YANG-MODEL, in Turtle syntax.
 
 4.3.  Extract-Transform-Load pipelines for the ITSM-KG
 
@@ -474,7 +576,7 @@ noria:Resource
    The following figures illustrate different scenarios for constructing
    a ITSM-KG through an Extract-Transform-Load (ETL) data integration
    pipeline.  From the perspective of the Digital Map Requirements
-   (Section 3.1), the Figure 4, Figure 5 and Figure 6 particularly
+   (Section 3.1), the Figure 9, Figure 10 and Figure 11 particularly
    address the REQ-DM-SCALES requirement.
 
              ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
@@ -491,7 +593,7 @@ noria:Resource
                        │(event/LOG_login_03)=>(object/RES/router1)│
                        └──────────────────────────────────────────┘
 
-       Figure 2: KG-only data integration architecture for event data
+       Figure 7: KG-only data integration architecture for event data
                                   streams
 
                             <object/RES_router3>
@@ -506,7 +608,7 @@ noria:Resource
                   <event/LOG_login_02>──rdf:type─┤EventRecord│
                     <event/LOG_login_03>         └───────────┘
 
-     Figure 3: Resulting knowledge representation for the KG-only data
+     Figure 8: Resulting knowledge representation for the KG-only data
               integration architecture for event data streams
 
                      ┌────────────┐
@@ -529,7 +631,7 @@ noria:Resource
                                               │        │  │└────┘│
                                               └────────┘  └──────┘
 
-     Figure 4: Mixed KG/non-KG data integration architecture for event
+     Figure 9: Mixed KG/non-KG data integration architecture for event
                                 data streams
 
                                    <object/RES_router3>
@@ -561,7 +663,7 @@ noria:Resource
    │                                 ▲
    └──shared─identifier──────────────┘
 
-       Figure 5: Resulting knowledge representation for the mixed KG/
+      Figure 10: Resulting knowledge representation for the mixed KG/
         non-KG data integration architecture for event data streams
 
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
@@ -602,7 +704,7 @@ noria:Resource
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 
-     Figure 6: Unified access to data distributed across various
+     Figure 11: Unified access to data distributed across various
                        technological platforms
 
 5.  Experiments
@@ -714,7 +816,7 @@ noria:Resource
    functions that fall outside the knowledge graph users' responsibility
    or that could facilitate the intervention of malicious individuals.
    To support the discussion on mitigating this risk, we suggest
-   referring to Figure 6, which illustrates the concept of partial
+   referring to Figure 11, which illustrates the concept of partial
    access to the meta-knowledge graph based on rights associated with
    each user group (UG) at the data domain level.  We also recommend
    referring to [AMO-2012] for an example of implemention of access
