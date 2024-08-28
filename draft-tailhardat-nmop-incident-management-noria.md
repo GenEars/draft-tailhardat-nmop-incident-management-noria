@@ -328,7 +328,7 @@ ONTO-ITSM:
 : TBC
 
 ONTO-LINKER
-:
+: TBC
 
 ## Relation to the Digital Map {#sec-digital-map}
 
@@ -438,11 +438,7 @@ As techniques for identifying alignments between data models is beyond the scope
 
 ## Implementing alignments of model-specificities to a multi-faceted knowledge graph {#sec-gluing-techniques}
 
-TODO Introduce the main case and subcases / Aligning operator-specificities with a multi-faceted knowledge graph
-
-TODO Briefly explain challenges in model to RDF transformation
-
-In this section, we present two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
+Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
 
 To present the approaches, we assume the ability to convert a given YANG model into its equivalent RDFS/OWL representation.
 The code snippet in {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
@@ -459,6 +455,7 @@ The code snippet in {{snippet-ietf-network-node}} is a fictional example of tran
 ~~~
 {: #snippet-ietf-network-node title="Snippet of the ONTO-YANG-MODEL describing the 'node' concept from RFC8345 into its RDFS/OWL equivalent, in Turtle syntax."}
 
+TBC
 
 ### The network of ontologies approach
 
@@ -569,12 +566,10 @@ noria:Resource
 
 ## Extract-Transform-Load pipelines for the ITSM-KG {#sec-etl-kgc}
 
-TODO Introduce the section.
-
-TODO Relate the Meta-KG construction part to the following REQ-DM-SCALES related considerations.
-
 The following figures illustrate different scenarios for constructing a ITSM-KG through an Extract-Transform-Load (ETL) data integration pipeline.
 From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
+
+TBC : on the capability to record event streams into a knowledge graph ({{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}).
 
 ~~~~ ascii-art
           ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
@@ -607,6 +602,9 @@ From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the 
                  <event/LOG_login_03>         └───────────┘
 ~~~~
 {: #fig-stream-kg-only-kr title="Resulting knowledge representation for the KG-only data integration architecture for event data streams"}
+
+
+TBC : on the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations although each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}).
 
 ~~~~ ascii-art
                   ┌────────────┐
@@ -664,6 +662,8 @@ From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the 
 ~~~~
 {: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams"}
 
+
+TBC : on the capability to provide unified access to data distributed across various technological platforms thanks to Federated Queries and the use of an ONTO-ITSM ({{fig-multi-store}}).
 
 ~~~~ ascii-art
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
