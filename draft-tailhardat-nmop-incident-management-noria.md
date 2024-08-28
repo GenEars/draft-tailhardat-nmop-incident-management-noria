@@ -313,6 +313,18 @@ TODO NetOps perspective
 
 TODO SecOps perspective
 
+ITSM-KG:
+: TBC
+
+ONTO-META:
+: TBC
+
+ONTO-YANG-MODEL:
+: TBC
+
+ONTO-ITSM:
+: TBC
+
 ## Relation to the Digital Map {#sec-digital-map}
 
 Similar to the concept of *ITSM-KG* discussed in this document, the concept of *Digital Map* discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
@@ -422,6 +434,19 @@ TODO Introduce the main case and subcases / Aligning operator-specificities with
 
 TODO Briefly explain challenges in model to RDF transformation
 
+In this section, we present two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
+
+To present the approaches, we assume the ability to convert a given YANG model into its equivalent RDFS/OWL representation.
+The code snippet {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
+
+~~~
+<urn:ietf:params:xml:ns:yang:ietf-network#node>
+rdf:type owl:Class ;
+rdfs:comment  "The inventory of nodes of this network." ;
+.
+~~~
+{: #snippet-ietf-network-node title="The 'node' concept from {{!RFC8345}} into its RDFS/OWL equivalent, in Turtle syntax." sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
+
 ~~~~
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -438,12 +463,6 @@ TODO Briefly explain challenges in model to RDF transformation
 .
 ~~~~
 
-~~~
-<urn:ietf:params:xml:ns:yang:ietf-network#node>
-    rdf:type owl:Class ;
-    rdfs:comment  "The inventory of nodes of this network." ;
-.
-~~~
 
 
 ~~~
