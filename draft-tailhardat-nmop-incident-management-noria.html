@@ -15,7 +15,7 @@ YANG data models enable describing network configurations and automating their d
 However, both approaches face challenges in vocabulary alignment and adoption, hindering knowledge capitalization and sharing on network designs and best practices.
 To address this, the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
 The key principle to achieve the construction of such ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
-An experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs. 
+In addition to use case analysis and design pattern analysis, an experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs. 
     " name="description">
 <meta content="xml2rfc 3.23.0" name="generator">
 <meta content="knowledge graphs" name="keyword">
@@ -1083,7 +1083,7 @@ YANG data models enable describing network configurations and automating their d
 However, both approaches face challenges in vocabulary alignment and adoption, hindering knowledge capitalization and sharing on network designs and best practices.
 To address this, the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
 The key principle to achieve the construction of such ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
-An experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+In addition to use case analysis and design pattern analysis, an experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1314,10 +1314,10 @@ Assuming the continuous integration into a knowledge graph of data from ticketin
 <p id="section-1-6">By going a step further, we notice that a generic understanding of incident context can be extracted and shared among operators from knowledge graphs.
 Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">The remainder of this document is organized as follows.
-Firstly, the concept of an <em>ITSM-KG</em> is introduced in <a href="#sec-itsm-base" class="auto internal xref">Section 3</a> towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
+Firstly, the concept of an ITSM-KG is introduced in <a href="#sec-itsm-base" class="auto internal xref">Section 3</a> towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
 The relation of the ITSM-KG proposal to the Digital Map <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span> is notably discussed in this section.
 Secondly, strategies for the ITSM-KG construction are discussed in <a href="#sec-kgc" class="auto internal xref">Section 4</a>.
-This include YANG models transformation in <a href="#sec-gluing-techniques" class="auto internal xref">Section 4.2</a>, implementing alignments of models with the ITSM-KG in <a href="#sec-gluing-techniques" class="auto internal xref">Section 4.2</a>, and knowledge graph construction pipeline designs in <a href="#sec-etl-kgc" class="auto internal xref">Section 4.3</a>.
+This include YANG models transformation in <a href="#sec-yang-to-kg" class="auto internal xref">Section 4.1</a>, implementing alignments of models with the ITSM-KG in <a href="#sec-gluing-techniques" class="auto internal xref">Section 4.2</a>, and knowledge graph construction pipeline designs in <a href="#sec-etl-kgc" class="auto internal xref">Section 4.3</a>.
 The <a href="#sec-etl-kgc" class="auto internal xref">Section 4.3</a> notably focuses on addressing the handling of event data streams and providing a unified view for different stakeholders, also known as the data federation architecture.
 Finally, an experiment is proposed in <a href="#sec-experiments" class="auto internal xref">Section 5</a> to assess the potential of the ITSM-KG in improving network quality and designs.
 The implementation status related to this document is also reported in this section.<a href="#section-1-7" class="pilcrow">¶</a></p>
@@ -1344,20 +1344,38 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-principles">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-principles" class="section-name selfRef">Principles</a>
         </h3>
-<p id="section-3.1-1">TODO NetOps perspective<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">TODO SecOps perspective<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1-3">
-          <dt id="section-3.1-3.1">ITSM-KG:</dt>
-          <dd style="margin-left: 1.5em" id="section-3.1-3.2">
-            <p id="section-3.1-3.2.1">A knowledge graph enabling change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">As evoked in <a href="#sec-intro" class="auto internal xref">Section 1</a>, a detailed characterization of network behavior requires combining several facets of data related both to the configuration of the networks and to their lifecycle, as well as the ecosystem in which they are operated.
+In this document, we will consider the following fundamental definitions as a means to achieve the combination of all these facets of data in a convenient way, regardless of their origin, for operational efficiency in incident management and change management with the aid of AI tools:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.1-2">
+          <dt id="section-3.1-2.1">ITSM-KG:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.2">
+            <p id="section-3.1-2.2.1">A knowledge graph in RDFS/OWL syntax tha enables change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-3.1-3.3">ONTO-META:</dt>
-          <dd style="margin-left: 1.5em" id="section-3.1-3.4">
-            <p id="section-3.1-3.4.1">TBC<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
+<dt id="section-3.1-2.3">ONTO-ITSM:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.4">
+            <p id="section-3.1-2.4.1">For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.1-2.5">ONTO-YANG-MODEL:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.6">
+            <p id="section-3.1-2.6.1">For a given YANG model, its equivalent RDFS/OWL representation.<a href="#section-3.1-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.1-2.7">ONTO-META:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.8">
+            <p id="section-3.1-2.8.1">An ontology that contributes to structuring some ITSM-KG, regardless of the specifics of a given application domain or ITSM-KG instance, in the sense that it provides an abstract IT Service Management model (i.e. it holds generic concept and property definitions for realizing IT Service Management activities).<a href="#section-3.1-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.1-2.9">ONTO-LINKER:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.10">
+            <p id="section-3.1-2.10.1">For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.<a href="#section-3.1-2.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
+<p id="section-3.1-3">Based on these definitions, which will be discussed in more detail later in this document, <a href="#fig-incident-context" class="auto internal xref">Figure 1</a> can be seen as an illustration of ITSM-KG from which a subgraph has been extracted, allowing for incident situation to be analyzed through querying.
+For example, close to ideas from <span>[<a href="#I-D.netana-nmop-network-anomaly-lifecycle" class="cite xref">I-D.netana-nmop-network-anomaly-lifecycle</a>]</span>, querying the evolution of network entities states from the ITSM-KG during some incident remediation stage could bring to identify the causal graph underlying incident resolution.
+As the querying would go through the ONTO-ITSM, the causal graph would de-facto be an abstraction of the situation, thereby enabling knowledge capitalization and sharing for similar incidents that could occur later.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-digital-map">
@@ -1365,7 +1383,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-relation-to-the-digital-map">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-relation-to-the-digital-map" class="section-name selfRef">Relation to the Digital Map</a>
         </h3>
-<p id="section-3.2-1">Similar to the concept of <em>ITSM-KG</em> discussed in this document, the concept of <em>Digital Map</em> discussed in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span> emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+<p id="section-3.2-1">Similar to the concept of ITSM-KG discussed in this document, the concept of Digital Map discussed in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span> emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
 The ITSM-KG can be seen as a meta-knowledge graph that extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">To clarify this positioning, the following lists (<a href="#sec-digital-map-core" class="auto internal xref">Section 3.2.1</a>, <a href="#sec-digital-map-design" class="auto internal xref">Section 3.2.2</a>, and <a href="#sec-digital-map-archi" class="auto internal xref">Section 3.2.3</a>) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in <span>[<a href="#I-D.havel-nmop-digital-map-concept" class="cite xref">I-D.havel-nmop-digital-map-concept</a>]</span>.
 A symbol to the right of each requirement name indicates the nature of compliance: <strong>+</strong> for compatibility, <strong>/</strong> for partial satisfaction, <strong>-</strong> for non-compliance with the requirement.
@@ -1556,29 +1574,11 @@ Examples of approaches for linking ontologies are provided in <a href="#sec-glui
         </h3>
 <p id="section-4.2-1">Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
 As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as <span>[<a href="#ONTO-MATCH-2022" class="cite xref">ONTO-MATCH-2022</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">For the sake of clarity, we introduce the following additional definitions:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-4.2-3">
-          <dt id="section-4.2-3.1">ONTO-YANG-MODEL:</dt>
-          <dd style="margin-left: 1.5em" id="section-4.2-3.2">
-            <p id="section-4.2-3.2.1">For a given YANG model, its equivalent RDFS/OWL representation.<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-<dt id="section-4.2-3.3">ONTO-ITSM:</dt>
-          <dd style="margin-left: 1.5em" id="section-4.2-3.4">
-            <p id="section-4.2-3.4.1">For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.<a href="#section-4.2-3.4.1" class="pilcrow">¶</a></p>
-</dd>
-          <dd class="break"></dd>
-<dt id="section-4.2-3.5">ONTO-LINKER</dt>
-          <dd style="margin-left: 1.5em" id="section-4.2-3.6">
-            <p id="section-4.2-3.6.1">For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.<a href="#section-4.2-3.6.1" class="pilcrow">¶</a></p>
-</dd>
-        <dd class="break"></dd>
-</dl>
-<p id="section-4.2-4">To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
-The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a> is a fictional example of translating the "node" concept from <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> into its RDFS/OWL equivalent.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
+The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a> is a fictional example of translating the "node" concept from <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> into its RDFS/OWL equivalent.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <span id="name-snippet-of-the-onto-yang-mo"></span><div id="snippet-ietf-network-node">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-4.2-5.1">
+          <div class="alignLeft art-text artwork" id="section-4.2-3.1">
 <pre>
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -1594,7 +1594,7 @@ The code snippet in <a href="#snippet-ietf-network-node" class="auto internal xr
 <a href="#name-snippet-of-the-onto-yang-mo" class="selfRef">Snippet of the ONTO-YANG-MODEL describing the 'node' concept from RFC8345 into its RDFS/OWL equivalent, in Turtle syntax.</a>
           </figcaption></figure>
 </div>
-<p id="section-4.2-6">The following sub-sections build on the ONTO-YANG-MODEL example from <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a>.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">The following sub-sections build on the ONTO-YANG-MODEL example from <a href="#snippet-ietf-network-node" class="auto internal xref">Figure 2</a>.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <div id="the-network-of-ontologies-approach">
 <section id="section-4.2.1">
           <h4 id="name-the-network-of-ontologies-a">
@@ -1635,7 +1635,7 @@ An additional import in <a href="#snippet-onto-linker" class="auto internal xref
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
 
-@prefix seas: &lt;https://w3id.org/seas/&gt;.  # Smart Energy Aware Systems (SEAS)
+@prefix seas: &lt;https://w3id.org/seas/&gt;.  # Smart Energy Aware Systems
 @prefix bot:  &lt;https://w3id.org/bot#&gt; .  # Building Topology Ontology
 @prefix observable:  # Unified Cybersecurity Ontology (UCO)
   &lt;https://unifiedcyberontology.org/ontology/uco/observable#&gt; .
@@ -1692,7 +1692,7 @@ PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 PREFIX noria: &lt;http://data-noria.securite.fr.intraorange/ontology/&gt;
 
-SELECT ?res ?name ?supRes ?supName
+SELECT ?res
 
 WHERE {
   # Pattern for the base class from ONTO-META
@@ -1726,7 +1726,7 @@ The query in <a href="#snippet-sparql-equivalent" class="auto internal xref">Fig
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
 
-@prefix seas: &lt;https://w3id.org/seas/&gt;.  # Smart Energy Aware Systems (SEAS)
+@prefix seas: &lt;https://w3id.org/seas/&gt;.  # Smart Energy Aware Systems
 @prefix bot:  &lt;https://w3id.org/bot#&gt; .  # Building Topology Ontology
 @prefix observable:  # Unified Cybersecurity Ontology (UCO)
   &lt;https://unifiedcyberontology.org/ontology/uco/observable#&gt; .
@@ -1771,7 +1771,7 @@ noria:Resource
         <h3 id="name-extract-transform-load-pipe">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-extract-transform-load-pipe" class="section-name selfRef">Extract-Transform-Load pipelines for the ITSM-KG</a>
         </h3>
-<p id="section-4.3-1">Based on XXX and <span>[<a href="#NORIA-DI-2023" class="cite xref">NORIA-DI-2023</a>]</span>, which present the technical means to implement a pipeline for constructing the ITSM-KG, this section focuses on two complementary viewpoints:
+<p id="section-4.3-1">Based on <span>[<a href="#I-D.marcas-nmop-knowledge-graph-yang" class="cite xref">I-D.marcas-nmop-knowledge-graph-yang</a>]</span> and <span>[<a href="#NORIA-DI-2023" class="cite xref">NORIA-DI-2023</a>]</span>, which present the technical means to implement a pipeline for constructing the ITSM-KG, this section focuses on two complementary viewpoints:
 <a href="#sec-etl-kgc-streams" class="auto internal xref">Section 4.3.1</a> the management of streaming data such as alarms and logs,
 and <a href="#sec-etl-kgc-fq" class="auto internal xref">Section 4.3.2</a> the deployment of a federated data architecture when various technical foundations or business units are involved in providing the ITSM-KG.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">From the perspective of the Digital Map Requirements (<a href="#sec-digital-map" class="auto internal xref">Section 3.2</a>), the <a href="#fig-stream-mixed" class="auto internal xref">Figure 10</a>, <a href="#fig-stream-mixed-kr" class="auto internal xref">Figure 11</a> and <a href="#fig-multi-store" class="auto internal xref">Figure 12</a> particularly address the REQ-DM-SCALES requirement.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
@@ -1803,7 +1803,7 @@ The <a href="#fig-stream-kg-only-kr" class="auto internal xref">Figure 9</a> pro
 </pre>
 </div>
 <figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
-<a href="#name-kg-only-data-integration-ar" class="selfRef">KG-only data integration architecture for event data streams</a>
+<a href="#name-kg-only-data-integration-ar" class="selfRef">KG-only data integration architecture for event data streams.</a>
             </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represe"></span><div id="fig-stream-kg-only-kr">
@@ -1857,7 +1857,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 </pre>
 </div>
 <figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
-<a href="#name-mixed-kg-non-kg-data-integr" class="selfRef">Mixed KG/non-KG data integration architecture for event data streams</a>
+<a href="#name-mixed-kg-non-kg-data-integr" class="selfRef">Mixed KG/non-KG data integration architecture for event data streams.</a>
             </figcaption></figure>
 </div>
 <span id="name-resulting-knowledge-represen"></span><div id="fig-stream-mixed-kr">
@@ -1895,7 +1895,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 </pre>
 </div>
 <figcaption><a href="#figure-11" class="selfRef">Figure 11</a>:
-<a href="#name-resulting-knowledge-represen" class="selfRef">Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams</a>
+<a href="#name-resulting-knowledge-represen" class="selfRef">Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams.</a>
             </figcaption></figure>
 </div>
 </section>
@@ -1950,7 +1950,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 </pre>
 </div>
 <figcaption><a href="#figure-12" class="selfRef">Figure 12</a>:
-<a href="#name-unified-access-to-data-dist" class="selfRef">Unified access to data distributed across various technological platforms</a>
+<a href="#name-unified-access-to-data-dist" class="selfRef">Unified access to data distributed across various technological platforms.</a>
             </figcaption></figure>
 </div>
 </section>
@@ -2229,7 +2229,7 @@ This implementation uses the AMO ontology, which includes a set of classes and p
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <p id="appendix-A-1">We would like to thank Benoit Claise for spontaneously seeking to include the work of the NORIA research project in the vision of the NMOP working group through direct contact.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">We would also like to thank Fano Rampary for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">We would also like to thank Fano Ramparany for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
