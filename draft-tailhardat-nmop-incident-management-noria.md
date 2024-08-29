@@ -789,6 +789,7 @@ Among the components resulting from this project, the following ones serve the u
 
 * NORIA-O {{NORIA-O-2024}}, is a data model for IT networks, events and operations information.
 The ontology is developed using web technologies (e.g. RDF, OWL, SKOS) and is intended as a structure for realizing an ITSM knowledge graph for Anomaly Detection (AD) and Risk Management applications.
+The NORIA-O implementation is available as open source at [https://w3id.org/noria/](https://w3id.org/noria/).
 Its use for anomaly detection is discussed in:
   - {{SLKG-2023}} with a model-based design approach (i.e. query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e. relate entities based on context
 similarities, then use this relatedness to alert and guide the repair).
@@ -796,9 +797,9 @@ similarities, then use this relatedness to alert and guide the repair).
   - {{NORIA-UI-2024}} a Web-based knowledge graph exploration design for incident management that combines the above {{SLKG-2023}} and {{GPL-2024}} techniques for broader coverage of anomaly cases and knowledge capitalization.
 
 * A knowledge graph-based platform design {{NORIA-DI-2023}} using Semantic Web technologies and open source data integration tools to build an ITSM knowledge graph:
-  - SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability.
-  - ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach.
-  - grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach).
+  - SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability. Available as open source at [https://github.com/Orange-OpenSource/smassif-rml](https://github.com/Orange-OpenSource/smassif-rml).
+  - ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach. Available as open source at [https://github.com/Orange-OpenSource/ssb-consum-up](https://github.com/Orange-OpenSource/ssb-consum-up).
+  - grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach). Available as open source at [https://github.com/Orange-OpenSource/grlc](https://github.com/Orange-OpenSource/grlc).
 
 * SemNIDS {{SemNIDS-2023}}, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.
 
@@ -824,4 +825,4 @@ This document has no IANA actions.
 
 We would like to thank Benoit Claise for spontaneously seeking to include the work of the NORIA research project in the vision of the NMOP working group through direct contact.
 
-We would also like to thank Fano Ramparany for his initial analysis of the possibilities of defining a model conversion algebra for going from Yang data models to OWL ontologies.
+We would also like to thank Fano Ramparany for his initial analysis of the possibilities of defining a model conversion algebra for going from YANG data models to OWL ontologies.
