@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 1 March 2025                                            EURECOM
+Expires: 2 March 2025                                            EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                          28 August 2024
+                                                          29 August 2024
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 March 2025.
+   This Internet-Draft will expire on 2 March 2025.
 
 Copyright Notice
 
@@ -908,8 +908,10 @@ WHERE {
       and operations information.  The ontology is developed using web
       technologies (e.g.  RDF, OWL, SKOS) and is intended as a structure
       for realizing an ITSM knowledge graph for Anomaly Detection (AD)
-      and Risk Management applications.  Its use for anomaly detection
-      is discussed in:
+      and Risk Management applications.  The NORIA-O implementation is
+      available as open source at https://w3id.org/noria/
+      (https://w3id.org/noria/).  Its use for anomaly detection is
+      discussed in:
 
       -  [SLKG-2023] with a model-based design approach (i.e. query the
          graph to retrieve anomalies and their context) and a
@@ -931,16 +933,22 @@ WHERE {
       to build an ITSM knowledge graph:
 
       -  SMASSIF-RML, a Semantic Web stream processing solution with
-         declarative data mapping capability.
+         declarative data mapping capability.  Available as open source
+         at https://github.com/Orange-OpenSource/smassif-rml
+         (https://github.com/Orange-OpenSource/smassif-rml).
 
       -  ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end
          Semantic Web data flow architecture with a Semantic Service Bus
-         (SSB) approach.
+         (SSB) approach.  Available as open source at
+         https://github.com/Orange-OpenSource/ssb-consum-up
+         (https://github.com/Orange-OpenSource/ssb-consum-up).
 
       -  grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab
          interface features to facilitate the call and versioning of
          stored user queries in SPARQL syntax (e.g. for anomaly
          detection following the model-based design approach).
+         Available as open source at https://github.com/Orange-
+         OpenSource/grlc (https://github.com/Orange-OpenSource/grlc).
 
    *  SemNIDS [SemNIDS-2023], a test bench involving network trafic
       generation, open source Network Intrusion Detection Systems
@@ -1147,7 +1155,7 @@ Acknowledgments
 
    We would also like to thank Fano Ramparany for his initial analysis
    of the possibilities of defining a model conversion algebra for going
-   from Yang data models to OWL ontologies.
+   from YANG data models to OWL ontologies.
 
 Authors' Addresses
 
