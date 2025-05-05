@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 2 March 2025                                            EURECOM
+Expires: 6 November 2025                                         EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                          29 August 2024
+                                                              5 May 2025
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -71,11 +71,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 March 2025.
+   This Internet-Draft will expire on 6 November 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -235,7 +235,7 @@ Table of Contents
    By going a step further, we notice that a generic understanding of
    incident context can be extracted and shared among operators from
    knowledge graphs.  Indeed, a knowledge graph, being an instantiation
-   of shared vocabularies (e.g.  RDFS/OWL ontologies and controlled
+   of shared vocabularies (e.g. RDFS/OWL ontologies and controlled
    vocabularies in SKOS syntax), sharing incident signatures can be done
    without revealing infrastructure details (e.g. hostname, IP address),
    but rather the abstract representation of the network (i.e. the class
@@ -397,7 +397,7 @@ Table of Contents
       (Figure 10 and Figure 11), and load balancing (horizontal scaling)
       by partitioning the meta-KG (Figure 12).  Further, ease of
       integration is enabled thanks to existing standard graph data
-      access protocols (e.g.  SPARQL Federated Queries [SPARQL11-FQ], as
+      access protocols (e.g. SPARQL Federated Queries [SPARQL11-FQ], as
       illustrated in Figure 12).
 
    */* REQ-DM-DISCOVERY:  Same remark as for REQ-PROG-OPEN-MODEL.
@@ -856,7 +856,7 @@ WHERE {
       their conversion to their RDFS/OWL equivalent as a coherent set.
 
    Y-MODEL-TO-RDFS-OWL:  Based on a YANG model and the associated model
-      corpus (i.e.  Y-MODEL-DEPENDENCIES), the goal is to enable
+      corpus (i.e. Y-MODEL-DEPENDENCIES), the goal is to enable
       producing a semantically equivalent RDFS/OWL representation (i.e.
       ONTO-YANG-MODEL).
 
@@ -872,7 +872,7 @@ WHERE {
       YANG-MODEL.
 
    Y-MODEL-META-KG-ALIGNMENT:  Based on a corpus of YANG models
-      transformed into RDFS/OWL (i.e.  Y-MODEL-TO-RDFS-OWL) and a
+      transformed into RDFS/OWL (i.e. Y-MODEL-TO-RDFS-OWL) and a
       reference ontology structuring the ITSM-KG, the goal is to enable
       querying of the configuration entities present in the graph (i.e.
       data derived from the Y-INSTANCE-TO-KG case) through the concepts
@@ -906,7 +906,7 @@ WHERE {
 
    *  NORIA-O [NORIA-O-2024], is a data model for IT networks, events
       and operations information.  The ontology is developed using web
-      technologies (e.g.  RDF, OWL, SKOS) and is intended as a structure
+      technologies (e.g. RDF, OWL, SKOS) and is intended as a structure
       for realizing an ITSM knowledge graph for Anomaly Detection (AD)
       and Risk Management applications.  The NORIA-O implementation is
       available as open source at https://w3id.org/noria/
@@ -1044,12 +1044,12 @@ WHERE {
 
    [I-D.boucadair-nmop-rfc3535-20years-later]
               Boucadair, M., Contreras, L. M., de Dios, O. G., Graf, T.,
-              and R. Rahman, "RFC 3535, 20 Years Later: An Update of
-              Operators Requirements on Network Management Protocols and
-              Modelling", Work in Progress, Internet-Draft, draft-
-              boucadair-nmop-rfc3535-20years-later-04, 22 July 2024,
-              <https://datatracker.ietf.org/doc/html/draft-boucadair-
-              nmop-rfc3535-20years-later-04>.
+              Rahman, R., and L. Tailhardat, "RFC 3535, 20 Years Later:
+              An Update of Operators Requirements on Network Management
+              Protocols and Modelling", Work in Progress, Internet-
+              Draft, draft-boucadair-nmop-rfc3535-20years-later-07, 30
+              March 2025, <https://datatracker.ietf.org/doc/html/draft-
+              boucadair-nmop-rfc3535-20years-later-07>.
 
    [I-D.havel-nmop-digital-map-concept]
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
@@ -1064,25 +1064,25 @@ WHERE {
               Q., Boucadair, M., and C. Jacquenet, "Network Digital
               Twin: Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-06, 7 July 2024,
+              twin-arch-10, 28 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
-              network-digital-twin-arch-06>.
+              network-digital-twin-arch-10>.
 
    [I-D.marcas-nmop-knowledge-graph-yang]
-              Martinez-Casanueva, I. D. and L. C. Rodríguez, "Knowledge
-              Graphs for YANG-based Network Management", Work in
-              Progress, Internet-Draft, draft-marcas-nmop-knowledge-
-              graph-yang-03, 5 July 2024,
+              Martinez-Casanueva, I. D., Rodríguez, L. C., and P.
+              Martinez-Julia, "Knowledge Graphs for YANG-based Network
+              Management", Work in Progress, Internet-Draft, draft-
+              marcas-nmop-knowledge-graph-yang-05, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-marcas-nmop-
-              knowledge-graph-yang-03>.
+              knowledge-graph-yang-05>.
 
    [I-D.netana-nmop-network-anomaly-lifecycle]
               Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
-              Feng, "Experiment: Network Anomaly Lifecycle", Work in
+              Feng, "An Experiment: Network Anomaly Lifecycle", Work in
               Progress, Internet-Draft, draft-netana-nmop-network-
-              anomaly-lifecycle-03, 8 July 2024,
+              anomaly-lifecycle-05, 3 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
-              network-anomaly-lifecycle-03>.
+              network-anomaly-lifecycle-05>.
 
    [NORIA-DI-2023]
               Tailhardat, L., Troncy, R., and Y. Chabot, "Designing
