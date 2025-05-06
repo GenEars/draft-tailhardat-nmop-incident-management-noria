@@ -978,11 +978,10 @@ WHERE {
    and Y-INSTANCE-TO-KG (as defined in Section 5.1).
 
    Figure 13 illustrates the top-level tasks of the semantization
-   process at play.  In the following sections, we provide details about
-   how the framework enables building ontologies that captures the
-   specificities of the telco domain and for using these ontologies to
-   model any telco network instance as an ITSM-KG.  Please note that the
-   publication of the related tools and algorithms is in progress.
+   process at play.  Subsequent sections detail how the framework builds
+   ontologies that captures the specificities of the telco domain and
+   models any telco network instance as an ITSM-KG.  Please note that
+   the publication of the related tools and algorithms is in progress.
 
                                                     ──────────
 ┌──────────┐                                        Management
@@ -1012,16 +1011,13 @@ WHERE {
 5.2.2.1.  Motivations and Principles
 
    The document [I-D.mackey-nmop-kg-for-netops] (Knowledge Graph
-   Framework for Network Operations) highlights the importance of using
-   ontologies, in addition to using knowledge graphs for enabling the
-   vision of network management automation.  Whereas the document put
-   forward the advantage of using ontologies to base the knowledge
-   graphs on, it doesn’t say anything about how to create these
-   ontologies.  There isn’t either much details about how the knowledge
-   graphs should be generated or how both the ontologies and the
-   knowledge graphs will relate to each other.
-
-   Our proposal is that:
+   Framework for Network Operations) emphasizes the importance of
+   ontologies alongside knowledge graphs for network management
+   automation.  However, it lacks guidance on creating these ontologies
+   and provides limited details on generating knowledge graphs or their
+   relationship with the ontologies.  To address these topics, the
+   following principles have been considered to underpin the development
+   of the YANG2OWL approach:
 
    1.  The ontologies should intimately reflect YANG models,
 
@@ -1037,19 +1033,17 @@ WHERE {
    5.  The nodes and predicates of the knowledge graphs should be
        defined as instances of classes and properties of the ontologies.
 
-   We claim that point 1 of our proposal is necessary in order to ensure
-   the adhesion of Network Management operators and expert in the
-   semantic technology.  Actually, it is of paramount importance to
-   align the vocabulary of the ontology (the naming of classes and
-   relationships) and the semantics defined by the ontology (the
-   constraints on the use of relationships) with the vocabulary of
-   network managers.  It has been recognized that today the YANG
-   language has been the reference in this area.  This will be even more
-   true in the future as YANG has been specified in the framework of
-   IETF and backed by the major industrial actors of the telco domain.
-   This has been the incent of our developing a tool for converting YANG
-   models into OWL models which is point 2 of our proposal.  Point 3, 4
-   and 5 are direct consequences of our committing to point 1 and 2.
+   Point 1 of the proposed principles is essential for ensuring the
+   engagement of network administrators and experts in semantic
+   technology.  Aligning the ontology's vocabulary (class and
+   relationship naming) and semantics (relationship constraints) with
+   that of network managers is crucial.  The YANG language is currently
+   the reference in this area and will continue to be so, given its
+   specification by the IETF and support from major telco industry
+   players.  This necessity has driven the development of the YANG2OWL
+   framework for converting YANG models into OWL models, which
+   corresponds to point 2 of the proposal.  Points 3, 4, and 5 are
+   direct outcomes of the commitment to points 1 and 2.
 
 5.2.2.2.  The Y-MODEL-TO-RDFS-OWL step
 
@@ -1116,8 +1110,8 @@ WHERE {
 
 5.2.2.3.  The Y-INSTANCE-TO-KG step
 
-   As introduced earlier, YANG models define the vocabulary and grammar
-   to describe factual knowledge about the state of the network.  For
+   As introduced above, YANG models define the vocabulary and grammar to
+   describe factual knowledge about the state of the network.  For
    example if a YANG module defines the container _node_, and this
    container has a leaf identifier which has the type string, then a
    valid JSON document with configuration data describing a node should
@@ -1190,15 +1184,15 @@ WHERE {
 
 5.2.2.4.  Example of Implementation
 
-   To illustrate the YANG2OWL approach, we briefly report below on an
-   experiment conducted with real world data from a virtualized 5G
-   infrastructure.  In the context of the Network Change Management
-   process, _impact analysis_ prior to conducting a scheduled operation
-   can be run on an ITSM-KG.  It aims to determine all the components of
-   the 5G core network that are dependent of a given (set of) network
-   infrastructure element.  For example, for a scheduled operation on a
-   leaf node (i.e. a network element in a 2-tier spine-leaf
-   architecture), the impact calculus will return all the servers
+   To illustrate the YANG2OWL approach, this section briefly reports on
+   an experiment conducted in an industrial setting with data from a
+   virtualized 5G infrastructure.  In the context of the Network Change
+   Management process, _impact analysis_ prior to conducting a scheduled
+   operation can be run on an ITSM-KG.  It aims to determine all the
+   components of the 5G core network that are dependent of a given (set
+   of) network infrastructure element.  For example, for a scheduled
+   operation on a leaf node (i.e. a network element in a 2-tier spine-
+   leaf architecture), the impact calculus will return all the servers
    connected to the leaf, all the Virtual Machines (VMs) hosted on these
    servers, all the Network Functions (NFs) deployed on these VMs, and
    ideally all the telecom services using these NFs.
@@ -1253,11 +1247,11 @@ WHERE {
    Model Gathering:  This task corresponds to the realization of the Y-
       MODEL-FROM-DATA use case with the manual selection of YANG modules
       in relation to the 3GPP application domain.  The following YANG
-      modules have been selected: xxx, xxx, xxx.
+      modules have been selected: *xxx*, *xxx*, *xxx*.
 
    Model Translation:  It realizes the Y-MODEL-DEPENDENCIES use case
-      using xxxx, and the Y-MODEL-TO-RDFS-OWL use case using the
-      YANG2OWL solution as defined in Section 5.2.2.2.  For this
+      using *xxx*, and the Y-MODEL-TO-RDFS-OWL use case using the
+      YANG2OWL solution defined in Section 5.2.2.2.  For this
       experiment, the resulting ontology is called MOBILE-O.
 
    Model Curation:  This task involves providing a streamlined ontology
@@ -1270,7 +1264,7 @@ WHERE {
       downstream _Use Cases-Related Querying_ task.
 
    Model-Related Knowledge Graph Construction:  It realizes the Y-
-      INSTANCE-TO-KG use case using the JSON2RDF solution as defined in
+      INSTANCE-TO-KG use case using the JSON2RDF solution described in
       Section 5.2.2.3.
 
    NetOps-Related Knowledge Graph Construction:  It corresponds to the
@@ -1305,8 +1299,8 @@ WHERE {
       dependency relationships retrospectively from business rules and
       the data loaded into the database.  For example, one can create a
       (server)-[DEPENDS_ON]->(leaf) relationship by searching instances
-      of the (Server)–(Server Interface)–(Network Link)–(Leaf
-      Interface)–(Leaf) graph pattern.  The same principle can apply to
+      of the (Server)-(Server Interface)-(Network Link)-(Leaf
+      Interface)-(Leaf) graph pattern.  The same principle can apply to
       different network configurations to create other kinds of
       dependency relationships.  For this experiment, the dependency
       relationships are calculated directly in the graph database using
@@ -1338,15 +1332,44 @@ WHERE {
 
 5.2.2.5.  Discussion
 
-   The YANG2OWL approach is complementary to the YANG2RDF approach
-   [YANG2RDF-IETF-121], which consists in translating YANG models into
-   RDF.  More specifically, YANG2RDF defines an ontology of the YANG
-   language, where RDF graph instances model a YANG module.  This
-   approach is useful for querying YANG models.  In contrast, the
-   YANG2OWL approach defines an ontology of a YANG model, where RDF
-   graph instances model an operational network.
+   While the YANG2OWL approach has proven its validity as a proof of
+   concept, several R&D questions remain for exploration with the NMOP
+   community, including:
 
-   TBC
+   *  Are the conversion principles based on statement types (class vs.
+      data property) in the Y-MODEL-TO-RDFS-OWL use case universally
+      applicable?
+
+   *  How to ensure that an ITSM-KG can still be generically constructed
+      from JSON/YANG data and queried when a _Model Curation_ task is
+      applied on an ONTO-YANG-MODEL?
+
+   *  What techniques can automate the Y-MODEL-META-KG-ALIGNMENT use
+      case?
+
+   *  What principles should guide the implementation of the Y-MODEL-
+      META-KG-ALIGNMENT use case to extract an aggregated view from
+      ONTO-META of infrastructures/configurations represented by an
+      ONTO-YANG-MODEL (e.g. distinguishing devices from sub-devices)?
+
+   Furthermore, it is noteworthy that the YANG2OWL approach is
+   complementary to the YANG2RDF approach [YANG2RDF-IETF-121], which
+   consists in translating YANG models into RDF.  More specifically,
+   YANG2RDF defines an ontology of the YANG language, where RDF graph
+   instances model a YANG module.  This approach is useful for querying
+   YANG models.  In contrast, the YANG2OWL approach defines an ontology
+   of a YANG model, where RDF graph instances model an operational
+   network.  Future work may aim to combine the YANG2RDF and YANG2OWL
+   approaches.
+
+   Finally, it is noteworthy that the YANG2OWL framework automates the
+   _Ontology Implementation_ and _Ontology Update_ activities of the
+   LOT4KG methodology [LOT4KG-2024] (a methodology that extends the
+   well-known LOT ontology engineering methodology to include knowledge
+   graph lifecycle management) by linking YANG modules with ITSM-KG
+   fragment construction.  This streamlines the development of NDT
+   architectures based on knowledge graphs and simplifies ITSM-KG
+   updates when YANG modules change.
 
 6.  Security Considerations
 

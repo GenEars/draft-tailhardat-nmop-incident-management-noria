@@ -2105,7 +2105,7 @@ similarities, then use this relatedness to alert and guide the repair).<a href="
 Basically, the approach consists of reusing YANG data models used in network operations in a nearly equivalent form within Semantic Web technologies (i.e. producing ONTO-YANG-MODEL instances) to create a bijection between network configuration data and the NDT.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-2">The YANG2OWL framework addresses the use cases Y-MODEL-TO-RDFS-OWL and Y-INSTANCE-TO-KG (as defined in <a href="#sec-experiments-plan" class="auto internal xref">Section 5.1</a>).<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-3"><a href="#fig-yang2owl-framework" class="auto internal xref">Figure 13</a> illustrates the top-level tasks of the semantization process at play.
-In the following sections, we provide details about how the framework enables building ontologies that captures the specificities of the telco domain and for using these ontologies to model any telco network instance as an ITSM-KG.
+Subsequent sections detail how the framework builds ontologies that captures the specificities of the telco domain and models any telco network instance as an ITSM-KG.
 Please note that the publication of the related tools and algorithms is in progress.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
 <span id="name-the-yang2owl-framework-labe"></span><div id="fig-yang2owl-framework">
 <figure id="figure-13">
@@ -2142,33 +2142,31 @@ Please note that the publication of the related tools and algorithms is in progr
             <h5 id="name-motivations-and-principles">
 <a href="#section-5.2.2.1" class="section-number selfRef">5.2.2.1. </a><a href="#name-motivations-and-principles" class="section-name selfRef">Motivations and Principles</a>
             </h5>
-<p id="section-5.2.2.1-1">The document <span>[<a href="#I-D.mackey-nmop-kg-for-netops" class="cite xref">I-D.mackey-nmop-kg-for-netops</a>]</span> (Knowledge Graph Framework for Network Operations) highlights the importance of using ontologies, in addition to using knowledge graphs for enabling the vision of network management automation.
-Whereas the document put forward the advantage of using ontologies to base the knowledge graphs on, it doesn’t say anything about how to create these ontologies.
-There isn’t either much details about how the knowledge graphs should be generated or how both the ontologies and the knowledge graphs will relate to each other.<a href="#section-5.2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.1-2">Our proposal is that:<a href="#section-5.2.2.1-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.2.1-3">
-<li id="section-5.2.2.1-3.1">
-                <p id="section-5.2.2.1-3.1.1">The ontologies should intimately reflect YANG models,<a href="#section-5.2.2.1-3.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.1-1">The document <span>[<a href="#I-D.mackey-nmop-kg-for-netops" class="cite xref">I-D.mackey-nmop-kg-for-netops</a>]</span> (Knowledge Graph Framework for Network Operations) emphasizes the importance of ontologies alongside knowledge graphs for network management automation.
+However, it lacks guidance on creating these ontologies and provides limited details on generating knowledge graphs or their relationship with the ontologies.
+To address these topics, the following principles have been considered to underpin the development of the YANG2OWL approach:<a href="#section-5.2.2.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.2.1-2">
+<li id="section-5.2.2.1-2.1">
+                <p id="section-5.2.2.1-2.1.1">The ontologies should intimately reflect YANG models,<a href="#section-5.2.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.2.2.1-3.2">
-                <p id="section-5.2.2.1-3.2.1">The generation of ontologies should be mostly automatized,<a href="#section-5.2.2.1-3.2.1" class="pilcrow">¶</a></p>
+              <li id="section-5.2.2.1-2.2">
+                <p id="section-5.2.2.1-2.2.1">The generation of ontologies should be mostly automatized,<a href="#section-5.2.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.2.2.1-3.3">
-                <p id="section-5.2.2.1-3.3.1">The knowledge graphs should intimately reflect the payload of messages that YANG compliant network equipments and controlers publish or emit in response to a Remote Procedure Call (RPC) request,<a href="#section-5.2.2.1-3.3.1" class="pilcrow">¶</a></p>
+              <li id="section-5.2.2.1-2.3">
+                <p id="section-5.2.2.1-2.3.1">The knowledge graphs should intimately reflect the payload of messages that YANG compliant network equipments and controlers publish or emit in response to a Remote Procedure Call (RPC) request,<a href="#section-5.2.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.2.2.1-3.4">
-                <p id="section-5.2.2.1-3.4.1">The generation of knowledge graphs should be automated,<a href="#section-5.2.2.1-3.4.1" class="pilcrow">¶</a></p>
+              <li id="section-5.2.2.1-2.4">
+                <p id="section-5.2.2.1-2.4.1">The generation of knowledge graphs should be automated,<a href="#section-5.2.2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li id="section-5.2.2.1-3.5">
-                <p id="section-5.2.2.1-3.5.1">The nodes and predicates of the knowledge graphs should be defined as instances of classes and properties of the ontologies.<a href="#section-5.2.2.1-3.5.1" class="pilcrow">¶</a></p>
+              <li id="section-5.2.2.1-2.5">
+                <p id="section-5.2.2.1-2.5.1">The nodes and predicates of the knowledge graphs should be defined as instances of classes and properties of the ontologies.<a href="#section-5.2.2.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
-<p id="section-5.2.2.1-4">We claim that point 1 of our proposal is necessary in order to ensure the adhesion of Network Management operators and expert in the semantic technology.
-Actually, it is of paramount importance to align the vocabulary of the ontology (the naming of classes and relationships) and the semantics defined by the ontology (the constraints on the use of relationships) with the vocabulary of network managers.
-It has been recognized that today the YANG language has been the reference in this area.
-This will be even more true in the future as YANG has been specified in the framework of IETF and backed by the major industrial actors of the telco domain.
-This has been the incent of our developing a tool for converting YANG models into OWL models which is point 2 of our proposal.
-Point 3, 4 and 5 are direct consequences of our committing to point 1 and 2.<a href="#section-5.2.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.1-3">Point 1 of the proposed principles is essential for ensuring the engagement of network administrators and experts in semantic technology.
+Aligning the ontology's vocabulary (class and relationship naming) and semantics (relationship constraints) with that of network managers is crucial.
+The YANG language is currently the reference in this area and will continue to be so, given its specification by the IETF and support from major telco industry players.
+This necessity has driven the development of the YANG2OWL framework for converting YANG models into OWL models, which corresponds to point 2 of the proposal.
+Points 3, 4, and 5 are direct outcomes of the commitment to points 1 and 2.<a href="#section-5.2.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-exp-yang2owl-oc">
@@ -2213,7 +2211,7 @@ This sub-container allows to define a concept that will characterize the contain
             <dd class="break"></dd>
 </dl>
 <p id="section-5.2.2.2-6">By applying the above principles, and in line with the reasons sketched in <a href="#sec-exp-yang2owl-motivations" class="auto internal xref">Section 5.2.2.1</a>, we have developed the YANG2OWL that automatically generates OWL ontologies from YANG modules (i.e. computes ONTO-YANG-MODELs).
-<a href="#fig-yang2owl-flow" class="auto internal xref">Figure 14</a> sketches the use of the YANG2OWL tool to compute the org.opendaylight.yangtools ONTO-YANG-MODEL.<a href="#section-5.2.2.2-6" class="pilcrow">¶</a></p>
+<a href="#fig-yang2owl-flow" class="auto internal xref">Figure 14</a> sketches the use of the YANG2OWL tool to compute the <code>org.opendaylight.yangtools</code> ONTO-YANG-MODEL.<a href="#section-5.2.2.2-6" class="pilcrow">¶</a></p>
 <span id="name-computing-the-orgopendaylig"></span><div id="fig-yang2owl-flow">
 <figure id="figure-14">
               <div class="alignLeft art-ascii-art art-text artwork" id="section-5.2.2.2-7.1">
@@ -2238,7 +2236,7 @@ org.opendaylight.yangtools────►Abstract Syntax Tree
             <h5 id="name-the-y-instance-to-kg-step">
 <a href="#section-5.2.2.3" class="section-number selfRef">5.2.2.3. </a><a href="#name-the-y-instance-to-kg-step" class="section-name selfRef">The Y-INSTANCE-TO-KG step</a>
             </h5>
-<p id="section-5.2.2.3-1">As introduced earlier, YANG models define the vocabulary and grammar to describe factual knowledge about the state of the network.
+<p id="section-5.2.2.3-1">As introduced above, YANG models define the vocabulary and grammar to describe factual knowledge about the state of the network.
 For example if a YANG module defines the container <em>node</em>, and this container has a leaf <code>identifier</code> which has the type <code>string</code>,
 then a valid JSON document with configuration data describing a node should be a JSON object containing a key named <code>identifier</code> which value should be a <code>string</code> such as <code>router_253</code>.<a href="#section-5.2.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.3-2">So, in line with the mapping rules of YANG statement into OWL concepts defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>, when parsing a JSON tree that comply to a given YANG model when can assume that if we get a <em>key which value is a JSON object</em> then the <em>key should be the name of a container or a list</em> and its <em>value should be a description to be further analyzed</em>.
@@ -2305,7 +2303,7 @@ call parse(top, nil, namespace, ontology)
             <h5 id="name-example-of-implementation">
 <a href="#section-5.2.2.4" class="section-number selfRef">5.2.2.4. </a><a href="#name-example-of-implementation" class="section-name selfRef">Example of Implementation</a>
             </h5>
-<p id="section-5.2.2.4-1">To illustrate the YANG2OWL approach, we briefly report below on an experiment conducted with real world data from a virtualized 5G infrastructure.
+<p id="section-5.2.2.4-1">To illustrate the YANG2OWL approach, this section briefly reports on an experiment conducted in an industrial setting with data from a virtualized 5G infrastructure.
 In the context of the Network Change Management process, <em>impact analysis</em> prior to conducting a scheduled operation can be run on an ITSM-KG.
 It aims to determine all the components of the 5G core network that are dependent of a given (set of) network infrastructure element.
 For example, for a scheduled operation on a leaf node (i.e. a network element in a 2-tier spine-leaf architecture), the impact calculus will return all the servers connected to the leaf, all the Virtual Machines (VMs) hosted on these servers, all the Network Functions (NFs) deployed on these VMs, and ideally all the telecom services using these NFs.<a href="#section-5.2.2.4-1" class="pilcrow">¶</a></p>
@@ -2364,12 +2362,12 @@ The tasks of the diagram are described below.<a href="#section-5.2.2.4-2" class=
               <dt id="section-5.2.2.4-4.1">Model Gathering:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.2">
                 <p id="section-5.2.2.4-4.2.1">This task corresponds to the realization of the Y-MODEL-FROM-DATA use case with the manual selection of YANG modules in relation to the 3GPP application domain.
-The following YANG modules have been selected: xxx, xxx, xxx.<a href="#section-5.2.2.4-4.2.1" class="pilcrow">¶</a></p>
+The following YANG modules have been selected: <strong>xxx</strong>, <strong>xxx</strong>, <strong>xxx</strong>.<a href="#section-5.2.2.4-4.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.3">Model Translation:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.4">
-                <p id="section-5.2.2.4-4.4.1">It realizes the Y-MODEL-DEPENDENCIES use case using xxxx, and the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution as defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>.
+                <p id="section-5.2.2.4-4.4.1">It realizes the Y-MODEL-DEPENDENCIES use case using <strong>xxx</strong>, and the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>.
 For this experiment, the resulting ontology is called MOBILE-O.<a href="#section-5.2.2.4-4.4.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
@@ -2381,7 +2379,7 @@ This simplification aims to enhance the readability of the model for an operator
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.7">Model-Related Knowledge Graph Construction:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.8">
-                <p id="section-5.2.2.4-4.8.1">It realizes the Y-INSTANCE-TO-KG use case using the JSON2RDF solution as defined in <a href="#sec-exp-yang2owl-kgc" class="auto internal xref">Section 5.2.2.3</a>.<a href="#section-5.2.2.4-4.8.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.4-4.8.1">It realizes the Y-INSTANCE-TO-KG use case using the JSON2RDF solution described in <a href="#sec-exp-yang2owl-kgc" class="auto internal xref">Section 5.2.2.3</a>.<a href="#section-5.2.2.4-4.8.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.9">NetOps-Related Knowledge Graph Construction:</dt>
@@ -2401,7 +2399,7 @@ For this experiment, the graph database is a Neo4j database <span>[<a href="#NEO
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.14">
                 <p id="section-5.2.2.4-4.14.1">Dependency relationships are, in general, knowledge elements that cannot be directly derived from field data; they are part of the business knowledge regarding the operation of the network systems.
 It may therefore be beneficial to support the downstream <em>Use Cases-Related Querying</em> task by performing pre-processing, particularly by calculating these dependency relationships retrospectively from business rules and the data loaded into the database.
-For example, one can create a <code>(server)-[DEPENDS_ON]-&gt;(leaf)</code> relationship by searching instances of the <code>(Server)–(Server Interface)–(Network Link)–(Leaf Interface)–(Leaf)</code> graph pattern.
+For example, one can create a <code>(server)-[DEPENDS_ON]-&gt;(leaf)</code> relationship by searching instances of the <code>(Server)-(Server Interface)-(Network Link)-(Leaf Interface)-(Leaf)</code> graph pattern.
 The same principle can apply to different network configurations to create other kinds of dependency relationships.
 For this experiment, the dependency relationships are calculated directly in the graph database using Neo4j Cypher language queries, or externally to the graph database using SHACL shapes <span>[<a href="#SHACL" class="cite xref">SHACL</a>]</span> according to the principles described in <span>[<a href="#GUITTOUM-2023" class="cite xref">GUITTOUM-2023</a>]</span>.<a href="#section-5.2.2.4-4.14.1" class="pilcrow">¶</a></p>
 </dd>
@@ -2445,11 +2443,28 @@ potentially supported by a complementary exploration of the ITSM-KG performed al
             <h5 id="name-discussion">
 <a href="#section-5.2.2.5" class="section-number selfRef">5.2.2.5. </a><a href="#name-discussion" class="section-name selfRef">Discussion</a>
             </h5>
-<p id="section-5.2.2.5-1">The YANG2OWL approach is complementary to the YANG2RDF approach <span>[<a href="#YANG2RDF-IETF-121" class="cite xref">YANG2RDF-IETF-121</a>]</span>, which consists in translating YANG models into RDF.
+<p id="section-5.2.2.5-1">While the YANG2OWL approach has proven its validity as a proof of concept, several R&amp;D questions remain for exploration with the NMOP community, including:<a href="#section-5.2.2.5-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.2.5-2.1">
+                <p id="section-5.2.2.5-2.1.1">Are the conversion principles based on statement types (class vs. data property) in the Y-MODEL-TO-RDFS-OWL use case universally applicable?<a href="#section-5.2.2.5-2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2.2.5-2.2">
+                <p id="section-5.2.2.5-2.2.1">How to ensure that an ITSM-KG can still be generically constructed from JSON/YANG data and queried when a <em>Model Curation</em> task is applied on an ONTO-YANG-MODEL?<a href="#section-5.2.2.5-2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2.2.5-2.3">
+                <p id="section-5.2.2.5-2.3.1">What techniques can automate the Y-MODEL-META-KG-ALIGNMENT use case?<a href="#section-5.2.2.5-2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2.2.5-2.4">
+                <p id="section-5.2.2.5-2.4.1">What principles should guide the implementation of the Y-MODEL-META-KG-ALIGNMENT use case to extract an aggregated view from ONTO-META of infrastructures/configurations represented by an ONTO-YANG-MODEL (e.g. distinguishing devices from sub-devices)?<a href="#section-5.2.2.5-2.4.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+<p id="section-5.2.2.5-3">Furthermore, it is noteworthy that the YANG2OWL approach is complementary to the YANG2RDF approach <span>[<a href="#YANG2RDF-IETF-121" class="cite xref">YANG2RDF-IETF-121</a>]</span>, which consists in translating YANG models into RDF.
 More specifically, YANG2RDF defines an ontology of the YANG language, where RDF graph instances model a YANG module.
 This approach is useful for querying YANG models.
-In contrast, the YANG2OWL approach defines an ontology of a YANG model, where RDF graph instances model an operational network.<a href="#section-5.2.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.5-2">TBC<a href="#section-5.2.2.5-2" class="pilcrow">¶</a></p>
+In contrast, the YANG2OWL approach defines an ontology of a YANG model, where RDF graph instances model an operational network.
+Future work may aim to combine the YANG2RDF and YANG2OWL approaches.<a href="#section-5.2.2.5-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.5-4">Finally, it is noteworthy that the YANG2OWL framework automates the <em>Ontology Implementation</em> and <em>Ontology Update</em> activities of the LOT4KG methodology <span>[<a href="#LOT4KG-2024" class="cite xref">LOT4KG-2024</a>]</span> (a methodology that extends the well-known LOT ontology engineering methodology to include knowledge graph lifecycle management) by linking YANG modules with ITSM-KG fragment construction.
+This streamlines the development of NDT architectures based on knowledge graphs and simplifies ITSM-KG updates when YANG modules change.<a href="#section-5.2.2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
