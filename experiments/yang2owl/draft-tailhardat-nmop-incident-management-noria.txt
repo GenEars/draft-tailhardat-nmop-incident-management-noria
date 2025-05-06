@@ -1293,24 +1293,25 @@ WHERE {
       inserted into the graph database (i.e. realization of the Y-MODEL-
       META-KG-ALIGNMENT use case through the implementation of the ONTO-
       LINKER concept as illustrated in Figure 5).  For this experiment,
-      the graph database is a Neo4J instance, and the loading is
-      performed using the Neosemantics tool.
+      the graph database is a Neo4j database [NEO4J] instance, and the
+      loading is performed using the Neo4j Neosemantics tool.
 
    Use Cases-Related Pre-Processing:  Dependency relationships are, in
       general, knowledge elements that cannot be directly derived from
       field data; they are part of the business knowledge regarding the
-      operation of the equipment.  It may therefore be beneficial to
-      support the use case by performing pre-processing, particularly by
-      calculating these dependency relationships retrospectively from
-      business rules and the data loaded into the database.  For
-      example, one can create a _server DEPENDS_ON leaf_ relationship by
-      searching instances of the (Server)–(Server Interface)–(Network
-      Link)–(Leaf Interface)–(Leaf) graph pattern.  The same principle
-      is applied to different network configurations to create the
-      dependency relationships.  For this experiment, the dependency
-      relationships are calculated directly in the graph database using
-      Cypher language queries, or externally to the graph database using
-      SHACL shapes [SHACL] according to the principles described in
+      operation of the network systems.  It may therefore be beneficial
+      to support the downstream _Use Cases-Related Querying_ task by
+      performing pre-processing, particularly by calculating these
+      dependency relationships retrospectively from business rules and
+      the data loaded into the database.  For example, one can create a
+      _(server)-[DEPENDS_ON]->(leaf)_ relationship by searching
+      instances of the _(Server)–(Server Interface)–(Network Link)–(Leaf
+      Interface)–(Leaf)_ graph pattern.  The same principle can apply to
+      different network configurations to create the dependency
+      relationships.  For this experiment, the dependency relationships
+      are calculated directly in the graph database using Cypher
+      language queries, or externally to the graph database using SHACL
+      shapes [SHACL] according to the principles described in
       [GUITTOUM-2023].
 
    Use Cases-Related Querying:  TBC Figure 17
@@ -1489,6 +1490,9 @@ WHERE {
               S. Lise, "When Ontologies Met Knowledge Graphs: Tale of a
               Methodology", 2024,
               <https://doi.org/10.1007/978-3-031-78952-6_43>.
+
+   [NEO4J]    Neo4j, Inc., "Neo4j - Graph Database & Analytics", n.d.,
+              <https://neo4j.com/>.
 
    [NORIA-DI-2023]
               Tailhardat, L., Troncy, R., and Y. Chabot, "Designing
