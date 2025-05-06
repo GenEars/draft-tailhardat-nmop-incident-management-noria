@@ -2191,7 +2191,9 @@ The main ones are <em>container</em>, <em>list</em>, <em>leaf</em> and <em>leafl
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.2-5">
               <dt id="section-5.2.2.2-5.1">CONTAINER:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.2-5.2">
-                <p id="section-5.2.2.2-5.2.1">It is a concept, something we can talk about, it's basic type of element of the domain, such as a network, a node, a link. A container declaration can contain another container declaration that can be called a sub-container. This sub-container allows to define a concept that will characterize the container that contains it (e.g., link, source, and destination).<a href="#section-5.2.2.2-5.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.2-5.2.1">It is a concept, something we can talk about, it's basic type of element of the domain, such as a network, a node, a link.
+A container declaration can contain another container declaration that can be called a sub-container.
+This sub-container allows to define a concept that will characterize the container that contains it (e.g. link, source, and destination).<a href="#section-5.2.2.2-5.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.2-5.3">LIST:</dt>
@@ -2237,7 +2239,8 @@ org.opendaylight.yangtools────►Abstract Syntax Tree
 <a href="#section-5.2.2.3" class="section-number selfRef">5.2.2.3. </a><a href="#name-the-y-instance-to-kg-step" class="section-name selfRef">The Y-INSTANCE-TO-KG step</a>
             </h5>
 <p id="section-5.2.2.3-1">As introduced earlier, YANG models define the vocabulary and grammar to describe factual knowledge about the state of the network.
-For example if a YANG module defines the container <em>node</em>, and this container has a leaf <em>identifier</em> which has the type <em>string</em>, then a valid JSON document with configuration data describing a node should be a JSON object containing a key named <em>identifier</em> which value should be a <em>string</em> such as <em>router_253</em>.<a href="#section-5.2.2.3-1" class="pilcrow">¶</a></p>
+For example if a YANG module defines the container <em>node</em>, and this container has a leaf <code>identifier</code> which has the type <code>string</code>,
+then a valid JSON document with configuration data describing a node should be a JSON object containing a key named <code>identifier</code> which value should be a <code>string</code> such as <code>router_253</code>.<a href="#section-5.2.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.3-2">So, in line with the mapping rules of YANG statement into OWL concepts defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>, when parsing a JSON tree that comply to a given YANG model when can assume that if we get a <em>key which value is a JSON object</em> then the <em>key should be the name of a container or a list</em> and its <em>value should be a description to be further analyzed</em>.
 Thus, in terms of knowledge graph modeling, this JSON object should be interpreted as an <em>instance of a class</em> which name is the <em>name of the container or of the list</em>.<a href="#section-5.2.2.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.3-3">Conversely, if the value is a <em>litteral</em>, the <em>key</em> should be the <em>name of a leaf or a leaflist</em>.
@@ -2270,10 +2273,10 @@ function parse(object, parentURI, class, namespace, ontology) {
     if the value of object[key] is a list {
       for each elt of the list {
         if elt is an object {
-          parse(elt, objectURI, key, namespace, ontology)*
+          parse(elt, objectURI, key, namespace, ontology)
           create the triple &lt;objectURI haskey elt&gt;
         } else if elt is a literal
-create the triple &lt;objectURI key elt&gt;
+            create the triple &lt;objectURI key elt&gt;
     } else if the value of object[key] is an object {
         eltURI = createURI(elt,key, namespace, ontology)
         create the triple &lt;objectURI haskey eltURI&gt;
@@ -2289,7 +2292,7 @@ create the triple &lt;objectURI key elt&gt;
 <a href="#name-pseudo-code-of-the-algorith" class="selfRef">Pseudo code of the algorithm implemented by JSON2RDF.</a>
               </figcaption></figure>
 </div>
-<p id="section-5.2.2.3-6">The algorithm is initiated by calling the <em>parse</em> function (in Java, it should be called in the <em>main</em> method) as follows, where <em>top</em> is the root of the JSON object (i.e. configuration data as a JSON tree that complies to a given YANG model), and <em>ontology</em> is the output of the Y-MODEL-TO-RDFS-OWL step:<a href="#section-5.2.2.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.3-6">The algorithm is initiated by calling the <code>parse</code> function (in Java, it should be called in the <code>main</code> method) as follows, where <code>top</code> is the root of the JSON object (i.e. configuration data as a JSON tree that complies to a given YANG model), and <code>ontology</code> is the output of the Y-MODEL-TO-RDFS-OWL step:<a href="#section-5.2.2.3-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2.2.3-7">
 <pre>
 call parse(top, nil, namespace, ontology)
@@ -2304,7 +2307,7 @@ call parse(top, nil, namespace, ontology)
             </h5>
 <p id="section-5.2.2.4-1">To illustrate the YANG2OWL approach, we briefly report below on an experiment conducted with real world data from a virtualized 5G infrastructure.
 In the context of the Network Change Management process, <em>impact analysis</em> prior to conducting a scheduled operation can be run on an ITSM-KG.
-It aims to determine all the components of the 5G core network that are dependent on a given (set of) network infrastructure element.
+It aims to determine all the components of the 5G core network that are dependent of a given (set of) network infrastructure element.
 For example, for a scheduled operation on a leaf node (i.e. a network element in a 2-tier spine-leaf architecture), the impact calculus will return all the servers connected to the leaf, all the Virtual Machines (VMs) hosted on these servers, all the Network Functions (NFs) deployed on these VMs, and ideally all the telecom services using these NFs.<a href="#section-5.2.2.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.4-2"><a href="#fig-yang2owl-experiment" class="auto internal xref">Figure 16</a> provides an overview of the data processing workflow used for the experiment.
 The tasks of the diagram are described below.<a href="#section-5.2.2.4-2" class="pilcrow">¶</a></p>
@@ -2383,7 +2386,7 @@ This simplification aims to enhance the readability of the model for an operator
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.9">NetOps-Related Knowledge Graph Construction:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.10">
-                <p id="section-5.2.2.4-4.10.1">This task corresponds to the execution of RML transformation rules <span>[<a href="#RML" class="cite xref">RML</a>]</span> with definitions from the NORIA-O ontology <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span> for the integration of complementary data to that of the 5G network derived from YANG configurations (i.e. the <em>Model-Related Knowledge Graph Construction</em> task), such as the topology of connected networks, scheduled operations, incident tickets, and organization-related data.<a href="#section-5.2.2.4-4.10.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.4-4.10.1">It corresponds to the execution of RML transformation rules <span>[<a href="#RML" class="cite xref">RML</a>]</span> with definitions from the NORIA-O ontology <span>[<a href="#NORIA-O-2024" class="cite xref">NORIA-O-2024</a>]</span> for the integration of complementary data to that of the 5G network derived from YANG configurations (i.e. the <em>Model-Related Knowledge Graph Construction</em> task), such as the topology of connected networks, scheduled operations, incident tickets, and organization-related data.<a href="#section-5.2.2.4-4.10.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.11">Global Knowledge Graph Construction:</dt>
@@ -2398,18 +2401,20 @@ For this experiment, the graph database is a Neo4j database <span>[<a href="#NEO
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.14">
                 <p id="section-5.2.2.4-4.14.1">Dependency relationships are, in general, knowledge elements that cannot be directly derived from field data; they are part of the business knowledge regarding the operation of the network systems.
 It may therefore be beneficial to support the downstream <em>Use Cases-Related Querying</em> task by performing pre-processing, particularly by calculating these dependency relationships retrospectively from business rules and the data loaded into the database.
-For example, one can create a <em>(server)-[DEPENDS_ON]-&gt;(leaf)</em> relationship by searching instances of the <em>(Server)–(Server Interface)–(Network Link)–(Leaf Interface)–(Leaf)</em> graph pattern.
-The same principle can apply to different network configurations to create the dependency relationships.
-For this experiment, the dependency relationships are calculated directly in the graph database using Cypher language queries, or externally to the graph database using SHACL shapes <span>[<a href="#SHACL" class="cite xref">SHACL</a>]</span> according to the principles described in <span>[<a href="#GUITTOUM-2023" class="cite xref">GUITTOUM-2023</a>]</span>.<a href="#section-5.2.2.4-4.14.1" class="pilcrow">¶</a></p>
+For example, one can create a <code>(server)-[DEPENDS_ON]-&gt;(leaf)</code> relationship by searching instances of the <code>(Server)–(Server Interface)–(Network Link)–(Leaf Interface)–(Leaf)</code> graph pattern.
+The same principle can apply to different network configurations to create other kinds of dependency relationships.
+For this experiment, the dependency relationships are calculated directly in the graph database using Neo4j Cypher language queries, or externally to the graph database using SHACL shapes <span>[<a href="#SHACL" class="cite xref">SHACL</a>]</span> according to the principles described in <span>[<a href="#GUITTOUM-2023" class="cite xref">GUITTOUM-2023</a>]</span>.<a href="#section-5.2.2.4-4.14.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.15">Use Cases-Related Querying:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.16">
-                <p id="section-5.2.2.4-4.16.1">TBC <a href="#snippet-cypher-impact-yang2owl" class="auto internal xref">Figure 17</a><a href="#section-5.2.2.4-4.16.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.4-4.16.1">The exploitation of dependency relationships is carried out through queries on the graph,
+e.g. during the insertion of an entity of type <code>noria:ChangeRequest</code>
+or by following an exploratory approach by coupling a query such as that in <a href="#snippet-yang2owl-cypher-impact" class="auto internal xref">Figure 17</a> with a visualization tool like Neo4j NeoDash.<a href="#section-5.2.2.4-4.16.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
-<span id="name-user-query-for-the-in-cyphe"></span><div id="snippet-cypher-impact-yang2owl">
+<span id="name-user-query-in-cypher-syntax"></span><div id="snippet-yang2owl-cypher-impact">
 <figure id="figure-17">
               <div class="alignLeft art-text artwork" id="section-5.2.2.4-5.1">
 <pre>
@@ -2422,13 +2427,14 @@ RETURN distinct impacts.resourceHostName
 </pre>
 </div>
 <figcaption><a href="#figure-17" class="selfRef">Figure 17</a>:
-<a href="#name-user-query-for-the-in-cyphe" class="selfRef">User query for the , in Cypher syntax.</a>
+<a href="#name-user-query-in-cypher-syntax" class="selfRef">User query, in Cypher syntax, for rendering dependency relationships in a Neo4j NeoDash display.</a>
               </figcaption></figure>
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.4-6">
               <dt id="section-5.2.2.4-6.1">Situation Analysis:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-6.2">
-                <p id="section-5.2.2.4-6.2.1">TBC<a href="#section-5.2.2.4-6.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.4-6.2.1">Decision-making based on the results of the upstream task is the responsibility of the network administrator,
+potentially supported by a complementary exploration of the ITSM-KG performed algorithmically or interactively to analyze a broader technical and operational context.<a href="#section-5.2.2.4-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
