@@ -5,10 +5,10 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 6 November 2025                                         EURECOM
+Expires: 7 November 2025                                         EURECOM
                                                                Y. Chabot
                                                                   Orange
-                                                              5 May 2025
+                                                              6 May 2025
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -71,7 +71,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2025.
+   This Internet-Draft will expire on 7 November 2025.
 
 Copyright Notice
 
@@ -967,7 +967,7 @@ WHERE {
    Network Digital Twin (NDT) that would leverage the representation and
    reasoning capabilities typically associated with knowledge graphs for
    anomaly detection needs, as well as for network management purposes
-   by allowing network configuration based on modifications at the level
+   by enabling network configuration based on modifications at the level
    of the ITSM-KG itself.  Basically, the approach consists of reusing
    YANG data models used in network operations in a nearly equivalent
    form within Semantic Web technologies (i.e. producing ONTO-YANG-MODEL
@@ -1051,11 +1051,6 @@ WHERE {
    models into OWL models which is point 2 of our proposal.  Point 3, 4
    and 5 are direct consequences of our committing to point 1 and 2.
 
-   In the following section we introduce our proposal for building
-   ontologies that captures the specificities of the telco domain and
-   for using these ontologies to model any telco network instance as a
-   knowledge graph.
-
 5.2.2.2.  The Y-MODEL-TO-RDFS-OWL step
 
    YANG and OWL are both data modeling languages.  They define a
@@ -1074,11 +1069,11 @@ WHERE {
    somewhat similar to YANG but does not directly map.
 
    As ontologies have been introduced as a modeling language meant to
-   share a common view (or knowledge) of a domain among different actors
-   involved [GRUBER-1995], the terms defined by the ontologies should be
-   those used by equipment manufacturers, telco solutions developers,
-   systems integrators, network operators and eventually end users,
-   which are our actors in the telco domain.
+   share a common view (or knowledge) of a domain among different
+   stakeholders [GRUBER-1995], the terms defined by the ontologies
+   should reflect those used by equipment manufacturers, telecom
+   solutions developers, systems integrators, network operators, and
+   ultimately end users.
 
    A YANG model is a document containing declarations.  The document has
    a tree-like structure: declarations can contain other declarations.
@@ -1140,12 +1135,12 @@ WHERE {
 
    Conversely, if the value is a _litteral_, the _key_ should be the
    _name of a leaf or a leaflist_. Thus, in terms of knowledge graph
-   modeling, the litteral should be interpreted as the object of a
-   DataProperty which name is the name of the leaf.
+   modeling, the litteral should be interpreted as the _object of a
+   DataProperty_ which name is the _name of the leaf_.
 
    The JSON2RDF tool (which is part of the YANG2OWL framework)
-   implements these principles.  Figure 15 shows the algorithm
-   implemented by JSON2RDF as pseudo code.
+   implements these principles, realizing the Y-INSTANCE-TO-KG use case.
+   Figure 15 shows the algorithm implemented by JSON2RDF as pseudo code.
 
    function createURI(jsonObject, class, namespace, ontology) {
      if class has a 'key' annotation {
@@ -1185,17 +1180,31 @@ WHERE {
 
       Figure 15: Pseudo code of the algorithm implemented by JSON2RDF.
 
-   The algorithm is initiated by calling the parse function (in java it
-   should be called in the main method) as follows, where _top_ is the
-   root of the JSON object:
+   The algorithm is initiated by calling the _parse_ function (in Java,
+   it should be called in the _main_ method) as follows, where _top_ is
+   the root of the JSON object (i.e. configuration data as a JSON tree
+   that complies to a given YANG model), and _ontology_ is the output of
+   the Y-MODEL-TO-RDFS-OWL step:
 
    call parse(top, nil, namespace, ontology)
 
-5.2.2.4.  A Network Change Management Example
+5.2.2.4.  Example of Implementation
 
-   In this section, we illustrate the YANG2OWL approach on the specific
-   use case of Network Change Management.  Figure 16 provides an
-   overview of the data processing workflow.
+   To illustrate the YANG2OWL approach, we briefly report below on an
+   experiment conducted with real world data from a virtualized 5G
+   infrastructure.  In the context of the Network Change Management
+   process, _impact analysis_ prior to conducting a scheduled operation
+   can be run on the ITSM-KG.  It aims to determine all the components
+   of the 5G core network that are dependent on a given (set of) network
+   infrastructure element.  For example, for a scheduled operation on a
+   leaf node (i.e. a network element in a 2-tier spine-leaf
+   architecture), the impact calculus will return all the servers
+   connected to the leaf, all the Virtual Machines (VMs) hosted on these
+   servers, all the Network Functions (NFs) deployed on these VMs, and
+   ideally all the telecom services using these NFs.
+
+   Figure 16 provides an overview of the data processing workflow used
+   for the experiment.  The tasks of the diagram are described below.
 
                  START
           ┌───────┘ └───────┐
@@ -1241,7 +1250,55 @@ WHERE {
       vertical bar on a step indicates that it is scripted; otherwise,
                    steps require user or operator action.
 
-   TODO : provide details.
+   Model Gathering:  This task corresponds to the realization of the Y-
+      MODEL-FROM-DATA use case with the manual selection of YAMG modules
+      in relation to the 3GPP application domain.  The following YANG
+      modules have been selected: xxx, xxx, xxx.
+
+   Model Translation:  It realizes the Y-MODEL-DEPENDENCIES use case
+      using xxxx, and the Y-MODEL-TO-RDFS-OWL use case using the
+      YANG2OWL solution as defined in Section 5.2.2.2.
+
+   Model Curation:  This task involves providing a streamlined ontology
+      by manually _filtering_ (selection of classes and relationships
+      based on the data available) and _grouping_ (compression of the
+      model hierarchy, i.e. class of classes) the model resulting from
+      the _Model Translation_ task.  This simplification aims to enhance
+      the readability of the model for an operator and facilitate the
+      implementation of potentially more concise queries in the
+      downstream _Use Cases-Related Querying_ task.
+
+   Model-Related Knowledge Graph Construction:  It realizes the Y-
+      INSTANCE-TO-KG use case using the JSON2RDF solution as defined in
+      Section 5.2.2.3.
+
+   NetOps-Related Knowledge Graph Construction:  This task corresponds
+      to the execution of RML transformation rules [RML] with
+      definitions from the NORIA-O ontology [NORIA-O-2024] for the
+      integration of complementary data to that of the 5G network
+      derived from YANG configurations (i.e. the _Model-Related
+      Knowledge Graph Construction_ task), such as the topology of
+      connected networks, scheduled operations, incident tickets, and
+      organization-related data.
+
+   Global Knowledge Graph Construction:  TBC
+
+   Y-MODEL-META-KG-ALIGNMENT
+
+   Use Cases-Related Pre-Processing:  TBC
+
+   Use Cases-Related Querying:  TBC Figure 17
+
+   MATCH (e1) where e1.resourceHostName = $neodash_ressource_hostname
+   MATCH q1 = (e1) ( (w)<-[:DEPENDS_ON|COMPONENT_OF]-(t) ) {0,8}
+   UNWIND t as impacts
+   WITH impacts
+     MATCH (impacts)
+   RETURN distinct impacts.resourceHostName
+
+             Figure 17: User query for the , in Cypher syntax.
+
+   Situation Analysis:  TBC
 
 5.2.2.5.  Discussion
 
@@ -1496,9 +1553,9 @@ Changes Between Revisions
    *  Added the Experiments / YANG2OWL framework based on details from
       Fano RAMPARANY (Orange) and Pauline FOLZ (Orange).
 
-   *  Added the Experiments / YANG2OWL use case based on details from
-      Fano RAMPARANY (Orange), Clément GOUILLOUD (SOFRECOM), and Lionel
-      TAILHARDAT (Orange).
+   *  Added the Experiments / YANG2OWL example based on details from
+      Romain VINEL (Orange), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED
+      (Orange), and Lionel TAILHARDAT (Orange).
 
 Contributors
 
@@ -1510,6 +1567,16 @@ Contributors
    Pauline Folz
    Orange
    Email: pauline.folz@orange.com
+
+
+   Romain Vinel
+   Orange
+   Email: romain.vinel@orange.com
+
+
+   Arij Elmajed
+   Orange
+   Email: arij.elmajed@orange.com
 
 
    Clément Gouilloud
