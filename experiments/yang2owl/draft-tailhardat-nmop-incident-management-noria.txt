@@ -5,10 +5,11 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 7 November 2025                                         EURECOM
+Expires: 8 November 2025                                         EURECOM
                                                                Y. Chabot
+                                                            F. Ramparany
                                                                   Orange
-                                                              6 May 2025
+                                                              7 May 2025
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -71,7 +72,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2025.
+   This Internet-Draft will expire on 8 November 2025.
 
 Copyright Notice
 
@@ -1120,7 +1121,7 @@ WHERE {
 
    So, in line with the mapping rules of YANG statement into OWL
    concepts defined in Section 5.2.2.2, when parsing a JSON tree that
-   comply to a given YANG model when can assume that if we get a _key
+   comply to a given YANG model we can assume that if we get a _key
    which value is a JSON object_ then the _key should be the name of a
    container or a list_ and its _value should be a description to be
    further analyzed_. Thus, in terms of knowledge graph modeling, this
@@ -1625,7 +1626,8 @@ Changes Between Revisions
    v01 - v02
 
    *  Added the Experiments / YANG2OWL framework based on details from
-      Fano RAMPARANY (Orange) and Pauline FOLZ (Orange).
+      Fano RAMPARANY (Orange), Pauline FOLZ (Orange), and Fabrice BLACHE
+      (Orange).
 
    *  Added the Experiments / YANG2OWL example based on details from
       Romain VINEL (Orange), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED
@@ -1633,14 +1635,19 @@ Changes Between Revisions
 
 Contributors
 
-   Fano Ramparany
-   Orange
-   Email: fano.ramparany@orange.com
-
-
    Pauline Folz
    Orange
    Email: pauline.folz@orange.com
+
+
+   Fabrice Blache
+   Orange
+   Email: fabrice.blache@orange.com
+
+
+   Sébastien Bolle
+   Orange
+   Email: sebastien.bolle@orange.com
 
 
    Romain Vinel
@@ -1673,3 +1680,8 @@ Authors' Addresses
    Yoan Chabot
    Orange
    Email: yoan.chabot@orange.com
+
+
+   Fano Ramparany
+   Orange
+   Email: fano.ramparany@orange.com
