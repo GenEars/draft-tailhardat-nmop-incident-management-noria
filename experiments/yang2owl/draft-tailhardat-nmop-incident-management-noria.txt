@@ -1319,7 +1319,7 @@ WHERE {
       [ETSI-TS-128-541] included in MOBILE-O and the Neo4j setup, one
       could calculate a dependency relationship between a 5G NF and the
       Kubernetes cluster that hosts it, as shown in Figure 17.  It is
-      important to note that sub-class inference with Neo4j is not
+      important to note that subclass inference with Neo4j is not
       automatic and must be performed through dedicated queries, as
       illustrated in Figure 18.
 
@@ -1333,11 +1333,11 @@ WHERE {
    WHERE m.uri CONTAINS 'ManagedFunction'
    SET c:ManagedFunction
 
-        Figure 18: Sub-class inference query, in Cypher syntax: each
-     instance of a 5G NF is created with a specific class described in
-       the YANG model, which is a subclass of ManagedFunction as per
-     MOBILE-O, thus a dedicated Cypher query is required for all types
-                   of NFs to be tagged as ManagedFunction
+      Figure 18: Subclass inference query, in Cypher syntax, to tag 5G
+     NF entities as `ManagedFunction` based on prior annotation of the
+      entities at creation time with a specific class described in the
+      YANG model, which is also a subclass of `ManagedFunction` as per
+                                 MOBILE-O.
 
    Use Cases-Related Querying:  The exploitation of dependency
       relationships is carried out through queries on the graph, e.g.

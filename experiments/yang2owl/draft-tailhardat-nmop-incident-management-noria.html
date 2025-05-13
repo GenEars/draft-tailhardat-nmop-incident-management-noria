@@ -2414,7 +2414,7 @@ The same principle can apply to different network configurations to create other
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.16">
                 <p id="section-5.2.2.4-4.16.1">For this experiment, the dependency relationships are calculated directly in the graph database using Neo4j Cypher language queries, or externally to the graph database using SHACL shapes <span>[<a href="#SHACL" class="cite xref">SHACL</a>]</span> according to the principles described in <span>[<a href="#GUITTOUM-2023" class="cite xref">GUITTOUM-2023</a>]</span>.
 As another example, more specific to the 3GPP models <span>[<a href="#ETSI-TS-128-541" class="cite xref">ETSI-TS-128-541</a>]</span> included in MOBILE-O and the Neo4j setup, one could calculate a dependency relationship between a 5G NF and the Kubernetes cluster that hosts it, as shown in <a href="#snippet-yang2owl-cypher-5G-dependency" class="auto internal xref">Figure 17</a>.
-It is important to note that sub-class inference with Neo4j is not automatic and must be performed through dedicated queries, as illustrated in <a href="#snippet-yang2owl-cypher-subclass-inference" class="auto internal xref">Figure 18</a>.<a href="#section-5.2.2.4-4.16.1" class="pilcrow">¶</a></p>
+It is important to note that subclass inference with Neo4j is not automatic and must be performed through dedicated queries, as illustrated in <a href="#snippet-yang2owl-cypher-subclass-inference" class="auto internal xref">Figure 18</a>.<a href="#section-5.2.2.4-4.16.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -2430,7 +2430,7 @@ MERGE (c)-[d:DEPENDS_ON]-&gt;(k)
 <a href="#name-dependency-calculation-quer" class="selfRef">Dependency calculation query, in Cypher syntax, for relating a 5G NF and the Kubernetes cluster that hosts it.</a>
               </figcaption></figure>
 </div>
-<span id="name-sub-class-inference-query-i"></span><div id="snippet-yang2owl-cypher-subclass-inference">
+<span id="name-subclass-inference-query-in"></span><div id="snippet-yang2owl-cypher-subclass-inference">
 <figure id="figure-18">
               <div class="alignLeft art-text artwork" id="section-5.2.2.4-6.1">
 <pre>
@@ -2440,7 +2440,7 @@ SET c:ManagedFunction
 </pre>
 </div>
 <figcaption><a href="#figure-18" class="selfRef">Figure 18</a>:
-<a href="#name-sub-class-inference-query-i" class="selfRef">Sub-class inference query, in Cypher syntax: each instance of a 5G NF is created with a specific class described in the YANG model, which is a subclass of ManagedFunction as per MOBILE-O, thus a dedicated Cypher query is required for all types of NFs to be tagged as ManagedFunction</a>
+<a href="#name-subclass-inference-query-in" class="selfRef">Subclass inference query, in Cypher syntax, to tag 5G NF entities as `ManagedFunction` based on prior annotation of the entities at creation time with a specific class described in the YANG model, which is also a subclass of `ManagedFunction` as per MOBILE-O.</a>
               </figcaption></figure>
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.4-7">
