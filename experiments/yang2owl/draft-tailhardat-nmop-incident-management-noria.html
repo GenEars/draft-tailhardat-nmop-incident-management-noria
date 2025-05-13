@@ -9,6 +9,7 @@
 <meta content="Raphaël Troncy" name="author">
 <meta content="Yoan Chabot" name="author">
 <meta content="Fano Ramparany" name="author">
+<meta content="Pauline Folz" name="author">
 <meta content="
        Operational efficiency in incident management on telecom and computer networks requires correlating and interpreting large volumes of heterogeneous technical information.
 Knowledge graphs can provide a unified view of complex systems through shared vocabularies.
@@ -1094,6 +1095,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">F. Ramparany</div>
+<div class="org">Orange Research</div>
+</div>
+<div class="author">
+      <div class="author-name">P. Folz</div>
 <div class="org">Orange Research</div>
 </div>
 </dd>
@@ -2190,7 +2195,7 @@ In an OWL ontology, the vocabulary is defined in terms of <em>classes</em>, <em>
 <p id="section-5.2.2.2-4">A YANG model is a document containing declarations.
 The document has a tree-like structure: declarations can contain other declarations.
 There are about half hundred types of declarations.
-The main ones are <em>container</em>, <em>list</em>, <em>leaf</em> and <em>leaflist</em>:<a href="#section-5.2.2.2-4" class="pilcrow">¶</a></p>
+The main ones are <em>container</em>, <em>list</em>, <em>leaf</em> and <em>leaf-list</em>:<a href="#section-5.2.2.2-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.2-5">
               <dt id="section-5.2.2.2-5.1">CONTAINER:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.2-5.2">
@@ -2209,7 +2214,7 @@ This sub-container allows to define a concept that will characterize the contain
                 <p id="section-5.2.2.2-5.6.1">It is a property of this concept, such as an identifier or a geographical location.<a href="#section-5.2.2.2-5.6.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
-<dt id="section-5.2.2.2-5.7">LEAFLIST:</dt>
+<dt id="section-5.2.2.2-5.7">LEAF-LIST:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.2-5.8">
                 <p id="section-5.2.2.2-5.8.1">It is a multivalued property, such as hours of the day the device is put on sleep mode.<a href="#section-5.2.2.2-5.8.1" class="pilcrow">¶</a></p>
 </dd>
@@ -2234,6 +2239,19 @@ org.opendaylight.yangtools────►Abstract Syntax Tree
 <a href="#name-computing-the-orgopendaylig" class="selfRef">Computing the org.opendaylight.yangtools ONTO-YANG-MODEL with YANG2OWL.</a>
               </figcaption></figure>
 </div>
+<p id="section-5.2.2.2-8">In more detail, we have defined mapping rules between YANG constructs and OWL concepts and implemented these in YANG2OWL.
+The main YANG constructs (<em>container</em>, <em>list</em>, <em>leaf</em>, and <em>leaf-list</em>) are transformed as follows:<a href="#section-5.2.2.2-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.2.2-9.1">
+                <p id="section-5.2.2.2-9.1.1">The <em>container</em> and <em>list</em> declarations are converted into OWL classes.
+The name of the OWL class correponds to the name of the <em>container</em> or <em>list</em> in the YANG model.<a href="#section-5.2.2.2-9.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2.2.2-9.2">
+                <p id="section-5.2.2.2-9.2.1">The <em>leaf</em> and <em>leaf-list</em> declarations are converted into OWL data properties.
+The name of the OWL data property corresponds the name of the <em>leaf</em> or <em>leaf-list</em> in the YANG model.<a href="#section-5.2.2.2-9.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+<p id="section-5.2.2.2-10">An example of this conversion is presented in the following section.<a href="#section-5.2.2.2-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-exp-yang2owl-kgc">
@@ -2730,10 +2748,10 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 <p id="appendix-B-3">v01 - v02<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-4.1">
-          <p id="appendix-B-4.1.1">Added the Experiments / YANG2OWL framework based on details from Fano RAMPARANY (Orange), Pauline FOLZ (Orange), and Fabrice BLACHE (Orange).<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.1.1">Added the Experiments / YANG2OWL framework based on details from Fano RAMPARANY (Orange Research), Pauline FOLZ (Orange Research), and Fabrice BLACHE (Orange Research).<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-4.2">
-          <p id="appendix-B-4.2.1">Added the Experiments / YANG2OWL example based on details from Romain VINEL (Orange), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED (Orange), and Lionel TAILHARDAT (Orange).<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-4.2.1">Added the Experiments / YANG2OWL example based on details from Romain VINEL (Orange France), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED (Orange France), and Lionel TAILHARDAT (Orange Research).<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -2744,11 +2762,11 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 <a href="#name-contributors" class="section-name selfRef">Contributors</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Pauline Folz</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Maria Massri</span></div>
 <div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:pauline.folz@orange.com" class="email">pauline.folz@orange.com</a>
+<a href="mailto:maria.massri@orange.com" class="email">maria.massri@orange.com</a>
 </div>
 </address>
 <address class="vcard">
@@ -2828,6 +2846,14 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 <div class="email">
 <span>Email:</span>
 <a href="mailto:fano.ramparany@orange.com" class="email">fano.ramparany@orange.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Pauline Folz</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:pauline.folz@orange.com" class="email">pauline.folz@orange.com</a>
 </div>
 </address>
 </section>

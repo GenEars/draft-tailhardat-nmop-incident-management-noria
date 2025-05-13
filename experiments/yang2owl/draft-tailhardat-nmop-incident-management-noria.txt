@@ -8,6 +8,7 @@ Intended status: Informational                                 R. Troncy
 Expires: 14 November 2025                                        EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
+                                                                 P. Folz
                                                          Orange Research
                                                              13 May 2025
 
@@ -1073,7 +1074,7 @@ WHERE {
    A YANG model is a document containing declarations.  The document has
    a tree-like structure: declarations can contain other declarations.
    There are about half hundred types of declarations.  The main ones
-   are _container_, _list_, _leaf_ and _leaflist_:
+   are _container_, _list_, _leaf_ and _leaf-list_:
 
    CONTAINER:  It is a concept, something we can talk about, it's basic
       type of element of the domain, such as a network, a node, a link.
@@ -1088,8 +1089,8 @@ WHERE {
    LEAF:  It is a property of this concept, such as an identifier or a
       geographical location.
 
-   LEAFLIST:  It is a multivalued property, such as hours of the day the
-      device is put on sleep mode.
+   LEAF-LIST:  It is a multivalued property, such as hours of the day
+      the device is put on sleep mode.
 
    By applying the above principles, and in line with the reasons
    sketched in Section 5.2.2.1, we have developed the YANG2OWL that
@@ -1108,6 +1109,21 @@ WHERE {
 
        Figure 14: Computing the org.opendaylight.yangtools ONTO-YANG-
                             MODEL with YANG2OWL.
+
+   In more detail, we have defined mapping rules between YANG constructs
+   and OWL concepts and implemented these in YANG2OWL.  The main YANG
+   constructs (_container_, _list_, _leaf_, and _leaf-list_) are
+   transformed as follows:
+
+   *  The _container_ and _list_ declarations are converted into OWL
+      classes.  The name of the OWL class correponds to the name of the
+      _container_ or _list_ in the YANG model.
+
+   *  The _leaf_ and _leaf-list_ declarations are converted into OWL
+      data properties.  The name of the OWL data property corresponds
+      the name of the _leaf_ or _leaf-list_ in the YANG model.
+
+   An example of this conversion is presented in the following section.
 
 5.2.2.3.  The Y-INSTANCE-TO-KG step
 
@@ -1676,18 +1692,18 @@ Changes Between Revisions
    v01 - v02
 
    *  Added the Experiments / YANG2OWL framework based on details from
-      Fano RAMPARANY (Orange), Pauline FOLZ (Orange), and Fabrice BLACHE
-      (Orange).
+      Fano RAMPARANY (Orange Research), Pauline FOLZ (Orange Research),
+      and Fabrice BLACHE (Orange Research).
 
    *  Added the Experiments / YANG2OWL example based on details from
-      Romain VINEL (Orange), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED
-      (Orange), and Lionel TAILHARDAT (Orange).
+      Romain VINEL (Orange France), Clément GOUILLOUD (SOFRECOM), Arij
+      ELMAJED (Orange France), and Lionel TAILHARDAT (Orange Research).
 
 Contributors
 
-   Pauline Folz
+   Maria Massri
    Orange Research
-   Email: pauline.folz@orange.com
+   Email: maria.massri@orange.com
 
 
    Fabrice Blache
@@ -1735,3 +1751,8 @@ Authors' Addresses
    Fano Ramparany
    Orange Research
    Email: fano.ramparany@orange.com
+
+
+   Pauline Folz
+   Orange Research
+   Email: pauline.folz@orange.com
