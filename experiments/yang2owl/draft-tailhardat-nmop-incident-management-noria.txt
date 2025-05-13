@@ -5,11 +5,11 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                                    Orange
 Intended status: Informational                                 R. Troncy
-Expires: 8 November 2025                                         EURECOM
+Expires: 14 November 2025                                        EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
                                                                   Orange
-                                                              7 May 2025
+                                                             13 May 2025
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -72,7 +72,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 November 2025.
+   This Internet-Draft will expire on 14 November 2025.
 
 Copyright Notice
 
@@ -1247,13 +1247,17 @@ WHERE {
 
    Model Gathering:  This task corresponds to the realization of the Y-
       MODEL-FROM-DATA use case with the manual selection of YANG modules
-      in relation to the 3GPP application domain.  The following YANG
-      modules have been selected: *xxx*, *xxx*, *xxx*.
+      in relation to the 3GPP application domain.  The YANG modules from
+      [ETSI-TS-128-541] have been selected for this experiment.
 
-   Model Translation:  It realizes the Y-MODEL-DEPENDENCIES use case
-      using *xxx*, and the Y-MODEL-TO-RDFS-OWL use case using the
-      YANG2OWL solution defined in Section 5.2.2.2.  For this
-      experiment, the resulting ontology is called MOBILE-O.
+   Model Translation:  For a given YANG module, it implements the Y-
+      MODEL-DEPENDENCIES use case by fetching sub-YANG modules from
+      well-known GitHub repositories.  This is achieved by scrutinizing
+      import clauses (including imports of imports) and examining module
+      locations and relationships from the [YANG-CATALOG].
+      Additionally, it addresses the Y-MODEL-TO-RDFS-OWL use case using
+      the YANG2OWL solution defined in Section 5.2.2.2.  For this
+      experiment, the resulting ontology is referred to as MOBILE-O.
 
    Model Curation:  This task involves providing a streamlined ontology
       by manually _filtering_ (selection of classes and relationships
@@ -1434,6 +1438,14 @@ WHERE {
               ICT Infrastructures", 2021,
               <https://doi.org/10.1007/978-3-030-88361-4_26>.
 
+   [ETSI-TS-128-541]
+              ETSI, "5G; Management and orchestration; 5G Network
+              Resource Model (NRM); Stage 2 and stage 3 (3GPP TS 28.541
+              version 18.9.0 Release 18)", October 2024,
+              <https://www.etsi.org/deliver/
+              etsi_ts/128500_128599/128541/18.09.00_60/
+              ts_128541v180900p.pdf>.
+
    [FLAGSM-2021]
               Steenwinckel, B., Paepe, D. D., Hautte, S. V., Heyvaert,
               P., Bentefrit, M., Moens, P., Dimou, A., Bossche, B. V.
@@ -1473,9 +1485,9 @@ WHERE {
               Rahman, R., and L. Tailhardat, "RFC 3535, 20 Years Later:
               An Update of Operators Requirements on Network Management
               Protocols and Modelling", Work in Progress, Internet-
-              Draft, draft-boucadair-nmop-rfc3535-20years-later-07, 30
-              March 2025, <https://datatracker.ietf.org/doc/html/draft-
-              boucadair-nmop-rfc3535-20years-later-07>.
+              Draft, draft-boucadair-nmop-rfc3535-20years-later-08, 12
+              May 2025, <https://datatracker.ietf.org/doc/html/draft-
+              boucadair-nmop-rfc3535-20years-later-08>.
 
    [I-D.havel-nmop-digital-map-concept]
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
@@ -1592,6 +1604,10 @@ WHERE {
    [SPARQL11-QL]
               W3C, "SPARQL 1.1 Query Language", March 2013,
               <https://www.w3.org/TR/sparql11-query/>.
+
+   [YANG-CATALOG]
+              Cisco and IETF, "YANG Catalog", n.d.,
+              <https://www.yangcatalog.org/>.
 
    [YANG2RDF-IETF-121]
               Michael, M., Anatolii, P., and C. Benoit, "YANG 2 RDF",

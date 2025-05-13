@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tailhardat, et al.</td>
-<td class="center">Expires 8 November 2025</td>
+<td class="center">Expires 14 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-tailhardat-nmop-incident-management-noria-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-07" class="published">7 May 2025</time>
+<time datetime="2025-05-13" class="published">13 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-08">8 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-14">14 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1145,7 +1145,7 @@ In addition to use case analysis and design pattern analysis, an experiment is p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2367,13 +2367,15 @@ The tasks of the diagram are described below.<a href="#section-5.2.2.4-2" class=
               <dt id="section-5.2.2.4-4.1">Model Gathering:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.2">
                 <p id="section-5.2.2.4-4.2.1">This task corresponds to the realization of the Y-MODEL-FROM-DATA use case with the manual selection of YANG modules in relation to the 3GPP application domain.
-The following YANG modules have been selected: <strong>xxx</strong>, <strong>xxx</strong>, <strong>xxx</strong>.<a href="#section-5.2.2.4-4.2.1" class="pilcrow">¶</a></p>
+The YANG modules from <span>[<a href="#ETSI-TS-128-541" class="cite xref">ETSI-TS-128-541</a>]</span> have been selected for this experiment.<a href="#section-5.2.2.4-4.2.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.3">Model Translation:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.4">
-                <p id="section-5.2.2.4-4.4.1">It realizes the Y-MODEL-DEPENDENCIES use case using <strong>xxx</strong>, and the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>.
-For this experiment, the resulting ontology is called MOBILE-O.<a href="#section-5.2.2.4-4.4.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.4-4.4.1">For a given YANG module, it implements the Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from well-known GitHub repositories.
+This is achieved by scrutinizing <code>import</code> clauses (including imports of imports) and examining module locations and relationships from the <span>[<a href="#YANG-CATALOG" class="cite xref">YANG-CATALOG</a>]</span>.
+Additionally, it addresses the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>.
+For this experiment, the resulting ontology is referred to as MOBILE-O.<a href="#section-5.2.2.4-4.4.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.5">Model Curation:</dt>
@@ -2542,6 +2544,10 @@ This implementation uses the AMO ontology, which includes a set of classes and p
         <dd>
 <span class="refAuthor">Corcho, O.</span>, <span class="refAuthor">Chaves-Fraga, D.</span>, <span class="refAuthor">Toledo, J.</span>, <span class="refAuthor">Arenas-Guerrero, J.</span>, <span class="refAuthor">Badenes-Olmedo, C.</span>, <span class="refAuthor">Wang, M.</span>, <span class="refAuthor">Peng, H.</span>, <span class="refAuthor">Burrett, N.</span>, <span class="refAuthor">Mora, J.</span>, and <span class="refAuthor">P. Zhang</span>, <span class="refTitle">"A High-Level Ontology Network for ICT Infrastructures"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-030-88361-4_26">https://doi.org/10.1007/978-3-030-88361-4_26</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="ETSI-TS-128-541">[ETSI-TS-128-541]</dt>
+        <dd>
+<span class="refAuthor">ETSI</span>, <span class="refTitle">"5G; Management and orchestration; 5G Network Resource Model (NRM); Stage 2 and stage 3 (3GPP TS 28.541 version 18.9.0 Release 18)"</span>, <time datetime="2024-10" class="refDate">October 2024</time>, <span>&lt;<a href="https://www.etsi.org/deliver/etsi_ts/128500_128599/128541/18.09.00_60/ts_128541v180900p.pdf">https://www.etsi.org/deliver/etsi_ts/128500_128599/128541/18.09.00_60/ts_128541v180900p.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="FLAGSM-2021">[FLAGSM-2021]</dt>
         <dd>
 <span class="refAuthor">Steenwinckel, B.</span>, <span class="refAuthor">Paepe, D. D.</span>, <span class="refAuthor">Hautte, S. V.</span>, <span class="refAuthor">Heyvaert, P.</span>, <span class="refAuthor">Bentefrit, M.</span>, <span class="refAuthor">Moens, P.</span>, <span class="refAuthor">Dimou, A.</span>, <span class="refAuthor">Bossche, B. V. D.</span>, <span class="refAuthor">Turck, F. D.</span>, <span class="refAuthor">Hoecke, S. V.</span>, and <span class="refAuthor">F. Ongenae</span>, <span class="refTitle">"FLAGS: A Methodology for Adaptive Anomaly Detection and Root Cause Analysis on Sensor Data Streams by Fusing Expert Knowledge with Machine Learning"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://doi.org/10.1016/j.future.2020.10.015">https://doi.org/10.1016/j.future.2020.10.015</a>&gt;</span>. </dd>
@@ -2564,7 +2570,7 @@ This implementation uses the AMO ontology, which includes a set of classes and p
 <dd class="break"></dd>
 <dt id="I-D.boucadair-nmop-rfc3535-20years-later">[I-D.boucadair-nmop-rfc3535-20years-later]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Rahman, R.</span>, and <span class="refAuthor">L. Tailhardat</span>, <span class="refTitle">"RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-nmop-rfc3535-20years-later-07</span>, <time datetime="2025-03-30" class="refDate">30 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-07">https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">de Dios, O. G.</span>, <span class="refAuthor">Graf, T.</span>, <span class="refAuthor">Rahman, R.</span>, and <span class="refAuthor">L. Tailhardat</span>, <span class="refTitle">"RFC 3535, 20 Years Later: An Update of Operators Requirements on Network Management Protocols and Modelling"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-nmop-rfc3535-20years-later-08</span>, <time datetime="2025-05-12" class="refDate">12 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-08">https://datatracker.ietf.org/doc/html/draft-boucadair-nmop-rfc3535-20years-later-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.havel-nmop-digital-map-concept">[I-D.havel-nmop-digital-map-concept]</dt>
         <dd>
@@ -2649,6 +2655,10 @@ This implementation uses the AMO ontology, which includes a set of classes and p
 <dt id="SPARQL11-QL">[SPARQL11-QL]</dt>
         <dd>
 <span class="refAuthor">W3C</span>, <span class="refTitle">"SPARQL 1.1 Query Language"</span>, <time datetime="2013-03" class="refDate">March 2013</time>, <span>&lt;<a href="https://www.w3.org/TR/sparql11-query/">https://www.w3.org/TR/sparql11-query/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="YANG-CATALOG">[YANG-CATALOG]</dt>
+        <dd>
+<span class="refAuthor">Cisco</span> and <span class="refAuthor">IETF</span>, <span class="refTitle">"YANG Catalog"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.yangcatalog.org/">https://www.yangcatalog.org/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="YANG2RDF-IETF-121">[YANG2RDF-IETF-121]</dt>
       <dd>
