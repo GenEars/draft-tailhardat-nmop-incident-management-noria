@@ -1250,9 +1250,11 @@ WHERE {
       in relation to the 3GPP application domain.  The YANG modules from
       [ETSI-TS-128-541] have been selected for this experiment.
 
-   Model Translation:  For a given YANG module, it implements the Y-
-      MODEL-DEPENDENCIES use case by fetching sub-YANG modules from
-      well-known GitHub repositories.  This is achieved by scrutinizing
+   Model Translation:  For a given YANG module, this task implements the
+      Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from
+      well-known GitHub repositories used for storing YANG modules (e.g.
+      IETF, IEEE, IANA, ETSI, broadband forum, OpenROADM, OpenConfig,
+      Cisco, Huawei, to name a few).  This is achieved by scrutinizing
       import clauses (including imports of imports) and examining module
       locations and relationships from the [YANG-CATALOG].
       Additionally, it addresses the Y-MODEL-TO-RDFS-OWL use case using
@@ -1356,6 +1358,15 @@ WHERE {
       META-KG-ALIGNMENT use case to extract an aggregated view from
       ONTO-META of infrastructures/configurations represented by an
       ONTO-YANG-MODEL (e.g. distinguishing devices from sub-devices)?
+
+   *  As mentioned in [I-D.boucadair-nmop-rfc3535-20years-later] (NEW-
+      OPS-REQ-QUICK-BUT-WELL), how can we ensure reliable retrieval of
+      dependencies between YANG modules for the Y-MODEL-DEPENDENCIES use
+      case?  Indeed, while browsing the GitHub projects of module
+      developers, we observe a lack of uniformity in the way modules are
+      presented and managed (e.g. differences in project structure,
+      replication and local modifications of reference modules), which
+      hinders dependency calculation.
 
    Furthermore, it is noteworthy that the YANG2OWL approach is
    complementary to the YANG2RDF approach [YANG2RDF-IETF-121], which

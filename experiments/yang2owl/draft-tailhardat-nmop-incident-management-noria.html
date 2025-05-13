@@ -2372,7 +2372,7 @@ The YANG modules from <span>[<a href="#ETSI-TS-128-541" class="cite xref">ETSI-T
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.3">Model Translation:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.4-4.4">
-                <p id="section-5.2.2.4-4.4.1">For a given YANG module, it implements the Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from well-known GitHub repositories.
+                <p id="section-5.2.2.4-4.4.1">For a given YANG module, this task implements the Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from well-known GitHub repositories used for storing YANG modules (e.g. IETF, IEEE, IANA, ETSI, broadband forum, OpenROADM, OpenConfig, Cisco, Huawei, to name a few).
 This is achieved by scrutinizing <code>import</code> clauses (including imports of imports) and examining module locations and relationships from the <span>[<a href="#YANG-CATALOG" class="cite xref">YANG-CATALOG</a>]</span>.
 Additionally, it addresses the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>.
 For this experiment, the resulting ontology is referred to as MOBILE-O.<a href="#section-5.2.2.4-4.4.1" class="pilcrow">¶</a></p>
@@ -2463,6 +2463,9 @@ potentially supported by a complementary exploration of the ITSM-KG performed al
 </li>
               <li class="normal" id="section-5.2.2.5-2.4">
                 <p id="section-5.2.2.5-2.4.1">What principles should guide the implementation of the Y-MODEL-META-KG-ALIGNMENT use case to extract an aggregated view from ONTO-META of infrastructures/configurations represented by an ONTO-YANG-MODEL (e.g. distinguishing devices from sub-devices)?<a href="#section-5.2.2.5-2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.2.2.5-2.5">
+                <p id="section-5.2.2.5-2.5.1">As mentioned in <span>[<a href="#I-D.boucadair-nmop-rfc3535-20years-later" class="cite xref">I-D.boucadair-nmop-rfc3535-20years-later</a>]</span> (NEW-OPS-REQ-QUICK-BUT-WELL), how can we ensure reliable retrieval of dependencies between YANG modules for the Y-MODEL-DEPENDENCIES use case? Indeed, while browsing the GitHub projects of module developers, we observe a lack of uniformity in the way modules are presented and managed (e.g. differences in project structure, replication and local modifications of reference modules), which hinders dependency calculation.<a href="#section-5.2.2.5-2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 <p id="section-5.2.2.5-3">Furthermore, it is noteworthy that the YANG2OWL approach is complementary to the YANG2RDF approach <span>[<a href="#YANG2RDF-IETF-121" class="cite xref">YANG2RDF-IETF-121</a>]</span>, which consists in translating YANG models into RDF.
