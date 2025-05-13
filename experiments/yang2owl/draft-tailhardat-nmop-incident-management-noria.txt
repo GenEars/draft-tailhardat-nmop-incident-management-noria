@@ -3,12 +3,12 @@
 
 
 Network Management Operations                              L. Tailhardat
-Internet-Draft                                                    Orange
+Internet-Draft                                           Orange Research
 Intended status: Informational                                 R. Troncy
 Expires: 14 November 2025                                        EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
-                                                                  Orange
+                                                         Orange Research
                                                              13 May 2025
 
 
@@ -1346,10 +1346,8 @@ WHERE {
       that in Figure 19 with a visualization tool like Neo4j NeoDash.
 
    MATCH (e1) where e1.resourceHostName = $neodash_ressource_hostname
-   MATCH q1 = (e1) ( (w)<-[:DEPENDS_ON|COMPONENT_OF]-(t) ) {0,8}
+   MATCH q1 = (e1) ((w)<-[:DEPENDS_ON]-(t)) {0,8}
    UNWIND t as impacts
-   WITH impacts
-     MATCH (impacts)
    RETURN distinct impacts.resourceHostName
 
      Figure 19: User query, in Cypher syntax, for rendering dependency
@@ -1688,27 +1686,27 @@ Changes Between Revisions
 Contributors
 
    Pauline Folz
-   Orange
+   Orange Research
    Email: pauline.folz@orange.com
 
 
    Fabrice Blache
-   Orange
+   Orange Research
    Email: fabrice.blache@orange.com
 
 
    Sébastien Bolle
-   Orange
+   Orange Research
    Email: sebastien.bolle@orange.com
 
 
    Romain Vinel
-   Orange
+   Orange France
    Email: romain.vinel@orange.com
 
 
    Arij Elmajed
-   Orange
+   Orange France
    Email: arij.elmajed@orange.com
 
 
@@ -1720,7 +1718,7 @@ Contributors
 Authors' Addresses
 
    Lionel Tailhardat
-   Orange
+   Orange Research
    Email: lionel.tailhardat@orange.com
 
 
@@ -1730,10 +1728,10 @@ Authors' Addresses
 
 
    Yoan Chabot
-   Orange
+   Orange Research
    Email: yoan.chabot@orange.com
 
 
    Fano Ramparany
-   Orange
+   Orange Research
    Email: fano.ramparany@orange.com

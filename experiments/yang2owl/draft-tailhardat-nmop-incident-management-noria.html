@@ -1082,7 +1082,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="authors">
 <div class="author">
       <div class="author-name">L. Tailhardat</div>
-<div class="org">Orange</div>
+<div class="org">Orange Research</div>
 </div>
 <div class="author">
       <div class="author-name">R. Troncy</div>
@@ -1090,11 +1090,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">Y. Chabot</div>
-<div class="org">Orange</div>
+<div class="org">Orange Research</div>
 </div>
 <div class="author">
       <div class="author-name">F. Ramparany</div>
-<div class="org">Orange</div>
+<div class="org">Orange Research</div>
 </div>
 </dd>
 </dl>
@@ -2457,10 +2457,8 @@ or by following an exploratory approach by coupling a query such as that in <a h
               <div class="alignLeft art-text artwork" id="section-5.2.2.4-8.1">
 <pre>
 MATCH (e1) where e1.resourceHostName = $neodash_ressource_hostname
-MATCH q1 = (e1) ( (w)&lt;-[:DEPENDS_ON|COMPONENT_OF]-(t) ) {0,8}
+MATCH q1 = (e1) ((w)&lt;-[:DEPENDS_ON]-(t)) {0,8}
 UNWIND t as impacts
-WITH impacts
-  MATCH (impacts)
 RETURN distinct impacts.resourceHostName
 </pre>
 </div>
@@ -2747,7 +2745,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Pauline Folz</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:pauline.folz@orange.com" class="email">pauline.folz@orange.com</a>
@@ -2755,7 +2753,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Fabrice Blache</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:fabrice.blache@orange.com" class="email">fabrice.blache@orange.com</a>
@@ -2763,7 +2761,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Sébastien Bolle</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:sebastien.bolle@orange.com" class="email">sebastien.bolle@orange.com</a>
@@ -2771,7 +2769,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Romain Vinel</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange France</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:romain.vinel@orange.com" class="email">romain.vinel@orange.com</a>
@@ -2779,7 +2777,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Arij Elmajed</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange France</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:arij.elmajed@orange.com" class="email">arij.elmajed@orange.com</a>
@@ -2802,7 +2800,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Lionel Tailhardat</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:lionel.tailhardat@orange.com" class="email">lionel.tailhardat@orange.com</a>
@@ -2818,7 +2816,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Yoan Chabot</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:yoan.chabot@orange.com" class="email">yoan.chabot@orange.com</a>
@@ -2826,7 +2824,7 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Fano Ramparany</span></div>
-<div dir="auto" class="left"><span class="org">Orange</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:fano.ramparany@orange.com" class="email">fano.ramparany@orange.com</a>
