@@ -1060,7 +1060,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tailhardat, et al.</td>
-<td class="center">Expires 14 November 2025</td>
+<td class="center">Expires 16 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1073,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-tailhardat-nmop-incident-management-noria-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-13" class="published">13 May 2025</time>
+<time datetime="2025-05-15" class="published">15 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-14">14 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-16">16 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1150,7 +1150,7 @@ In addition to use case analysis and design pattern analysis, an experiment is p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2276,7 +2276,7 @@ function createURI(jsonObject, class, namespace, ontology) {
   if class has a 'key' annotation {
     get the content &lt;keycontent&gt; of this annotation
     search the key &lt;keycontent&gt; in the jsonObject
-    use the namespace and the value of this key to create the URI
+    append the key to the namespace to create the URI
   } else {
     generate a unique URI
   }
@@ -2313,7 +2313,7 @@ function parse(object, parentURI, class, namespace, ontology) {
 <a href="#name-pseudo-code-of-the-algorith" class="selfRef">Pseudo code of the algorithm implemented by JSON2RDF.</a>
               </figcaption></figure>
 </div>
-<p id="section-5.2.2.3-6">The algorithm is initiated by calling the <code>parse</code> function (in Java, it should be called in the <code>main</code> method) as follows, where <code>top</code> is the root of the JSON object (i.e. configuration data as a JSON tree that complies to a given YANG model), and <code>ontology</code> is the output of the Y-MODEL-TO-RDFS-OWL step:<a href="#section-5.2.2.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.3-6">The algorithm is initiated by calling the <code>parse</code> function as follows, where <code>top</code> is the root of the JSON object (i.e. configuration data as a JSON tree that complies to a given YANG model), and <code>ontology</code> is the output of the Y-MODEL-TO-RDFS-OWL step:<a href="#section-5.2.2.3-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2.2.3-7">
 <pre>
 call parse(top, nil, namespace, ontology)
@@ -2417,7 +2417,7 @@ This simplification aims to enhance the readability of the model for an operator
                 <p id="section-5.2.2.4-4.12.1">It is achieved through parallel insertions into a graph database of the results from the <em>Model-Related</em> and <em>NetOps-Related</em> tasks, after ensuring that:
 1) the URI patterns implemented in the RML rules of the NetOps-Related step are consistent with the URIs produced by the Model-Related step to benefit from automatic linking of triples within the graph database through the uniqueness of the URIs;
 2) the definition of mappings between MOBILE-O and NORIA-O has been implemented and inserted into the graph database (i.e. realization of the Y-MODEL-META-KG-ALIGNMENT use case through the implementation of the ONTO-LINKER concept as illustrated in <a href="#snippet-onto-linker" class="auto internal xref">Figure 5</a>).
-For this experiment, the graph database is a Neo4j database <span>[<a href="#NEO4J" class="cite xref">NEO4J</a>]</span> instance, and the loading is performed using the Neo4j Neosemantics tool.<a href="#section-5.2.2.4-4.12.1" class="pilcrow">¶</a></p>
+For this experiment, the graph database is a Neo4j database <span>[<a href="#NEO4J" class="cite xref">NEO4J</a>]</span> instance, and the loading is performed using the Neo4j Neosemantics toolkit.<a href="#section-5.2.2.4-4.12.1" class="pilcrow">¶</a></p>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.2.2.4-4.13">Use Cases-Related Pre-Processing:</dt>
@@ -2474,14 +2474,14 @@ or by following an exploratory approach by coupling a query such as that in <a h
 <figure id="figure-19">
               <div class="alignLeft art-text artwork" id="section-5.2.2.4-8.1">
 <pre>
-MATCH (e1) where e1.resourceHostName = $neodash_ressource_hostname
+MATCH (e1) WHERE e1.resourceHostName = $neodash_ressource_hostname
 MATCH q1 = (e1) ((w)&lt;-[:DEPENDS_ON]-(t)) {0,8}
-UNWIND t as impacts
-RETURN distinct impacts.resourceHostName
+UNWIND t AS impacts
+RETURN DISTINCT impacts.resourceHostName
 </pre>
 </div>
 <figcaption><a href="#figure-19" class="selfRef">Figure 19</a>:
-<a href="#name-user-query-in-cypher-syntax" class="selfRef">User query, in Cypher syntax, for rendering dependency relationships in a Neo4j NeoDash display.</a>
+<a href="#name-user-query-in-cypher-syntax" class="selfRef">User query, in Cypher syntax using a quantified path pattern, for rendering dependency relationships in a Neo4j NeoDash display. The query seeks paths starting from the node e1 and propagates up to 8 times using the `DEPENDS_ON` relationships. The depth of 8 has been defined in relation to the characteristics of the networks addressed in the experimentation.</a>
               </figcaption></figure>
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.4-9">
@@ -2783,6 +2783,14 @@ We also extend our gratitude to Mohamed Boucadair for facilitating discussions w
 <div class="email">
 <span>Email:</span>
 <a href="mailto:sebastien.bolle@orange.com" class="email">sebastien.bolle@orange.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Thomas Hassan</span></div>
+<div dir="auto" class="left"><span class="org">Orange Research</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:thomas.hassan@orange.com" class="email">thomas.hassan@orange.com</a>
 </div>
 </address>
 <address class="vcard">

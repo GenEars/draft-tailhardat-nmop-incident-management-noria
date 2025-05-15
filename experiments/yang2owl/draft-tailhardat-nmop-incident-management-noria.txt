@@ -5,12 +5,12 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                           Orange Research
 Intended status: Informational                                 R. Troncy
-Expires: 14 November 2025                                        EURECOM
+Expires: 16 November 2025                                        EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
                                                                  P. Folz
                                                          Orange Research
-                                                             13 May 2025
+                                                             15 May 2025
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 November 2025.
+   This Internet-Draft will expire on 16 November 2025.
 
 Copyright Notice
 
@@ -1157,7 +1157,7 @@ WHERE {
      if class has a 'key' annotation {
        get the content <keycontent> of this annotation
        search the key <keycontent> in the jsonObject
-       use the namespace and the value of this key to create the URI
+       append the key to the namespace to create the URI
      } else {
        generate a unique URI
      }
@@ -1191,11 +1191,10 @@ WHERE {
 
       Figure 15: Pseudo code of the algorithm implemented by JSON2RDF.
 
-   The algorithm is initiated by calling the parse function (in Java, it
-   should be called in the main method) as follows, where top is the
-   root of the JSON object (i.e. configuration data as a JSON tree that
-   complies to a given YANG model), and ontology is the output of the Y-
-   MODEL-TO-RDFS-OWL step:
+   The algorithm is initiated by calling the parse function as follows,
+   where top is the root of the JSON object (i.e. configuration data as
+   a JSON tree that complies to a given YANG model), and ontology is the
+   output of the Y-MODEL-TO-RDFS-OWL step:
 
    call parse(top, nil, namespace, ontology)
 
@@ -1311,7 +1310,7 @@ WHERE {
       META-KG-ALIGNMENT use case through the implementation of the ONTO-
       LINKER concept as illustrated in Figure 5).  For this experiment,
       the graph database is a Neo4j database [NEO4J] instance, and the
-      loading is performed using the Neo4j Neosemantics tool.
+      loading is performed using the Neo4j Neosemantics toolkit.
 
    Use Cases-Related Pre-Processing:  Dependency relationships are, in
       general, knowledge elements that cannot be directly derived from
@@ -1361,13 +1360,18 @@ WHERE {
       by following an exploratory approach by coupling a query such as
       that in Figure 19 with a visualization tool like Neo4j NeoDash.
 
-   MATCH (e1) where e1.resourceHostName = $neodash_ressource_hostname
+   MATCH (e1) WHERE e1.resourceHostName = $neodash_ressource_hostname
    MATCH q1 = (e1) ((w)<-[:DEPENDS_ON]-(t)) {0,8}
-   UNWIND t as impacts
-   RETURN distinct impacts.resourceHostName
+   UNWIND t AS impacts
+   RETURN DISTINCT impacts.resourceHostName
 
-     Figure 19: User query, in Cypher syntax, for rendering dependency
-                 relationships in a Neo4j NeoDash display.
+      Figure 19: User query, in Cypher syntax using a quantified path
+         pattern, for rendering dependency relationships in a Neo4j
+     NeoDash display.  The query seeks paths starting from the node e1
+            and propagates up to 8 times using the `DEPENDS_ON`
+       relationships.  The depth of 8 has been defined in relation to
+            the characteristics of the networks addressed in the
+                              experimentation.
 
    Situation Analysis:  Decision-making based on the results of the
       upstream task is the responsibility of the network administrator,
@@ -1714,6 +1718,11 @@ Contributors
    Sébastien Bolle
    Orange Research
    Email: sebastien.bolle@orange.com
+
+
+   Thomas Hassan
+   Orange Research
+   Email: thomas.hassan@orange.com
 
 
    Romain Vinel
