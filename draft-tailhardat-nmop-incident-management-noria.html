@@ -2189,7 +2189,7 @@ They define a vocabulary and a grammar.
 The vocabulary defines the concept of the domain. YANG domain is the telco domain.<a href="#section-5.2.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.2-2">In a natural language, the vocabulary defines nouns, verbs, adjectives, and adverbs that are useful for discussing the world.
 The grammar specifies how these elements should be assembled into sentences that describe a state of the world.
-In a YANG model, the vocabulary is defined in terms of <em>containers</em>, <em>lists</em>, <em>leaves</em>, <em>leaf lists</em>, and other categories, while the grammar is defined in terms of statements that relate these elements to one another.
+In a YANG model, the vocabulary is defined in terms of <em>containers</em>, <em>lists</em>, <em>leaves</em>, <em>leaf-lists</em>, and other categories, while the grammar is defined in terms of statements that relate these elements to one another.
 In an OWL ontology, the vocabulary is defined in terms of <em>classes</em>, <em>subclasses</em>, <em>object properties</em>, and <em>data properties</em>, which is somewhat similar to YANG but does not directly map.<a href="#section-5.2.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.2-3">As ontologies have been introduced as a modeling language meant to share a common view (or knowledge) of a domain among different stakeholders <span>[<a href="#GRUBER-1995" class="cite xref">GRUBER-1995</a>]</span>, the terms defined by the ontologies should reflect those used by equipment manufacturers, telecom solutions developers, systems integrators, network operators, and ultimately end users.<a href="#section-5.2.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.2-4">A YANG model is a document containing declarations.
@@ -2199,7 +2199,7 @@ The main ones are <em>container</em>, <em>list</em>, <em>leaf</em> and <em>leaf-
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.2-5">
               <dt id="section-5.2.2.2-5.1">CONTAINER:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.2-5.2">
-                <p id="section-5.2.2.2-5.2.1">It is a concept, something we can talk about, it's basic type of element of the domain, such as a network, a node, a link.
+                <p id="section-5.2.2.2-5.2.1">It is a concept, something we can talk about ; it is the the basic type of elements of the domain, such as a network, a node, a link.
 A container declaration can contain another container declaration that can be called a sub-container.
 This sub-container allows to define a concept that will characterize the container that contains it (e.g. link, source, and destination).<a href="#section-5.2.2.2-5.2.1" class="pilcrow">¶</a></p>
 </dd>
@@ -2216,7 +2216,7 @@ This sub-container allows to define a concept that will characterize the contain
               <dd class="break"></dd>
 <dt id="section-5.2.2.2-5.7">LEAF-LIST:</dt>
               <dd style="margin-left: 1.5em" id="section-5.2.2.2-5.8">
-                <p id="section-5.2.2.2-5.8.1">It is a multivalued property, such as hours of the day the device is put on sleep mode.<a href="#section-5.2.2.2-5.8.1" class="pilcrow">¶</a></p>
+                <p id="section-5.2.2.2-5.8.1">It is a multivalued property, such as hours of the day the device is in sleep mode.<a href="#section-5.2.2.2-5.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -2264,7 +2264,7 @@ For example if a YANG module defines the container <em>node</em>, and this conta
 then a valid JSON document with configuration data describing a node should be a JSON object containing a key named <code>identifier</code> which value should be a <code>string</code> such as <code>router_253</code>.<a href="#section-5.2.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.3-2">So, in line with the mapping rules of YANG statement into OWL concepts defined in <a href="#sec-exp-yang2owl-oc" class="auto internal xref">Section 5.2.2.2</a>, when parsing a JSON tree that comply to a given YANG model we can assume that if we get a <em>key which value is a JSON object</em> then the <em>key should be the name of a container or a list</em> and its <em>value should be a description to be further analyzed</em>.
 Thus, in terms of knowledge graph modeling, this JSON object should be interpreted as an <em>instance of a class</em> which name is the <em>name of the container or of the list</em>.<a href="#section-5.2.2.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.3-3">Conversely, if the value is a <em>litteral</em>, the <em>key</em> should be the <em>name of a leaf or a leaflist</em>.
+<p id="section-5.2.2.3-3">Conversely, if the value is a <em>litteral</em>, the <em>key</em> should be the <em>name of a leaf or a leaf-list</em>.
 Thus, in terms of knowledge graph modeling, the litteral should be interpreted as the <em>object of a DataProperty</em> which name is the <em>name of the leaf</em>.<a href="#section-5.2.2.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.3-4">The JSON2RDF tool (which is part of the YANG2OWL framework) implements these principles, realizing the Y-INSTANCE-TO-KG use case.
 <a href="#snippet-json2rdf-pseudocode" class="auto internal xref">Figure 15</a> shows the algorithm implemented by JSON2RDF as pseudo code.<a href="#section-5.2.2.3-4" class="pilcrow">¶</a></p>
@@ -2481,7 +2481,7 @@ RETURN DISTINCT impacts.resourceHostName
 </pre>
 </div>
 <figcaption><a href="#figure-19" class="selfRef">Figure 19</a>:
-<a href="#name-user-query-in-cypher-syntax" class="selfRef">User query, in Cypher syntax using a quantified path pattern, for rendering dependency relationships in a Neo4j NeoDash display. The query seeks paths starting from the node e1 and propagates up to 8 times using the `DEPENDS_ON` relationships. The depth of 8 has been defined in relation to the characteristics of the networks addressed in the experimentation.</a>
+<a href="#name-user-query-in-cypher-syntax" class="selfRef">User query, in Cypher syntax using a quantified path pattern, for rendering dependency relationships in a Neo4j NeoDash display. The query seeks paths starting from the node `e1` and propagates up to 8 times using the `DEPENDS_ON` relationships. The depth of 8 has been defined in relation to the characteristics of the networks addressed in the experimentation.</a>
               </figcaption></figure>
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-5.2.2.4-9">

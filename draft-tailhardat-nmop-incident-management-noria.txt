@@ -1058,7 +1058,7 @@ WHERE {
    The grammar specifies how these elements should be assembled into
    sentences that describe a state of the world.  In a YANG model, the
    vocabulary is defined in terms of _containers_, _lists_, _leaves_,
-   _leaf lists_, and other categories, while the grammar is defined in
+   _leaf-lists_, and other categories, while the grammar is defined in
    terms of statements that relate these elements to one another.  In an
    OWL ontology, the vocabulary is defined in terms of _classes_,
    _subclasses_, _object properties_, and _data properties_, which is
@@ -1076,12 +1076,13 @@ WHERE {
    There are about half hundred types of declarations.  The main ones
    are _container_, _list_, _leaf_ and _leaf-list_:
 
-   CONTAINER:  It is a concept, something we can talk about, it's basic
-      type of element of the domain, such as a network, a node, a link.
-      A container declaration can contain another container declaration
-      that can be called a sub-container.  This sub-container allows to
-      define a concept that will characterize the container that
-      contains it (e.g. link, source, and destination).
+   CONTAINER:  It is a concept, something we can talk about ; it is the
+      the basic type of elements of the domain, such as a network, a
+      node, a link.  A container declaration can contain another
+      container declaration that can be called a sub-container.  This
+      sub-container allows to define a concept that will characterize
+      the container that contains it (e.g. link, source, and
+      destination).
 
    LIST:  It is a concept that can have multiple instances, such as
       nodes of a network.
@@ -1090,7 +1091,7 @@ WHERE {
       geographical location.
 
    LEAF-LIST:  It is a multivalued property, such as hours of the day
-      the device is put on sleep mode.
+      the device is in sleep mode.
 
    By applying the above principles, and in line with the reasons
    sketched in Section 5.2.2.1, we have developed the YANG2OWL that
@@ -1145,7 +1146,7 @@ WHERE {
    name is the _name of the container or of the list_.
 
    Conversely, if the value is a _litteral_, the _key_ should be the
-   _name of a leaf or a leaflist_. Thus, in terms of knowledge graph
+   _name of a leaf or a leaf-list_. Thus, in terms of knowledge graph
    modeling, the litteral should be interpreted as the _object of a
    DataProperty_ which name is the _name of the leaf_.
 
@@ -1367,8 +1368,8 @@ WHERE {
 
       Figure 19: User query, in Cypher syntax using a quantified path
          pattern, for rendering dependency relationships in a Neo4j
-     NeoDash display.  The query seeks paths starting from the node e1
-            and propagates up to 8 times using the `DEPENDS_ON`
+       NeoDash display.  The query seeks paths starting from the node
+          `e1` and propagates up to 8 times using the `DEPENDS_ON`
        relationships.  The depth of 8 has been defined in relation to
             the characteristics of the networks addressed in the
                               experimentation.
