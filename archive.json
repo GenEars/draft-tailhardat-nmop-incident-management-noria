@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-15T01:19:01.966763+00:00",
+  "timestamp": "2025-05-18T01:26:51.165650+00:00",
   "repo": "GenEars/draft-tailhardat-nmop-incident-management-noria",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "No need to have explicit ref entries for drafts, RFCs.\r\n\r\nThese entries will be automatically added if you cited them in the text, e.g., {{?I-D.marcas-nmop-knowledge-graph-yang}}. (\"s/?/! if a ref is normative)",
       "createdAt": "2024-08-09T09:11:02Z",
-      "updatedAt": "2024-08-09T12:22:16Z",
+      "updatedAt": "2025-05-15T13:24:50Z",
       "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
       "baseRefName": "main",
       "baseRefOid": "de7f04b8ffa24598613c04f989aac10e46127eb0",
@@ -75,6 +75,38 @@
       "mergedBy": "GenEars",
       "mergeCommit": {
         "oid": "583090ecd0a83812948b425e47e4177213bcf029"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOMg7Ycc6WSpn8",
+      "title": "Added the YANG2OWL solution to the 'Implementation Status'",
+      "url": "https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/2",
+      "state": "MERGED",
+      "author": "GenEars",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "GenEars"
+      ],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "",
+      "createdAt": "2025-05-15T09:16:04Z",
+      "updatedAt": "2025-05-15T09:17:20Z",
+      "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "baseRefName": "main",
+      "baseRefOid": "fd0f8192b4a4fbae0bfe54fc7d38685ec3feeee1",
+      "headRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "headRefName": "experiments/yang2owl",
+      "headRefOid": "8a4e2ae63bd2c4914423f6375f4e7f07401a7741",
+      "closedAt": "2025-05-15T09:17:14Z",
+      "mergedAt": "2025-05-15T09:17:14Z",
+      "mergedBy": "GenEars",
+      "mergeCommit": {
+        "oid": "90ae87e630124330126af64389d170083143ac67"
       },
       "comments": [],
       "reviews": []
