@@ -737,22 +737,23 @@ The following figures illustrate different scenarios for constructing a ITSM-KG 
 {{fig-stream-kg-only}} illustrates a common design pattern providing the capability to record event streams into a knowledge graph, such as an ITMS-KG if considering that event data are mapped to ONTO-META concepts and network entities to ONTO-YANG-MODEL concepts.
 The {{fig-stream-kg-only-kr}} provides an example of the resulting representation in the form of a knowledge graph.
 
-~~~~ ascii-art
-          ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
-┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
-│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
-└──────┘  │      │  │         │  │      │  │        │  │└────┘│
-          └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
-                                    │
-                ┌───────────────────┴──────────────────────┐
-                │(event/LOG_login_03)=>(object/RES/router1)│
-                └─┌──────────────────────────────────────────┐
-                  │(event/LOG_login_03)=>(object/RES/router1)│
-                  └─┌──────────────────────────────────────────┐
-                    │(event/LOG_login_03)=>(object/RES/router1)│
-                    └──────────────────────────────────────────┘
+~~~~ mermaid
+%% Figure 10: ETL Pipeline with Distributed RDBMS as Broker
+graph LR
+    Source[Heterogeneous Sources] -->|Logs & Metrics| Stream[Stream Loader]
+    Stream -->|Write| TiDB[(Distributed RDBMS\nTiDB)]
+
+    subgraph "Broker & Consistency Layer"
+    TiDB -->|Change Data Capture| ID_Map[ID Consistency Svc]
+    ID_Map -->|Resolved IDs| KG_Load[KG Loader]
+    end
+
+    KG_Load -->|Triples| KG[(Knowledge Graph)]
+    TiDB -.->|Direct SQL Query| Apps[Noria Apps]
+
+    style TiDB fill:#f96,stroke:#333,stroke-width:2px
 ~~~~
-{: #fig-stream-kg-only title="KG-only data integration architecture for event data streams."}
+{: #fig-stream-mixed title="ETL Pipeline with Distributed RDBMS as Broker (replacing Mixed KG/non-KG architecture)."}
 
 ~~~~ ascii-art
                          <object/RES_router3>
@@ -791,7 +792,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
              │  └──────────────────────────────────────────┘
              │                             ┌────────┐  ┌──────┐
              │                             │ Stream │  │┌────┐│
-             └────────────────────────────►│ loader ├─►││TSDB││
+             └────────────────────────────►│ loader ├─►││TiDB││
                                            │        │  │└────┘│
                                            └────────┘  └──────┘
 ~~~~
@@ -830,7 +831,6 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 ~~~~
 {: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams."}
 
-
 ### Federated Data Architecture {#sec-etl-kgc-fq}
 
 The {{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
@@ -839,12 +839,12 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
   │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
   └UG.─2──┘                                  │ │           └───────────┘
   ┌Dom. B─┐                                  │ │           ┌───────────┐
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
   │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
   └UG.─1┬─┘                                  │E│
         └────────────────────────────────────│D│─────────────┐
@@ -874,7 +874,8 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 ~~~~
-{: #fig-multi-store title="Unified access to data distributed across various technological platforms."}
+{: #fig-multi-store title="Federated Data Architecture enabling Semantic and SQL interoperation."}
+
 
 ### Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}
 
