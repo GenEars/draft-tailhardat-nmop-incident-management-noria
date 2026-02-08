@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-05T01:56:03.689213+00:00",
+  "timestamp": "2026-02-08T02:25:31.322916+00:00",
   "repo": "GenEars/draft-tailhardat-nmop-incident-management-noria",
   "labels": [
     {
@@ -109,6 +109,47 @@
         "oid": "90ae87e630124330126af64389d170083143ac67"
       },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOMg7Ycc7Bvg4T",
+      "title": "Requested changes to propose TiDB as a RDBMS and a VECTOR store in order to achieve a solution to \u201cDigital ID drift\u201d",
+      "url": "https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3",
+      "state": "OPEN",
+      "author": "bernard-kavanagh",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}\r\nTo effectively implement the \"Digital Twin\" replication of the network and mitigate the risks of \"Digital ID Drift\", the underlying data architecture must support high-velocity evolution without service interruption. Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.\r\n\r\nWe propose utilizing a Distributed RDBMS (e.g., TiDB) to address these challenges through the following mechanisms:\r\n\r\n1. Safe Evolution of Schemas without Downtime In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the \"Federated Data Architecture\" (see {{fig-multi-store}}) where the RDBMS acts as a live, queryable source for the Knowledge Graph. See Documentation: https://docs.pingcap.com/tidbcloud/ddl-introduction/?plan=essential#best-practices-for-ddl-execution-in-tidb\r\n\r\n2. Solving Digital ID Drift via Unified Storage \"ID Drift\" occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects. By positioning the Distributed RDBMS as a \"broker\" between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed}}). See Documentation: https://docs.pingcap.com/tidbcloud/essential-changefeed-overview/?plan=essential\r\n\r\n3. Unified Vector and Operational Store To support \"Incident Management,\" the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for \"incident signatures.\" This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis. See Documentation: https://docs.pingcap.com/tidbcloud/vector-search-overview/?plan=essential",
+      "createdAt": "2026-02-05T14:25:48Z",
+      "updatedAt": "2026-02-05T20:19:18Z",
+      "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "baseRefName": "main",
+      "baseRefOid": "e0a31f2f1db018c6d8e7a573abec7ba204695a68",
+      "headRepository": "bernard-kavanagh/draft-tailhardat-nmop-incident-management-noria",
+      "headRefName": "main",
+      "headRefOid": "67eefd78b7f0f6a86526ac00bc67337505f09fbd",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "GenEars",
+          "authorAssociation": "OWNER",
+          "body": "Hi @bernard-kavanagh,\r\nMany thanks for contributing to this Internet Draft (ID).\r\n\r\nYour ideas are useful and I would like to include them into the current document.\r\n\r\nHowever, some of your changes are breaking the generality of the ID. For example, in https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3/changes/96dcc0c8ca4d80af908ccfcc77fa6c113a1d33de , you should be speaking of \"TiDB as an example Distributed RDMS in {{fig-multi-store}}\", rather than replacing \"RDBMS\" with \"TiDB\" within the Figure.\r\n\r\nIn https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3/changes/822c7c42717534d0d17337f8ab025039894a6d06 it could be useful to add a bibliographical reference to \"(e.g., TiDB)\"\r\n\r\nCould you please update your pull request accordingly? and I'll be pleased to merge.\r\nKind regards.",
+          "createdAt": "2026-02-05T17:08:17Z",
+          "updatedAt": "2026-02-05T17:08:17Z"
+        },
+        {
+          "author": "bernard-kavanagh",
+          "authorAssociation": "NONE",
+          "body": "Hi Lionel,\r\n\r\nThank you for the feedback!\r\n\r\nWould you have 30 minutes tomorrow to run through this with me as I want to\r\nensure the message and placement is correct? I have availability anywhere\r\nbetween 11 am and 2 pm CET?\r\n\r\nThanks is advance,\r\nBernard\r\n\r\nOn Thu, Feb 5, 2026 at 5:58\u202fPM Lionel TAILHARDAT ***@***.***>\r\nwrote:\r\n\r\n> *GenEars* left a comment\r\n> (GenEars/draft-tailhardat-nmop-incident-management-noria#3)\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3#issuecomment-3854989287>\r\n>\r\n> Hi @bernard-kavanagh <https://github.com/bernard-kavanagh>,\r\n> Many thanks for contributing to this Internet Draft (ID).\r\n>\r\n> Your ideas are useful and I would like to include them into the current\r\n> document.\r\n>\r\n> However, some of your changes are breaking the generality of the ID. For\r\n> example, in 96dcc0c\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/commit/96dcc0c8ca4d80af908ccfcc77fa6c113a1d33de>\r\n> , you should be speaking of \"TiDB as an example Distributed RDMS in\r\n> {{fig-multi-store}}\", rather than replacing \"RDBMS\" with \"TiDB\" within the\r\n> Figure.\r\n>\r\n> In 822c7c4\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/commit/822c7c42717534d0d17337f8ab025039894a6d06>\r\n> it could be useful to add a bibliographical reference to \"(e.g., TiDB)\"\r\n>\r\n> Could you please update your pull request accordingly? and I'll be pleased\r\n> to merge.\r\n> Kind regards.\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3#issuecomment-3854989287>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/AI3VWJPVTZIU2UVOETEJJVD4KOAD3AVCNFSM6AAAAACUDGVQR2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTQNJUHE4DSMRYG4>\r\n> .\r\n> You are receiving this because you were mentioned.Message ID:\r\n> <GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3/c3854989287\r\n> @github.com>\r\n>\r\n",
+          "createdAt": "2026-02-05T18:03:47Z",
+          "updatedAt": "2026-02-05T18:03:47Z"
+        }
+      ],
       "reviews": []
     }
   ]
