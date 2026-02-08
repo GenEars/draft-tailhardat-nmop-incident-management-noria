@@ -1,0 +1,27 @@
+ ```mermaid
+%% Figure 12: Federated Data Architecture
+classDiagram
+    class KnowledgeGraph {
+        +Semantic Layer
+        +Reasoning Engine
+        -Stores: Metadata Only
+    }
+
+    class DistributedRDBMS {
+        <<TiDB>>
+        +Operational Data (SQL)
+        +Vector Store (Embeddings)
+        +Schema Evolution (Online DDL)
+    }
+
+    class ExternalSources {
+        +Network Devices
+        +Ticketing Systems
+    }
+
+    KnowledgeGraph ..> DistributedRDBMS : Federated Query (SQL)
+    KnowledgeGraph ..> DistributedRDBMS : Vector Search (Similarity)
+    DistributedRDBMS <|-- ExternalSources : Ingestion
+~~~~
+
+{: #fig-multi-store title="Federated Data Architecture enabling Semantic and SQL interoperation."}

@@ -324,6 +324,25 @@ informative:
     title: "YANG Catalog"
     target: https://www.yangcatalog.org/
 
+  TiDB:
+    title: "TiDB: A Raft-based HTAP Database"
+    author:
+      - name: Huang, Dongxu
+      - name: Liu, Queeny
+      - name: Cui, Qiu
+      - name: Fang, Zhou
+      - name: Ma, Xiaoyu
+      - name: Xu, Fei
+      - name: Shen, Li
+      - name: Liu, L.
+      - name: Wang, Guoliang
+      - name: Zhou, Xuan
+      - name: Li, Zhanhuai
+    date: 2020
+    seriesinfo:
+      PVLDB: "Vol. 13, No. 12"
+    target: https://www.vldb.org/pvldb/vol13/p3072-huang.pdf
+
 --- abstract
 
 Operational efficiency in incident management on telecom and computer networks requires correlating and interpreting large volumes of heterogeneous technical information.
@@ -853,7 +872,20 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
 ~~~~
 {: #fig-multi-store title="Unified access to data distributed across various technological platforms."}
 
+### Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}
 
+To effectively implement the "Digital Twin" replication of the network and mitigate the risks of "Digital ID Drift", the underlying data architecture must support high-velocity evolution without service interruption. Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.
+
+We propose utilizing a Distributed RDBMS (e.g., TiDB) to address these challenges through the following mechanisms:
+
+**1. Safe Evolution of Schemas without Downtime**
+In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the "Federated Data Architecture" (see {{fig-multi-store}}) where the RDBMS acts as a live, queryable source for the Knowledge Graph.
+
+**2. Solving Digital ID Drift via Unified Storage**
+"ID Drift" occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects. By positioning the Distributed RDBMS as a "broker" between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed}}).
+
+**3. Unified Vector and Operational Store**
+To support "Incident Management," the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for "incident signatures." This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis.
 
 # Experiments {#sec-experiments}
 
