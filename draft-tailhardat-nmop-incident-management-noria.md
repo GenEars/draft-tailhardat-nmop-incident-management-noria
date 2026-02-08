@@ -47,6 +47,10 @@ author:
     fullname: Pauline Folz
     organization: Orange Research
     email: "pauline.folz@orange.com"
+ -
+    fullname: Bernard Kavanagh
+    organization: TiDB
+    email: "bernard.k@pingcap.com"
 
 contributor:
  -
@@ -738,15 +742,15 @@ The {{fig-stream-kg-only-kr}} provides an example of the resulting representatio
 graph LR
     Source[Heterogeneous Sources] -->|Logs & Metrics| Stream[Stream Loader]
     Stream -->|Write| TiDB[(Distributed RDBMS\nTiDB)]
-    
+
     subgraph "Broker & Consistency Layer"
     TiDB -->|Change Data Capture| ID_Map[ID Consistency Svc]
     ID_Map -->|Resolved IDs| KG_Load[KG Loader]
     end
-    
+
     KG_Load -->|Triples| KG[(Knowledge Graph)]
     TiDB -.->|Direct SQL Query| Apps[Noria Apps]
-    
+
     style TiDB fill:#f96,stroke:#333,stroke-width:2px
 ~~~~
 {: #fig-stream-mixed title="ETL Pipeline with Distributed RDBMS as Broker (replacing Mixed KG/non-KG architecture)."}
@@ -877,14 +881,14 @@ classDiagram
         +Reasoning Engine
         -Stores: Metadata Only
     }
-    
+
     class DistributedRDBMS {
         <<TiDB>>
         +Operational Data (SQL)
         +Vector Store (Embeddings)
         +Schema Evolution (Online DDL)
     }
-    
+
     class ExternalSources {
         +Network Devices
         +Ticketing Systems
