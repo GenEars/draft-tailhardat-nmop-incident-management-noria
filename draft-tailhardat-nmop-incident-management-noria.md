@@ -737,23 +737,22 @@ The following figures illustrate different scenarios for constructing a ITSM-KG 
 {{fig-stream-kg-only}} illustrates a common design pattern providing the capability to record event streams into a knowledge graph, such as an ITMS-KG if considering that event data are mapped to ONTO-META concepts and network entities to ONTO-YANG-MODEL concepts.
 The {{fig-stream-kg-only-kr}} provides an example of the resulting representation in the form of a knowledge graph.
 
-~~~~ mermaid
-%% Figure 10: ETL Pipeline with Distributed RDBMS as Broker
-graph LR
-    Source[Heterogeneous Sources] -->|Logs & Metrics| Stream[Stream Loader]
-    Stream -->|Write| TiDB[(Distributed RDBMS\nTiDB)]
-
-    subgraph "Broker & Consistency Layer"
-    TiDB -->|Change Data Capture| ID_Map[ID Consistency Svc]
-    ID_Map -->|Resolved IDs| KG_Load[KG Loader]
-    end
-
-    KG_Load -->|Triples| KG[(Knowledge Graph)]
-    TiDB -.->|Direct SQL Query| Apps[Noria Apps]
-
-    style TiDB fill:#f96,stroke:#333,stroke-width:2px
+~~~~ ascii-art
+          ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
+┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
+│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
+└──────┘  │      │  │         │  │      │  │        │  │└────┘│
+          └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
+                                    │
+                ┌───────────────────┴──────────────────────┐
+                │(event/LOG_login_03)=>(object/RES/router1)│
+                └─┌──────────────────────────────────────────┐
+                  │(event/LOG_login_03)=>(object/RES/router1)│
+                  └─┌──────────────────────────────────────────┐
+                    │(event/LOG_login_03)=>(object/RES/router1)│
+                    └──────────────────────────────────────────┘
 ~~~~
-{: #fig-stream-mixed title="ETL Pipeline with Distributed RDBMS as Broker (replacing Mixed KG/non-KG architecture)."}
+{: #fig-stream-kg-only title="KG-only data integration architecture for event data streams."}
 
 ~~~~ ascii-art
                          <object/RES_router3>
