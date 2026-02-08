@@ -324,6 +324,25 @@ informative:
     title: "YANG Catalog"
     target: https://www.yangcatalog.org/
 
+  TiDB:
+    title: "TiDB: A Raft-based HTAP Database"
+    author:
+      - name: Huang, Dongxu
+      - name: Liu, Queeny
+      - name: Cui, Qiu
+      - name: Fang, Zhou
+      - name: Ma, Xiaoyu
+      - name: Xu, Fei
+      - name: Shen, Li
+      - name: Liu, L.
+      - name: Wang, Guoliang
+      - name: Zhou, Xuan
+      - name: Li, Zhanhuai
+    date: 2020
+    seriesinfo:
+      PVLDB: "Vol. 13, No. 12"
+    target: https://www.vldb.org/pvldb/vol13/p3072-huang.pdf
+
 --- abstract
 
 Operational efficiency in incident management on telecom and computer networks requires correlating and interpreting large volumes of heterogeneous technical information.
@@ -714,22 +733,23 @@ The following figures illustrate different scenarios for constructing a ITSM-KG 
 {{fig-stream-kg-only}} illustrates a common design pattern providing the capability to record event streams into a knowledge graph, such as an ITMS-KG if considering that event data are mapped to ONTO-META concepts and network entities to ONTO-YANG-MODEL concepts.
 The {{fig-stream-kg-only-kr}} provides an example of the resulting representation in the form of a knowledge graph.
 
-~~~~ ascii-art
-          ┌──────┐  ┌─────────┐  ┌──────┐  ┌────────┐  ┌──────┐
-┌──────┐  │      │  │ Stream  │  │      │  │ Stream │  │┌────┐│
-│Events├─►│E.S.B.├─►│ mapping ├─►│S.S.B.├─►│ loader ├─►││K.G.││
-└──────┘  │      │  │         │  │      │  │        │  │└────┘│
-          └──────┘  └─────────┘  └──┬───┘  └────────┘  └──────┘
-                                    │
-                ┌───────────────────┴──────────────────────┐
-                │(event/LOG_login_03)=>(object/RES/router1)│
-                └─┌──────────────────────────────────────────┐
-                  │(event/LOG_login_03)=>(object/RES/router1)│
-                  └─┌──────────────────────────────────────────┐
-                    │(event/LOG_login_03)=>(object/RES/router1)│
-                    └──────────────────────────────────────────┘
+~~~~ mermaid
+%% Figure 10: ETL Pipeline with Distributed RDBMS as Broker
+graph LR
+    Source[Heterogeneous Sources] -->|Logs & Metrics| Stream[Stream Loader]
+    Stream -->|Write| TiDB[(Distributed RDBMS\nTiDB)]
+    
+    subgraph "Broker & Consistency Layer"
+    TiDB -->|Change Data Capture| ID_Map[ID Consistency Svc]
+    ID_Map -->|Resolved IDs| KG_Load[KG Loader]
+    end
+    
+    KG_Load -->|Triples| KG[(Knowledge Graph)]
+    TiDB -.->|Direct SQL Query| Apps[Noria Apps]
+    
+    style TiDB fill:#f96,stroke:#333,stroke-width:2px
 ~~~~
-{: #fig-stream-kg-only title="KG-only data integration architecture for event data streams."}
+{: #fig-stream-mixed title="ETL Pipeline with Distributed RDBMS as Broker (replacing Mixed KG/non-KG architecture)."}
 
 ~~~~ ascii-art
                          <object/RES_router3>
@@ -768,7 +788,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
              │  └──────────────────────────────────────────┘
              │                             ┌────────┐  ┌──────┐
              │                             │ Stream │  │┌────┐│
-             └────────────────────────────►│ loader ├─►││TSDB││
+             └────────────────────────────►│ loader ├─►││TiDB││
                                            │        │  │└────┘│
                                            └────────┘  └──────┘
 ~~~~
@@ -807,21 +827,16 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 ~~~~
 {: #fig-stream-mixed-kr title="Resulting knowledge representation for the mixed KG/non-KG data integration architecture for event data streams."}
 
-
-### Federated Data Architecture {#sec-etl-kgc-fq}
-
-The {{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
-
 ~~~~ ascii-art
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
   │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
   └UG.─2──┘                                  │ │           └───────────┘
   ┌Dom. B─┐                                  │ │           ┌───────────┐
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
   │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
   └UG.─1┬─┘                                  │E│
         └────────────────────────────────────│D│─────────────┐
@@ -850,10 +865,52 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   │└─────┘│  └──────┘           └─────────┘  │ │        │
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
+### Federated Data Architecture {#sec-etl-kgc-fq}
+
+The {{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
+
+ ```mermaid
+%% Figure 12: Federated Data Architecture
+classDiagram
+    class KnowledgeGraph {
+        +Semantic Layer
+        +Reasoning Engine
+        -Stores: Metadata Only
+    }
+    
+    class DistributedRDBMS {
+        <<TiDB>>
+        +Operational Data (SQL)
+        +Vector Store (Embeddings)
+        +Schema Evolution (Online DDL)
+    }
+    
+    class ExternalSources {
+        +Network Devices
+        +Ticketing Systems
+    }
+
+    KnowledgeGraph ..> DistributedRDBMS : Federated Query (SQL)
+    KnowledgeGraph ..> DistributedRDBMS : Vector Search (Similarity)
+    DistributedRDBMS <|-- ExternalSources : Ingestion
 ~~~~
-{: #fig-multi-store title="Unified access to data distributed across various technological platforms."}
 
+{: #fig-multi-store title="Federated Data Architecture enabling Semantic and SQL interoperation."}
 
+### Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}
+
+To effectively implement the "Digital Twin" replication of the network and mitigate the risks of "Digital ID Drift", the underlying data architecture must support high-velocity evolution without service interruption. Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.
+
+We propose utilizing a Distributed RDBMS (e.g., TiDB) to address these challenges through the following mechanisms:
+
+**1. Safe Evolution of Schemas without Downtime**
+In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the "Federated Data Architecture" (see {{fig-multi-store}}) where the RDBMS acts as a live, queryable source for the Knowledge Graph.
+
+**2. Solving Digital ID Drift via Unified Storage**
+"ID Drift" occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects. By positioning the Distributed RDBMS as a "broker" between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed}}).
+
+**3. Unified Vector and Operational Store**
+To support "Incident Management," the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for "incident signatures." This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis.
 
 # Experiments {#sec-experiments}
 
