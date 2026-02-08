@@ -328,7 +328,7 @@ informative:
     title: "YANG Catalog"
     target: https://www.yangcatalog.org/
 
-  TiDB:
+  TiDB-2020:
     title: "TiDB: A Raft-based HTAP Database"
     author:
       - name: Huang, Dongxu
@@ -727,6 +727,7 @@ noria:Resource
 Based on {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-DI-2023}}, which present the technical means to implement a pipeline for constructing the ITSM-KG, this section focuses on two complementary viewpoints:
 {{sec-etl-kgc-streams}} the management of streaming data such as alarms and logs,
 and {{sec-etl-kgc-fq}} the deployment of a federated data architecture when various technical foundations or business units are involved in providing the ITSM-KG.
+In {{sec-distributed-rdbms}}, we further discuss architecture options considering distributed RDBMS instead of KGDBMS.
 
 From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
 
@@ -791,7 +792,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
              │  └──────────────────────────────────────────┘
              │                             ┌────────┐  ┌──────┐
              │                             │ Stream │  │┌────┐│
-             └────────────────────────────►│ loader ├─►││TiDB││
+             └────────────────────────────►│ loader ├─►││TSDB││
                                            │        │  │└────┘│
                                            └────────┘  └──────┘
 ~~~~
@@ -838,12 +839,12 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
-─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
   │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
   └UG.─2──┘                                  │ │           └───────────┘
   ┌Dom. B─┐                                  │ │           ┌───────────┐
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
-─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
   │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
   └UG.─1┬─┘                                  │E│
         └────────────────────────────────────│D│─────────────┐
@@ -873,23 +874,96 @@ The {{fig-multi-store}} illustrates the principles for providing unified access 
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 ~~~~
-{: #fig-multi-store title="Federated Data Architecture enabling Semantic and SQL interoperation."}
+{: #fig-multi-store title="Unified access to data distributed across various technological platforms."}
 
 
 ### Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}
 
-To effectively implement the "Digital Twin" replication of the network and mitigate the risks of "Digital ID Drift", the underlying data architecture must support high-velocity evolution without service interruption. Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.
+Before discussing the utilization of a distributed RDBMS, let us fisrt introduce useful definitions:
 
-We propose utilizing a Distributed RDBMS (e.g., TiDB) to address these challenges through the following mechanisms:
+ID-DRIFT:
+: ID Drift occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects.
 
-**1. Safe Evolution of Schemas without Downtime**
-In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the "Federated Data Architecture" (see {{fig-multi-store}}) where the RDBMS acts as a live, queryable source for the Knowledge Graph.
+To effectively implement the Digital Twin replication of the network and mitigate the risks of digital ID-DRIFT, the underlying data architecture must support high-velocity evolution without service interruption.
+Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.
 
-**2. Solving Digital ID Drift via Unified Storage**
-"ID Drift" occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects. By positioning the Distributed RDBMS as a "broker" between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed}}).
+A distributed RDBMS (such as {{TiDB-2020}}) can address these challenges through the following mechanisms:
 
-**3. Unified Vector and Operational Store**
-To support "Incident Management," the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for "incident signatures." This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis.
+Safe Evolution of Schemas without Downtime.
+: In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the Federated Data Architecture of {{sec-etl-kgc-fq}} where the RDBMS acts as a live, queryable source for the Knowledge Graph ({{fig-multi-store-drdbms}}).
+
+Solving Digital ID-DRIFT via Unified Storage.
+: By positioning the Distributed RDBMS as a broker between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed-drdbms}}).
+
+Unified Vector and Operational Store.
+: To support Incident Management, the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for incident signatures. This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis.
+
+~~~~ ascii-art
+          ┌────────────────────────┐
+          │        ITSM-KG         │
+          ├────────────────────────┤
+          │ +Semantic Layer        │
+          │ +Reasoning Engine      │
+          │ -Stores: Metadata Only │
+          ├────────────────────────┤
+          │                        │
+          └───┬────────────────┬───┘
+              │                │
+Federated Query (SQL)   Vector Search (Similarity)
+              │                │
+              ▼                ▼
+      ┌────────────────────────────────┐
+      │       Distributed RDBMS        │
+      ├────────────────────────────────┤
+      │                                │
+      ├────────────────────────────────┤
+      │ +Operational Data (SQL)        │
+      │ +Vector Store (Embeddings)     │
+      │ +Schema Evolution (Online DDL) │
+      └────────────────────────────────┘
+                       ▲
+                       │
+                    Ingestion
+             ┌─────────┴──────────┐
+             │  External Sources  │
+             ├────────────────────┤
+             │ +Network Devices   │
+             │ +Ticketing Systems │
+             ├────────────────────┤
+             │                    │
+             └────────────────────┘
+~~~~
+{: #fig-multi-store-drdbms title="Federated Data Architecture enabling Semantic and SQL interoperation."}
+
+
+~~~~ ascii-art
+                       ┌──Broker & consistency layer───────────┐
+                       │                    ┌─────────────┐    │
+                       │                    │ Change      │    │
+             ┌────────┐│  ┌─────────────┐   │ Data        │    │
+┌────────┐   │ Stream ││  │ Distributed ├──►│ Capture     │    │
+│ Events ├──►│ loader ├│─►│ RDBMS       │   └─────┬───────┘    │
+└────────┘   │        ││  │             │         │            │
+             └────────┘│  └───────────┬─┘   ┌─────▼───────┐    │
+                       │              │     │ ID          │    │
+                       │              │     │ consistency │    │
+                       │              │     │ service     │    │
+                       │              │     └─────┬───────┘    │
+                       │              │           │Resolved IDs│
+                       │              │     ┌─────▼───────┐    │
+                       └────────────────────│ KG loader   │────┘
+                                      │     └─────────────┘
+                                      │     ┌─────▼───────┐
+                                 Direct     │ K.G.        │
+                                 SQL  │     └─────▲───────┘
+                                 query│           │
+                       ┌──────────────▼───────────▼─────────────┐
+                       │ Operation support and decision support │
+                       │ applications                           │
+                       └────────────────────────────────────────┘
+~~~~
+{: #fig-stream-mixed-drdbms title="Mixed KG/non-KG data integration architecture for event data streams using a distributed RDBMS."}
+
 
 # Experiments {#sec-experiments}
 
@@ -1286,3 +1360,7 @@ v01 - v02
 
 - Added the Experiments / YANG2OWL framework based on details from Fano RAMPARANY (Orange Research), Pauline FOLZ (Orange Research), and Fabrice BLACHE (Orange Research).
 - Added the Experiments / YANG2OWL example based on details from Romain VINEL (Orange France), Clément GOUILLOUD (SOFRECOM), Arij ELMAJED (Orange France), and Lionel TAILHARDAT (Orange Research).
+
+v02 - v03
+
+- Added the Distributed RDBMS perspective based on details from Bernard Kavanagh (TiDB).
