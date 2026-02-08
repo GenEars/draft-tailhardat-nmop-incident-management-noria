@@ -5,12 +5,14 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                           Orange Research
 Intended status: Informational                                 R. Troncy
-Expires: 16 November 2025                                        EURECOM
+Expires: 12 August 2026                                          EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
                                                                  P. Folz
                                                          Orange Research
-                                                             15 May 2025
+                                                             B. Kavanagh
+                                                                    TiDB
+                                                         8 February 2026
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -73,11 +75,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 November 2025.
+   This Internet-Draft will expire on 12 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -108,6 +110,8 @@ Table of Contents
      4.3.  Extract-Transform-Load Pipelines for the ITSM-KG
        4.3.1.  Handling Event Streams
        4.3.2.  Federated Data Architecture
+       4.3.3.  Distributed RDBMS for Dynamic Network Topology and
+               Schema Evolution
    5.  Experiments
      5.1.  Experimental Plan
      5.2.  Implementation Status
@@ -754,7 +758,7 @@ WHERE {
                 │  └──────────────────────────────────────────┘
                 │                             ┌────────┐  ┌──────┐
                 │                             │ Stream │  │┌────┐│
-                └────────────────────────────►│ loader ├─►││TSDB││
+                └────────────────────────────►│ loader ├─►││TiDB││
                                               │        │  │└────┘│
                                               └────────┘  └──────┘
 
@@ -803,12 +807,12 @@ WHERE {
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
   │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
   └UG.─2──┘                                  │ │           └───────────┘
   ┌Dom. B─┐                                  │ │           ┌───────────┐
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
-─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
   │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
   └UG.─1┬─┘                                  │E│
         └────────────────────────────────────│D│─────────────┐
@@ -838,8 +842,50 @@ WHERE {
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 
-     Figure 12: Unified access to data distributed across various
-                       technological platforms.
+   Figure 12: Federated Data Architecture enabling Semantic and SQL
+                           interoperation.
+
+4.3.3.  Distributed RDBMS for Dynamic Network Topology and Schema
+        Evolution
+
+   To effectively implement the "Digital Twin" replication of the
+   network and mitigate the risks of "Digital ID Drift", the underlying
+   data architecture must support high-velocity evolution without
+   service interruption.  Traditional rigid schemas often fail to adapt
+   to the rapid introduction of new network elements, leading to a
+   disconnection between historical event logs and the current topology.
+
+   We propose utilizing a Distributed RDBMS (e.g., TiDB) to address
+   these challenges through the following mechanisms:
+
+   *1.  Safe Evolution of Schemas without Downtime* In a live telecom
+   network, data structures change frequently.  The architecture
+   requires a database capable of performing online Data Definition
+   Language (DDL) operations.  This allows the system to modify table
+   schemas (e.g., adding columns for new router metric types) to
+   accommodate new workload requirements without locking tables or
+   causing downtime for the ingestion pipeline.  This capability is
+   critical for maintaining the "Federated Data Architecture" (see
+   Figure 12) where the RDBMS acts as a live, queryable source for the
+   Knowledge Graph.
+
+   *2.  Solving Digital ID Drift via Unified Storage* "ID Drift" occurs
+   when network resources change identifiers (e.g., dynamic IP
+   allocation), breaking the semantic link between past alerts and
+   current objects.  By positioning the Distributed RDBMS as a "broker"
+   between the Stream Loader and persistence layers, we ensure data
+   consistency.  The database utilizes features such as Change Data
+   Capture (CDC) to maintain a persistent, consistent mapping of
+   identifiers, ensuring that the Knowledge Graph always references the
+   correct historical entity (see Figure 10).
+
+   *3.  Unified Vector and Operational Store* To support "Incident
+   Management," the system must correlate current outages with
+   historical precedents.  This requires a hybrid storage engine capable
+   of handling both massive scale operational data and vector embeddings
+   for "incident signatures."  This allows operators to perform semantic
+   searches to identify past incidents that resemble the current network
+   state, significantly accelerating root cause analysis.
 
 5.  Experiments
 
@@ -1557,17 +1603,17 @@ WHERE {
               Q., Boucadair, M., and C. Jacquenet, "Network Digital
               Twin: Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-10, 28 February 2025,
+              twin-arch-11, 6 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
-              network-digital-twin-arch-10>.
+              network-digital-twin-arch-11>.
 
    [I-D.mackey-nmop-kg-for-netops]
               Mackey, M., Claise, B., Graf, T., Keller, H., Voyer, D.,
               Lucente, P., and I. D. Martinez-Casanueva, "Knowledge
               Graph Framework for Network Operations", Work in Progress,
-              Internet-Draft, draft-mackey-nmop-kg-for-netops-02, 4
-              March 2025, <https://datatracker.ietf.org/doc/html/draft-
-              mackey-nmop-kg-for-netops-02>.
+              Internet-Draft, draft-mackey-nmop-kg-for-netops-03, 2
+              September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-mackey-nmop-kg-for-netops-03>.
 
    [I-D.marcas-nmop-knowledge-graph-yang]
               Martinez-Casanueva, I. D., Rodríguez, L. C., and P.
@@ -1659,6 +1705,12 @@ WHERE {
    [SPARQL11-QL]
               W3C, "SPARQL 1.1 Query Language", March 2013,
               <https://www.w3.org/TR/sparql11-query/>.
+
+   [TiDB]     Dongxu, H., Queeny, L., Qiu, C., Zhou, F., Xiaoyu, M.,
+              Fei, X., Li, S., L., L., Guoliang, W., Xuan, Z., and L.
+              Zhanhuai, "TiDB: A Raft-based HTAP Database", PVLDB Vol.
+              13, No. 12, 2020,
+              <https://www.vldb.org/pvldb/vol13/p3072-huang.pdf>.
 
    [YANG-CATALOG]
               Cisco and IETF, "YANG Catalog", n.d.,
@@ -1766,3 +1818,8 @@ Authors' Addresses
    Pauline Folz
    Orange Research
    Email: pauline.folz@orange.com
+
+
+   Bernard Kavanagh
+   TiDB
+   Email: bernard.k@pingcap.com
