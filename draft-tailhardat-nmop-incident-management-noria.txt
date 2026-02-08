@@ -677,7 +677,9 @@ WHERE {
    viewpoints: Section 4.3.1 the management of streaming data such as
    alarms and logs, and Section 4.3.2 the deployment of a federated data
    architecture when various technical foundations or business units are
-   involved in providing the ITSM-KG.
+   involved in providing the ITSM-KG.  In Section 4.3.3, we further
+   discuss architecture options considering distributed RDBMS instead of
+   KGDBMS.
 
    From the perspective of the Digital Map Requirements (Section 3.2),
    the Figure 10, Figure 11 and Figure 12 particularly address the REQ-
@@ -758,7 +760,7 @@ WHERE {
                 │  └──────────────────────────────────────────┘
                 │                             ┌────────┐  ┌──────┐
                 │                             │ Stream │  │┌────┐│
-                └────────────────────────────►│ loader ├─►││TiDB││
+                └────────────────────────────►│ loader ├─►││TSDB││
                                               │        │  │└────┘│
                                               └────────┘  └──────┘
 
@@ -807,12 +809,12 @@ WHERE {
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
   ┌Dom.─A─┐                                  │ │
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ │           ┌───────────┐
-─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Network &─┤  NetOps   │
   │└─────┘│  └──────┘           └─────────┘  │ ├─Usage─────┤Application│
   └UG.─2──┘                                  │ │           └───────────┘
   ┌Dom. B─┐                                  │ │           ┌───────────┐
   │┌─────┐│  ┌──────┐           ┌─────────┐  │ ├─Network &─┤  SecOps   │
-─►││ KG  ││◄─┤RDBMS ├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
+─►││ KG  ││◄─┤KGDBMS├───────────┤SPARQL EP├─►│ ├─Security──┤Application│
   │└─────┘│  └──────┘           └─────────┘  │F│           └───────────┘
   └UG.─1┬─┘                                  │E│
         └────────────────────────────────────│D│─────────────┐
@@ -842,50 +844,121 @@ WHERE {
   └UG.┬1&2┘                                  └─┘        │
       └─────────────────────────────────────────────────┘
 
-   Figure 12: Federated Data Architecture enabling Semantic and SQL
-                           interoperation.
+     Figure 12: Unified access to data distributed across various
+                       technological platforms.
 
 4.3.3.  Distributed RDBMS for Dynamic Network Topology and Schema
         Evolution
 
-   To effectively implement the "Digital Twin" replication of the
-   network and mitigate the risks of "Digital ID Drift", the underlying
-   data architecture must support high-velocity evolution without
-   service interruption.  Traditional rigid schemas often fail to adapt
-   to the rapid introduction of new network elements, leading to a
+   Before discussing the utilization of a distributed RDBMS, let us
+   fisrt introduce useful definitions:
+
+   ID-DRIFT:  ID Drift occurs when network resources change identifiers
+      (e.g., dynamic IP allocation), breaking the semantic link between
+      past alerts and current objects.
+
+   To effectively implement the Digital Twin replication of the network
+   and mitigate the risks of digital ID-DRIFT, the underlying data
+   architecture must support high-velocity evolution without service
+   interruption.  Traditional rigid schemas often fail to adapt to the
+   rapid introduction of new network elements, leading to a
    disconnection between historical event logs and the current topology.
 
-   We propose utilizing a Distributed RDBMS (e.g., TiDB) to address
-   these challenges through the following mechanisms:
+   A distributed RDBMS (such as [TiDB-2020]) can address these
+   challenges through the following mechanisms:
 
-   *1.  Safe Evolution of Schemas without Downtime* In a live telecom
-   network, data structures change frequently.  The architecture
-   requires a database capable of performing online Data Definition
-   Language (DDL) operations.  This allows the system to modify table
-   schemas (e.g., adding columns for new router metric types) to
-   accommodate new workload requirements without locking tables or
-   causing downtime for the ingestion pipeline.  This capability is
-   critical for maintaining the "Federated Data Architecture" (see
-   Figure 12) where the RDBMS acts as a live, queryable source for the
-   Knowledge Graph.
+   Safe Evolution of Schemas without Downtime.  In a live telecom
+      network, data structures change frequently.  The architecture
+      requires a database capable of performing online Data Definition
+      Language (DDL) operations.  This allows the system to modify table
+      schemas (e.g., adding columns for new router metric types) to
+      accommodate new workload requirements without locking tables or
+      causing downtime for the ingestion pipeline.  This capability is
+      critical for maintaining the Federated Data Architecture of
+      Section 4.3.2 where the RDBMS acts as a live, queryable source for
+      the Knowledge Graph (Figure 13).
 
-   *2.  Solving Digital ID Drift via Unified Storage* "ID Drift" occurs
-   when network resources change identifiers (e.g., dynamic IP
-   allocation), breaking the semantic link between past alerts and
-   current objects.  By positioning the Distributed RDBMS as a "broker"
-   between the Stream Loader and persistence layers, we ensure data
-   consistency.  The database utilizes features such as Change Data
-   Capture (CDC) to maintain a persistent, consistent mapping of
-   identifiers, ensuring that the Knowledge Graph always references the
-   correct historical entity (see Figure 10).
+   Solving Digital ID-DRIFT via Unified Storage.  By positioning the
+      Distributed RDBMS as a broker between the Stream Loader and
+      persistence layers, we ensure data consistency.  The database
+      utilizes features such as Change Data Capture (CDC) to maintain a
+      persistent, consistent mapping of identifiers, ensuring that the
+      Knowledge Graph always references the correct historical entity
+      (see Figure 14).
 
-   *3.  Unified Vector and Operational Store* To support "Incident
-   Management," the system must correlate current outages with
-   historical precedents.  This requires a hybrid storage engine capable
-   of handling both massive scale operational data and vector embeddings
-   for "incident signatures."  This allows operators to perform semantic
-   searches to identify past incidents that resemble the current network
-   state, significantly accelerating root cause analysis.
+   Unified Vector and Operational Store.  To support Incident
+      Management, the system must correlate current outages with
+      historical precedents.  This requires a hybrid storage engine
+      capable of handling both massive scale operational data and vector
+      embeddings for incident signatures.  This allows operators to
+      perform semantic searches to identify past incidents that resemble
+      the current network state, significantly accelerating root cause
+      analysis.
+
+             ┌────────────────────────┐
+             │        ITSM-KG         │
+             ├────────────────────────┤
+             │ +Semantic Layer        │
+             │ +Reasoning Engine      │
+             │ -Stores: Metadata Only │
+             ├────────────────────────┤
+             │                        │
+             └───┬────────────────┬───┘
+                 │                │
+   Federated Query (SQL)   Vector Search (Similarity)
+                 │                │
+                 ▼                ▼
+         ┌────────────────────────────────┐
+         │       Distributed RDBMS        │
+         ├────────────────────────────────┤
+         │                                │
+         ├────────────────────────────────┤
+         │ +Operational Data (SQL)        │
+         │ +Vector Store (Embeddings)     │
+         │ +Schema Evolution (Online DDL) │
+         └────────────────────────────────┘
+                          ▲
+                          │
+                       Ingestion
+                ┌─────────┴──────────┐
+                │  External Sources  │
+                ├────────────────────┤
+                │ +Network Devices   │
+                │ +Ticketing Systems │
+                ├────────────────────┤
+                │                    │
+                └────────────────────┘
+
+      Figure 13: Federated Data Architecture enabling Semantic and SQL
+                              interoperation.
+
+                          ┌──Broker & consistency layer───────────┐
+                          │                    ┌─────────────┐    │
+                          │                    │ Change      │    │
+                ┌────────┐│  ┌─────────────┐   │ Data        │    │
+   ┌────────┐   │ Stream ││  │ Distributed ├──►│ Capture     │    │
+   │ Events ├──►│ loader ├│─►│ RDBMS       │   └─────┬───────┘    │
+   └────────┘   │        ││  │             │         │            │
+                └────────┘│  └───────────┬─┘   ┌─────▼───────┐    │
+                          │              │     │ ID          │    │
+                          │              │     │ consistency │    │
+                          │              │     │ service     │    │
+                          │              │     └─────┬───────┘    │
+                          │              │           │Resolved IDs│
+                          │              │     ┌─────▼───────┐    │
+                          └────────────────────│ KG loader   │────┘
+                                         │     └─────────────┘
+                                         │     ┌─────▼───────┐
+                                    Direct     │ K.G.        │
+                                    SQL  │     └─────▲───────┘
+                                    query│           │
+                          ┌──────────────▼───────────▼─────────────┐
+                          │ Operation support and decision support │
+                          │ applications                           │
+                          └────────────────────────────────────────┘
+
+        Figure 14: Mixed KG/non-KG data integration architecture for
+               event data streams using a distributed RDBMS.
 
 5.  Experiments
 
@@ -1025,7 +1098,7 @@ WHERE {
    The YANG2OWL framework addresses the use cases Y-MODEL-TO-RDFS-OWL
    and Y-INSTANCE-TO-KG (as defined in Section 5.1).
 
-   Figure 13 illustrates the top-level tasks of the semantization
+   Figure 15 illustrates the top-level tasks of the semantization
    process at play.  Subsequent sections detail how the framework builds
    ontologies that captures the specificities of the telco domain and
    models any telco network instance as an ITSM-KG.  Please note that
@@ -1052,7 +1125,7 @@ WHERE {
                                                     Operations
                                                     ──────────
 
-  Figure 13: The YANG2OWL framework.  Labels within boxes represent
+  Figure 15: The YANG2OWL framework.  Labels within boxes represent
   automated or human actions, while labels between top/bottom lines
                           represent datasets
 
@@ -1142,7 +1215,7 @@ WHERE {
    By applying the above principles, and in line with the reasons
    sketched in Section 5.2.2.1, we have developed the YANG2OWL that
    automatically generates OWL ontologies from YANG modules (i.e.
-   computes ONTO-YANG-MODELs).  Figure 14 sketches the use of the
+   computes ONTO-YANG-MODELs).  Figure 16 sketches the use of the
    YANG2OWL tool to compute the org.opendaylight.yangtools ONTO-YANG-
    MODEL.
 
@@ -1154,7 +1227,7 @@ WHERE {
                                            ▼
           IETF RFC 7950──────────►Yang2OwlConverter────►OWL file
 
-       Figure 14: Computing the org.opendaylight.yangtools ONTO-YANG-
+       Figure 16: Computing the org.opendaylight.yangtools ONTO-YANG-
                             MODEL with YANG2OWL.
 
    In more detail, we have defined mapping rules between YANG constructs
@@ -1198,7 +1271,7 @@ WHERE {
 
    The JSON2RDF tool (which is part of the YANG2OWL framework)
    implements these principles, realizing the Y-INSTANCE-TO-KG use case.
-   Figure 15 shows the algorithm implemented by JSON2RDF as pseudo code.
+   Figure 17 shows the algorithm implemented by JSON2RDF as pseudo code.
 
    function createURI(jsonObject, class, namespace, ontology) {
      if class has a 'key' annotation {
@@ -1236,7 +1309,7 @@ WHERE {
      }
    }
 
-      Figure 15: Pseudo code of the algorithm implemented by JSON2RDF.
+      Figure 17: Pseudo code of the algorithm implemented by JSON2RDF.
 
    The algorithm is initiated by calling the parse function as follows,
    where top is the root of the JSON object (i.e. configuration data as
@@ -1260,7 +1333,7 @@ WHERE {
    servers, all the Network Functions (NFs) deployed on these VMs, and
    ideally all the telecom services using these NFs.
 
-   Figure 16 provides an overview of the data processing workflow used
+   Figure 18 provides an overview of the data processing workflow used
    for the experiment.  The tasks of the diagram are described below.
 
                  START
@@ -1303,7 +1376,7 @@ WHERE {
                    ▼
                   END
 
-         Figure 16: Flowchart for the YANG2OWL experiment.  A left
+         Figure 18: Flowchart for the YANG2OWL experiment.  A left
       vertical bar on a step indicates that it is scripted; otherwise,
                    steps require user or operator action.
 
@@ -1380,22 +1453,22 @@ WHERE {
       As another example, more specific to the 3GPP models
       [ETSI-TS-128-541] included in MOBILE-O and the Neo4j setup, one
       could calculate a dependency relationship between a 5G NF and the
-      Kubernetes cluster that hosts it, as shown in Figure 17.  It is
+      Kubernetes cluster that hosts it, as shown in Figure 19.  It is
       important to note that subclass inference with Neo4j is not
       automatic and must be performed through dedicated queries, as
-      illustrated in Figure 18.
+      illustrated in Figure 20.
 
    MATCH (c:ManagedFunction)--(n:namespace)--(k:ClusterKubernetes)
    MERGE (c)-[d:DEPENDS_ON]->(k)
 
-       Figure 17: Dependency calculation query, in Cypher syntax, for
+       Figure 19: Dependency calculation query, in Cypher syntax, for
          relating a 5G NF and the Kubernetes cluster that hosts it.
 
    MATCH (m)<-[:subClassOf]-(x)<-[:type]-(c)
    WHERE m.uri CONTAINS 'ManagedFunction'
    SET c:ManagedFunction
 
-      Figure 18: Subclass inference query, in Cypher syntax, to tag 5G
+      Figure 20: Subclass inference query, in Cypher syntax, to tag 5G
      NF entities as `ManagedFunction` based on prior annotation of the
       entities at creation time with a specific class described in the
       YANG model, which is also a subclass of `ManagedFunction` as per
@@ -1405,14 +1478,14 @@ WHERE {
       relationships is carried out through queries on the graph, e.g.
       during the insertion of an entity of type noria:ChangeRequest or
       by following an exploratory approach by coupling a query such as
-      that in Figure 19 with a visualization tool like Neo4j NeoDash.
+      that in Figure 21 with a visualization tool like Neo4j NeoDash.
 
    MATCH (e1) WHERE e1.resourceHostName = $neodash_ressource_hostname
    MATCH q1 = (e1) ((w)<-[:DEPENDS_ON]-(t)) {0,8}
    UNWIND t AS impacts
    RETURN DISTINCT impacts.resourceHostName
 
-      Figure 19: User query, in Cypher syntax using a quantified path
+      Figure 21: User query, in Cypher syntax using a quantified path
          pattern, for rendering dependency relationships in a Neo4j
        NeoDash display.  The query seeks paths starting from the node
           `e1` and propagates up to 8 times using the `DEPENDS_ON`
@@ -1706,7 +1779,8 @@ WHERE {
               W3C, "SPARQL 1.1 Query Language", March 2013,
               <https://www.w3.org/TR/sparql11-query/>.
 
-   [TiDB]     Dongxu, H., Queeny, L., Qiu, C., Zhou, F., Xiaoyu, M.,
+   [TiDB-2020]
+              Dongxu, H., Queeny, L., Qiu, C., Zhou, F., Xiaoyu, M.,
               Fei, X., Li, S., L., L., Guoliang, W., Xuan, Z., and L.
               Zhanhuai, "TiDB: A Raft-based HTAP Database", PVLDB Vol.
               13, No. 12, 2020,
@@ -1755,6 +1829,11 @@ Changes Between Revisions
    *  Added the Experiments / YANG2OWL example based on details from
       Romain VINEL (Orange France), Clément GOUILLOUD (SOFRECOM), Arij
       ELMAJED (Orange France), and Lionel TAILHARDAT (Orange Research).
+
+   v02 - v03
+
+   *  Added the Distributed RDBMS perspective based on details from
+      Bernard Kavanagh (TiDB).
 
 Contributors
 
