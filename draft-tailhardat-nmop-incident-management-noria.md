@@ -47,6 +47,10 @@ author:
     fullname: Pauline Folz
     organization: Orange Research
     email: "pauline.folz@orange.com"
+ -
+    fullname: Bernard Kavanagh
+    organization: TiDB
+    email: "bernard.k@pingcap.com"
 
 contributor:
  -
