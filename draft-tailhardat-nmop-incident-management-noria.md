@@ -349,12 +349,13 @@ informative:
 
 --- abstract
 
-Operational efficiency in incident management on telecom and computer networks requires correlating and interpreting large volumes of heterogeneous technical information.
-Knowledge graphs can provide a unified view of complex systems through shared vocabularies.
+Operational efficiency in incident management in networking requires correlating and interpreting large volumes of heterogeneous technical information.
+Knowledge Graphs (KG) can provide a unified view of complex systems through shared vocabularies.
 YANG data models enable describing network configurations and automating their deployment.
 However, both approaches face challenges in vocabulary alignment and adoption, hindering knowledge capitalization and sharing on network designs and best practices.
-To address this, the concept of a IT Service Management (ITSM) Knowledge Graph (KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
+To address this, the concept of a IT Service Management Knowledge Graph (ITSM-KG) is introduced to leverage existing network infrastructure descriptions in YANG format and enable abstract reasoning on network behaviors.
 The key principle to achieve the construction of such ITSM-KG is to transform YANG representations of network infrastructures into an equivalent knowledge graph representation, and then embed it into a more extensive data model for Anomaly Detection (AD) and Risk Management applications.
+
 In addition to use case analysis and design pattern analysis, an experiment is proposed to assess the potential of the ITSM-KG in improving network quality and designs.
 
 
@@ -362,23 +363,24 @@ In addition to use case analysis and design pattern analysis, an experiment is p
 
 # Introduction {#sec-intro}
 
-Incident management on telecom and computer networks, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
-Knowledge graphs, by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
-Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g. anomaly detection, root cause analysis, diagnostic aid, situation summarization), and paves the way, in line with the Network Digital Twin vision {{?I-D.irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
+Incident management in networking, whether it is related to infrastructure or cybersecurity issues, requires the ability to simultaneously and quickly correlate and interpret a large number of heterogeneous technical information sources.
+Knowledge Graphs (KG), by structuring heterogeneous data through shared vocabularies, enable providing a unified view of complex technical systems, their ecosystem, and the activities and operations related to them (see {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-O-2024}}).
+Using such formal knowledge representation allows for a simplified interpretation of networks and their behavior, both for NetOps & SecOps teams and artificial intelligence (AI) algorithms (e.g., anomaly detection, root cause analysis, diagnostic aid, and situation summarization), and paves the way, in line with the Network Digital Twin vision {{?I-D.irtf-nmrg-network-digital-twin-arch}}, for the development of tools for detecting and analyzing complex network incident situations through explainable, actionable, and shareable models (see {{FOLIO-2018}}, {{SLKG-2023}}, and {{GPL-2024}}).
 
-However, despite potential benefits of using knowledge graphs, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
-YANG is a widely used standard among operators for describing network configurations and automating their deployment.
-Using YANG representations in the form of a KG, as suggested in {{?I-D.marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
-The lack of alignment between various YANG models on key concepts (e.g. for describing network topology) is, however, hindering this evolution {{?I-D.boucadair-nmop-rfc3535-20years-later}}.
+However, despite potential benefits of using KG, these are not mainstream yet in commercial network deployment systems and decision support systems (see {{NORIA-UI-2024}} for more on the decision support systems perspective).
+YANG {{!RFC7950}}{{!RFC6020}} is a widely used standard among operators for describing network state, configurations, and automating their deployment.
+Using YANG representations in the form of a KG, as suggested for example in {{?I-D.marcas-nmop-knowledge-graph-yang}}, would minimize the effort required to adapt network management tools towards the unified vision and applications evoked above.
+The lack of alignment between various YANG data models on key concepts (e.g., for describing network topology) is, however, hindering this evolution {{?I-D.ietf-nmop-rfc3535-20years-later}}.
 
-Furthermore, although {{?I-D.netana-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG model, it can be observed that the overall scope of YANG models does not naturally cover the description of the networks' ecosystem (e.g. physical equipment location, operator organization, supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g. business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
-As a consequence, the continuous improvement of network quality & designs requires additional data cross-referencing operations to properly contextualize incidents and learn from remediation actions taken (e.g. analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
+Furthermore, although {{?I-D.ietf-nmop-network-anomaly-lifecycle}} addresses the capitalization of incident management knowledge through a YANG data model, it can be observed that the overall scope of YANG data models does not naturally cover the description of the networks' ecosystem (e.g., physical equipment location, operator organization, and supervision systems) or the description of network operations from an IT service management (ITSM) perspective (e.g., business processes and design rules used by the company, scheduled modification operations, remediation actions performed during incident handling).
+
+As a consequence, the continuous improvement of network quality & designs requires additional data cross-referencing operations to adequately contextualize incidents and learn from remediation actions taken (e.g., analyzing intervention technicians' verbatim, comparing actions performed on similar incidents but occurring on different networks).
 As a result of these additional efforts of contextualization, the capitalization of knowledge typically remains confined at the level of each network operator.
 This, in turn, hinders the sharing of information within the community of researchers and system designers regarding failure modes and best practices to adopt, considering the concept of overall improvement of IT systems and the Internet.
 
-Realizing an ITSM knowledge graph for network deployment, anomaly detection and risk management applications has been studied for several years in the Semantic Web community (i.e. knowledge representation and automated reasoning leveraging Web technologies such as {{RDF}}, {{RDFS}}, {{OWL}}, and {{SKOS}}).
+Realizing an ITSM Knowledge Graph (ITSM-KG) for network deployment, anomaly detection, and risk management applications has been studied for several years in the Semantic Web community (i.e., knowledge representation and automated reasoning leveraging Web technologies such as {{RDF}}, {{RDFS}}, {{OWL}}, and {{SKOS}}).
 Among other examples: the DevOpsInfra ontology {{DevOpsInfra-2021}} allows for describing sets of computing resources and how they are allocated for hosting services; the NORIA-O ontology {{NORIA-O-2024}} allows for describing a network infrastructure & ecosystem, its events, diagnosis and repair actions performed during incident management.
-Assuming the continuous integration into a knowledge graph of data from ticketing systems, network monitoring solutions, and network configuration management databases, we remark that the resulting knowledge graph ({{fig-incident-context}}) implicitely holds the necessary information to (automatically) learn incident contexts (i.e. the network topology, its set of states and set of events prior to the incident) and remediation procedures (i.e. the set of actions and network configuration changes carried-out to resolve the incident).
+Assuming the continuous integration into a knowledge graph of data from ticketing systems, network monitoring solutions, and network configuration management databases, we remark that the resulting knowledge graph ({{fig-incident-context}}) implicitely holds the necessary information to (automatically) learn incident contexts (i.e., the network topology, its set of states and set of events prior to the incident) and remediation procedures (i.e., the set of actions and network configuration changes carried-out to resolve the incident).
 
 ~~~~ ascii-art
 ┌───Incident context────────────────────────────┐
@@ -414,16 +416,16 @@ Assuming the continuous integration into a knowledge graph of data from ticketin
 │                       └────────────┘          │
 └───────────────────────────────────────────────┘
 ~~~~
-{: #fig-incident-context title="Learning an incident signature seen as a classification model that is trained on the relationship of the incident context (i.e. a subgraph centered around a Resource entity concerned by a given TroubleTicket) to the problem class defined at the TroubleTicket entity level. Arrows are for object properties (owl:ObjectProperty), double line edges are for object class relationships (rdf:type)."}
+{: #fig-incident-context title="Learning an incident signature seen as a classification model that is trained on the relationship of the incident context (i.e., a subgraph centered around a Resource entity concerned by a given TroubleTicket) to the problem class defined at the TroubleTicket entity level. Arrows are for object properties (owl:ObjectProperty), double line edges are for object class relationships (rdf:type)."}
 
 By going a step further, we notice that a generic understanding of incident context can be extracted and shared among operators from knowledge graphs.
-Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g. RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g. hostname, IP address), but rather the abstract representation of the network (i.e. the class of the knowledge graph entities and relationships, such as "server" or "router", and or "IPoWDM link").
+Indeed, a knowledge graph, being an instantiation of shared vocabularies (e.g., RDFS/OWL ontologies and controlled vocabularies in SKOS syntax), sharing incident signatures can be done without revealing infrastructure details (e.g., hostname or IP address), but rather the abstract representation of the network (i.e., the class of the knowledge graph entities and relationships, such as "server" or "router", and/or "IPoWDM link").
 
 The remainder of this document is organized as follows.
 Firstly, the concept of an ITSM-KG is introduced in {{sec-itsm-base}} towards leveraging existing network infrastructure descriptions in YANG format and enabling abstract reasoning on network behaviors.
-The relation of the ITSM-KG proposal to the Digital Map {{?I-D.havel-nmop-digital-map-concept}} is notably discussed in this section.
+The relation of the ITSM-KG proposal to the SIMAP {{?I-D.ietf-nmop-digital-map-concept}} is notably discussed in this section.
 Secondly, strategies for the ITSM-KG construction are discussed in {{sec-kgc}}.
-This include YANG models transformation in {{sec-yang-to-kg}}, implementing alignments of models with the ITSM-KG in {{sec-gluing-techniques}}, and knowledge graph construction pipeline designs in {{sec-etl-kgc}}.
+This include YANG data models transformation in {{sec-yang-to-kg}}, implementing alignments of models with the ITSM-KG in {{sec-gluing-techniques}}, and knowledge graph construction pipeline designs in {{sec-etl-kgc}}.
 The {{sec-etl-kgc}} notably focuses on addressing the handling of event data streams and providing a unified view for different stakeholders, also known as the data federation architecture.
 Finally, an experiment is proposed in {{sec-experiments}} to assess the potential of the ITSM-KG in improving network quality and designs.
 The implementation status related to this document is also reported in this section.
@@ -438,7 +440,7 @@ The implementation status related to this document is also reported in this sect
 ## Principles {#sec-itsm-principles}
 
 As evoked in {{sec-intro}}, a detailed characterization of network behavior requires combining several facets of data related both to the configuration of the networks and to their lifecycle, as well as the ecosystem in which they are operated.
-In this document, we will consider the following fundamental definitions as a means to achieve the combination of all these facets of data in a convenient way, regardless of their origin, for operational efficiency in incident management and change management with the aid of AI tools:
+This document considers the following fundamental definitions as a means to achieve the combination of all these facets of data in a convenient way, regardless of their origin, for operational efficiency in incident management and change management with the aid of AI tools:
 
 ITSM-KG:
 : A knowledge graph in RDFS/OWL syntax tha enables change management activities, anomaly detection, and risk analysis at the organizational level by combining heterogeneous data sources from the configuration data of the network's structural elements, events occurring on this network, and any other data useful to the business for the effective management of the services provided by this network.
@@ -447,24 +449,27 @@ ONTO-ITSM:
 : For a given ITSM-KG, the RDFS/OWL ontology that structures the ITSM-KG.
 
 ONTO-YANG-MODEL:
-: For a given YANG model, its equivalent RDFS/OWL representation.
+: For a given YANG data model, its equivalent RDFS/OWL representation.
 
 ONTO-META:
-: An ontology that contributes to structuring some ITSM-KG, regardless of the specifics of a given application domain or ITSM-KG instance, in the sense that it provides an abstract IT Service Management model (i.e. it holds generic concept and property definitions for realizing IT Service Management activities).
+: An ontology that contributes to structuring some ITSM-KG, regardless of the specifics of a given application domain or ITSM-KG instance, in the sense that it provides an abstract IT Service Management model (i.e., it holds generic concept and property definitions for realizing IT Service Management activities).
 
 ONTO-LINKER:
 : For a given (set of) ONTO-YANG-MODEL and a given ONTO-META, the implementation of the equivalence relationships between the key concepts and key properties of the (set of) ONTO-YANG-MODEL and ONTO-META.
 
+The document makes use of "YANG data model" as defined in {{Section 2.5 of ?I-D.ietf-netmod-rfc8407bis}}.
+
 Based on these definitions, which will be discussed in more detail later in this document, {{fig-incident-context}} can be seen as an illustration of ITSM-KG from which a subgraph has been extracted, allowing for incident situation to be analyzed through querying.
-For example, close to ideas from {{?I-D.netana-nmop-network-anomaly-lifecycle}}, querying the evolution of network entities states from the ITSM-KG during some incident remediation stage could bring to identify the causal graph underlying incident resolution.
+For example, close to ideas from {{?I-D.ietf-nmop-network-anomaly-lifecycle}}, querying the evolution of network entities states from the ITSM-KG during some incident remediation stage could bring to identify the causal graph underlying incident resolution.
 As the querying would go through the ONTO-ITSM, the causal graph would de-facto be an abstraction of the situation, thereby enabling knowledge capitalization and sharing for similar incidents that could occur later.
 
-## Relation to the Digital Map {#sec-digital-map}
+## Relation to the Service & Infrastructure Maps (SIMAP) {#sec-digital-map}
 
-Similar to the concept of ITSM-KG discussed in this document, the concept of Digital Map discussed in {{?I-D.havel-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
-The ITSM-KG can be seen as a meta-knowledge graph that extends the Digital Map concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
+Similar to the concept of ITSM-KG discussed in this document, the concept of SIMAP defined in {{?I-D.ietf-nmop-digital-map-concept}} emphasizes the need to structure heterogeneous data describing networks in order to simplify network management operations through unified access to this data.
+The ITSM-KG can be seen as a meta-knowledge graph that extends the SIMAP concept by adding information about the lifecycle of infrastructures and services, as well as the context of their usage. These additional pieces of information are considered essential for learning shareable activity models of systems.
 
-To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the Digital Map Requirements defined in {{?I-D.havel-nmop-digital-map-concept}}.
+To clarify this positioning, the following lists ({{sec-digital-map-core}}, {{sec-digital-map-design}}, and {{sec-digital-map-archi}}) reflect the compliance of the meta-KG concept with the SIMAP requirements defined in {{?I-D.ietf-nmop-digital-map-concept}}.
+
 A symbol to the right of each requirement name indicates the nature of compliance: **+** for compatibility, **/** for partial satisfaction, **-** for non-compliance with the requirement.
 A comment is provided as necessary.
 
@@ -477,7 +482,7 @@ A comment is provided as necessary.
 : n.t.r.
 
 **/** REQ-PROG-OPEN-MODEL:
-: Partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the Digital Map service on top of the meta-knowledge graph.
+: Partially satifying the requirement as the concept of meta-KG mainly relate to the knowledge representation topic rather than to the platform running the SIMAP service on top of the meta-knowledge graph.
 
 **/** REQ-STD-API-BASED:
 : Same remark as for REQ-PROG-OPEN-MODEL.
@@ -492,7 +497,7 @@ A comment is provided as necessary.
 : n.t.r.
 
 **+** REQ-EXTENSIBLE:
-: Knowledge graphs implicitly satisfy this requirement, notably with OWL {{OWL}} and SKOS {{SKOS}} constructs if considering RDF knowledge graphs for the meta-KG (e.g. `owl:sameAs` to relate a meta-KG entity to some other entity of another knowledge graph, `owl:equivalentClass` to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, `skos:inScheme` to group new items of a controled-vocabulary as part of a `skos:ConceptScheme`).
+: Knowledge graphs implicitly satisfy this requirement, notably with OWL {{OWL}} and SKOS {{SKOS}} constructs if considering RDF knowledge graphs for the meta-KG (e.g., `owl:sameAs` to relate a meta-KG entity to some other entity of another knowledge graph, `owl:equivalentClass` to link concepts and properties used to interpret the meta-KG to concepts and properties from other data models, `skos:inScheme` to group new items of a controled-vocabulary as part of a `skos:ConceptScheme`).
 
 **+** REQ-PLUGG:
 : Same remark as for REQ-EXTENSIBLE.
@@ -519,57 +524,58 @@ A comment is provided as necessary.
 
 ### Architectural Requirements {#sec-digital-map-archi}
 
-**+** REQ-DM-SCALES:
-: This capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g. SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
+**+** REQ-SCALES:
+: This capability applies as we can use data aggregation at the graph level ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}} compared to {{fig-stream-kg-only}} and {{fig-stream-kg-only-kr}}), aggregation without loss of information ({{fig-stream-mixed}} and {{fig-stream-mixed-kr}}), and load balancing (horizontal scaling) by partitioning the meta-KG ({{fig-multi-store}}). Further, ease of integration is enabled thanks to existing standard graph data access protocols (e.g., SPARQL Federated Queries {{SPARQL11-FQ}}, as illustrated in {{fig-multi-store}}).
 
-**/** REQ-DM-DISCOVERY:
+**/** REQ-DISCOVERY:
 : Same remark as for REQ-PROG-OPEN-MODEL.
 
 
 
 # Strategies for the ITSM-KG Construction {#sec-kgc}
 
-In this section, we firstly define in {{sec-yang-to-kg}} two YANG-based data transformation scenario, namely the YANG-KG-SEMANTIC-EQUIVALENCE and YANG-KG-SEMANTIC-GENERALIZATION scenarios.
-The YANG-KG-SEMANTIC-GENERALIZATION scenario is then used as a basis in {{sec-gluing-techniques}} to illustrate strategies to reuse YANG models transformed in RDFS/OWL syntax in a higher-level ontology that would structure the ITSM-KG.
+This section firstly defines in {{sec-yang-to-kg}} two YANG-based data transformation scenarios, namely the YANG-KG-SEMANTIC-EQUIVALENCE and YANG-KG-SEMANTIC-GENERALIZATION scenarios.
+The YANG-KG-SEMANTIC-GENERALIZATION scenario is then used as a basis in {{sec-gluing-techniques}} to illustrate strategies to reuse YANG data models transformed in RDFS/OWL syntax in a higher-level ontology that would structure the ITSM-KG.
 Finally, two Extract-Transform-Load (ETL) pipeline approaches and a data federation architecture are presented in {{sec-etl-kgc}} to meet the needs of constructing and exploiting the ITSM-KG.
 
 
 ## From YANG-based Configurations to Meta-Knowledge Graph {#sec-yang-to-kg}
 
-In the following, we consider the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
-We also assume the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG model(s) into a knowledge graph representation.
+This section considers the use of Semantic Web technologies as the foundation for representing data in the form of a knowledge graph.
+This also assumes the ability to transform a description of configurations and network infrastructures expressed accordingly to a given (set of) YANG data model(s) into a knowledge graph representation.
 
-For the realization of this data transformation, we identify the following scenarios:
+For the realization of this data transformation, the following scenarios are identified:
 
 YANG-KG-SEMANTIC-EQUIVALENCE:
-: The ontology structuring the target knowledge graph is an exact equivalence of the many YANG models organizing the configuration data.
+: The ontology structuring the target knowledge graph is an exact equivalence of the many YANG data models organizing the configuration data.
 
 YANG-KG-SEMANTIC-GENERALIZATION:
-: The ontology structuring the target KG is a generalization of the YANG models organizing the configuration data.
+: The ontology structuring the target KG is a generalization of the YANG data models organizing the configuration data.
 
-We note that the YANG-KG-SEMANTIC-EQUIVALENCE case requires a significant knowledge engineering effort to align all YANG models into a coherent ontology with a sufficient level of abstraction to enable the discovery and analysis of emergent behavioral models of networks independently of local configuration specifics.
+Note that the YANG-KG-SEMANTIC-EQUIVALENCE case requires a significant knowledge engineering effort to align all YANG data models into a coherent ontology with a sufficient level of abstraction to enable the discovery and analysis of emergent behavioral models of networks independently of local configuration specifics.
 However, this case has the advantage of being relatively easy to implement based on the available configuration data of an operator, for example, by implementing {{RML}} rules for constructing a knowledge graph from this data.
 
-For the YANG-KG-SEMANTIC-GENERALIZATION case, we observe that the transformation effort involves:
+For the YANG-KG-SEMANTIC-GENERALIZATION case, the transformation effort involves:
 
-1. Being able to transform YANG models into their RDFS/OWL equivalent to provide a consistent interpretation of configuration data in a knowledge graph that aligns with each data source.
-2. Being able to provide a generalized interpretation of these transformed YANG models by identifying alignments between key concepts in these models and those in a more expressive ontology.
+1. Being able to transform YANG data models into their RDFS/OWL equivalent to provide a consistent interpretation of configuration data in a knowledge graph that aligns with each data source.
+2. Being able to provide a generalized interpretation of these transformed YANG data models by identifying alignments between key concepts in these models and those in a more expressive ontology.
 
 As an example, the YANG-KG-SEMANTIC-GENERALIZATION case could involve wanting to integrate Service and Network topology data, matching the Network Topologies {{!RFC8345}} and Service Assurance {{!RFC9418}} YANG data models, into a knowledge graph structured by the NORIA-O ontology {{NORIA-O-2024}}.
 
-Although identifying alignments in the YANG-KG-SEMANTIC-GENERALIZATION case may appear non-trivial for "constructor" YANG models, it is worth noting that the design of YANG models generally relies on principles of concept hierarchies and reuse of common concepts between models to promote model interoperability, as is the case with the Abstract Network Model of {{!RFC8345}}.
+Although identifying alignments in the YANG-KG-SEMANTIC-GENERALIZATION case may appear non-trivial for "constructor" YANG data models, it is worth noting that the design of YANG data models generally relies on principles of concept hierarchies and reuse of common concepts between models to promote model interoperability, as is the case with the Abstract Network Model of {{!RFC8345}}.
 Therefore, the task of identifying alignments can theoretically benefit from these design principles.
 
-In continuity of the above RFC8345 / NORIA-O example, providing an alignment may mean asserting a semantic equivalence between the RDFS/OWL representation of the "node" concept from {{!RFC8345}} with the "noria:Resource" concept from {{NORIA-O-2024}}.
+In continuity of the above RFC8345/NORIA-O example, providing an alignment may mean asserting a semantic equivalence between the RDFS/OWL representation of the "node" concept from {{!RFC8345}} with the "noria:Resource" concept from {{NORIA-O-2024}}.
 Examples of approaches for linking ontologies are provided in {{sec-gluing-techniques}}.
 
 
 ## Implementing Alignments of Model-Specificities to a Multi-Faceted Knowledge Graph {#sec-gluing-techniques}
 
-Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
-As techniques for identifying alignments between data models is beyond the scope of this document, we refer interested readers to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
+Building on the previously defined YANG-KG-SEMANTIC-GENERALIZATION scenario, this section presents two approaches to construct the structuring ontology of the ITSM-KG by combining YANG data models translated into RDFS/OWL and a meta-ontology enabling the analysis of the operational context of the network lifecycle.
 
-To present the approaches, we assume the ability to convert a given YANG model into its ONTO-YANG-MODEL (i.e. its equivalent RDFS/OWL representation).
+As techniques for identifying alignments between data models is beyond the scope of this document, interested readers can refer to specialized literature in this field, such as {{ONTO-MATCH-2022}}.
+
+To present the approaches, this document assumes the ability to convert a given YANG data model into its ONTO-YANG-MODEL (i.e., its equivalent RDFS/OWL representation).
 The code snippet in {{snippet-ietf-network-node}} is a fictional example of translating the "node" concept from {{!RFC8345}} into its RDFS/OWL equivalent.
 
 ~~~
@@ -589,9 +595,9 @@ The following sub-sections build on the ONTO-YANG-MODEL example from {{snippet-i
 ### The Network of Ontologies Approach {#sec-network-of-ontologies}
 
 The network of ontologies approach is a common practice in the field of knowledge engineering and Semantic Web technologies.
-The principle involves assembling vocabularies from different domains to form a coherent set, for example to infer - through graph traversal or reasoning - relationships between entities in the graph, starting from a concept defined in one of the vocabularies and leading to an instance of a concept from another vocabulary.
+The principle involves assembling vocabularies from different domains to form a coherent set, for example, to infer - through graph traversal or reasoning - relationships between entities in the graph, starting from a concept defined in one of the vocabularies and leading to an instance of a concept from another vocabulary.
 
-In our example, the code snippet of {{snippet-onto-itsm}} implements the ONTO-ITSM by importing concepts from the ONTO-YANG-MODEL ({{snippet-ietf-network-node}}) and concepts from the ONTO-META ({{snippet-noria-o-as-it-is}}).
+In this example, the code snippet of {{snippet-onto-itsm}} implements the ONTO-ITSM by importing concepts from the ONTO-YANG-MODEL ({{snippet-ietf-network-node}}) and concepts from the ONTO-META ({{snippet-noria-o-as-it-is}}).
 An additional import in {{snippet-onto-linker}} relates to the ONTO-LINKER.
 
 ~~~
@@ -729,7 +735,7 @@ Based on {{?I-D.marcas-nmop-knowledge-graph-yang}} and {{NORIA-DI-2023}}, which 
 and {{sec-etl-kgc-fq}} the deployment of a federated data architecture when various technical foundations or business units are involved in providing the ITSM-KG.
 In {{sec-distributed-rdbms}}, we further discuss architecture options considering distributed RDBMS instead of KGDBMS.
 
-From the perspective of the Digital Map Requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}} and {{fig-multi-store}} particularly address the REQ-DM-SCALES requirement.
+From the perspective of the SIMAP requirements ({{sec-digital-map}}), the {{fig-stream-mixed}}, {{fig-stream-mixed-kr}}, and {{fig-multi-store}} particularly address the REQ-SCALES requirement.
 
 ### Handling Event Streams {#sec-etl-kgc-streams}
 
@@ -772,6 +778,7 @@ The {{fig-stream-kg-only-kr}} provides an example of the resulting representatio
 
 As event streams can be high-paced, it could be beneficial to leverage input/output (I/O) performance optimizations specific to each type of database management system (DBMS), such as Time-Series DataBases (TSDBs) for streaming data and graph databases for knowledge graphs.
 {{fig-stream-mixed}} illustrates the capability to handle both a knowledge graph and a time-series representation of the network's lifecycle while maintaining a link between the two representations ({{fig-stream-mixed-kr}}).
+
 Each serve different purposes, such as context analysis with the knowledge graph representation and trend analysis with the TSDB.
 Thanks to the linking between the two storage systems, users browsing aggregated data from the knowledge graph can access the raw data within the relevant time span for further analysis, and vice versa.
 
@@ -833,7 +840,7 @@ Thanks to the linking between the two storage systems, users browsing aggregated
 
 ### Federated Data Architecture {#sec-etl-kgc-fq}
 
-The {{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
+{{fig-multi-store}} illustrates the principles for providing unified access to data distributed across various technological platforms and stakeholders thanks to Federated Queries {{SPARQL11-FQ}} and the use of a shared ONTO-ITSM across data management platforms.
 
 ~~~~ ascii-art
   ───On-premise────────────────────────────  ┌─┐  Scope-based querying
@@ -972,24 +979,24 @@ Federated Query (SQL)   Vector Search (Similarity)
 In terms of experimentation, we consider the YANG-KG-SEMANTIC-GENERALIZATION case defined in {{sec-kgc}} as the reference approach and recommend implementing a data processing pipeline that performs the following use cases:
 
 Y-MODEL-FROM-DATA:
-: Based on a dataset of configuration data expressed in YANG models, the goal is to enable extracting the list of models involved for their conversion to their RDFS/OWL equivalent.
+: Based on a dataset of configuration data expressed in YANG data models, the goal is to enable extracting the list of models involved for their conversion to their RDFS/OWL equivalent.
 
 Y-MODEL-DEPENDENCIES:
-: Based on a given YANG model, the goal is to enable identifying and retrieving all the YANG models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.
+: Based on a given YANG data model, the goal is to enable identifying and retrieving all the YANG data models that the model refers to, in order to build a complete corpus of models for their conversion to their RDFS/OWL equivalent as a coherent set.
 
 Y-MODEL-TO-RDFS-OWL:
-: Based on a YANG model and the associated model corpus (i.e. Y-MODEL-DEPENDENCIES), the goal is to enable producing a semantically equivalent RDFS/OWL representation (i.e. ONTO-YANG-MODEL).
+: Based on a YANG data model and the associated model corpus (i.e., Y-MODEL-DEPENDENCIES), the goal is to enable producing a semantically equivalent RDFS/OWL representation (i.e., ONTO-YANG-MODEL).
 : Ideally, a YANG to RDFS/OWL/YANG projection algebra would be used to provide a formal proof of semantic equivalence; testing mechanisms should be implemented as a fallback to provide a proof of equivalence.
 
 Y-INSTANCE-TO-KG:
-: Based on a dataset of configuration data expressed in YANG models and the related (set of) ONTO-YANG-MODEL, the goal is to enable constructing a knowledge graph from the configuration data, with the knowledge graph structured by the (set of) ONTO-YANG-MODEL.
+: Based on a dataset of configuration data expressed in YANG data models and the related (set of) ONTO-YANG-MODEL, the goal is to enable constructing a knowledge graph from the configuration data, with the knowledge graph structured by the (set of) ONTO-YANG-MODEL.
 
 Y-MODEL-META-KG-ALIGNMENT:
-: Based on a corpus of YANG models transformed into RDFS/OWL (i.e. Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, the goal is to enable querying of the configuration entities present in the graph (i.e. data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.
+: Based on a corpus of YANG data models transformed into RDFS/OWL (i.e., Y-MODEL-TO-RDFS-OWL) and a reference ontology structuring the ITSM-KG, the goal is to enable querying of the configuration entities present in the graph (i.e., data derived from the Y-INSTANCE-TO-KG case) through the concepts of the reference ontology.
 : In addition to identifying the class and property correspondences between the resulting Y-MODEL-TO-RDFS-OWL models and the reference ontology, this capability requires implementing a necessary and sufficient number of class equivalence relations and property equivalence relations.
 
 META-KG-BEHAVIORAL-MODEL:
-: Based on the ITSM-KG, which results from the composition of the Y-INSTANCE-TO-KG case with Y-MODEL-META-KG-ALIGNMENT and additional operational data structured by ONTO-META, the goal is to learn behavioral models (e.g. incident signatures) in a formalism that can be interpreted through the lenses of ONTO-ITSM and shared with other stakeholders with minimal discrepancies in the underlying configuration data.
+: Based on the ITSM-KG, which results from the composition of the Y-INSTANCE-TO-KG case with Y-MODEL-META-KG-ALIGNMENT and additional operational data structured by ONTO-META, the goal is to learn behavioral models (e.g., incident signatures) in a formalism that can be interpreted through the lenses of ONTO-ITSM and shared with other stakeholders with minimal discrepancies in the underlying configuration data.
 
 ## Implementation Status {#sec-exp-status}
 
@@ -1001,10 +1008,10 @@ The NORIA project aims at enabling advanced network anomaly detection using know
 Among the components resulting from this project, the following ones serve the use case described in this document:
 
 * NORIA-O {{NORIA-O-2024}}, is a data model for IT networks, events and operations information.
-The ontology is developed using web technologies (e.g. RDF, OWL, SKOS) and is intended as a structure for realizing an ITSM knowledge graph for Anomaly Detection (AD) and Risk Management applications.
+The ontology is developed using web technologies (e.g., RDF, OWL, SKOS) and is intended as a structure for realizing an ITSM knowledge graph for Anomaly Detection (AD) and Risk Management applications.
 The NORIA-O implementation is available as open source at [https://w3id.org/noria/](https://w3id.org/noria/).
 Its use for anomaly detection is discussed in:
-  - {{SLKG-2023}} with a model-based design approach (i.e. query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e. relate entities based on context
+  - {{SLKG-2023}} with a model-based design approach (i.e., query the graph to retrieve anomalies and their context) and a statistical learning approach (i.e., relate entities based on context
 similarities, then use this relatedness to alert and guide the repair).
   - {{GPL-2024}} with a process mining approach to align a sequence of entities to activity models, then use this relatedness to guide the repair actions.
   - {{NORIA-UI-2024}} a Web-based knowledge graph exploration design for incident management that combines the above {{SLKG-2023}} and {{GPL-2024}} techniques for broader coverage of anomaly cases and knowledge capitalization.
@@ -1012,7 +1019,7 @@ similarities, then use this relatedness to alert and guide the repair).
 * A knowledge graph-based platform design {{NORIA-DI-2023}} using Semantic Web technologies and open source data integration tools to build an ITSM knowledge graph:
   - SMASSIF-RML, a Semantic Web stream processing solution with declarative data mapping capability. Available as open source at [https://github.com/Orange-OpenSource/smassif-rml](https://github.com/Orange-OpenSource/smassif-rml).
   - ssb-consum-up, a Kafka to SPARQL gateway enabling end-to-end Semantic Web data flow architecture with a Semantic Service Bus (SSB) approach. Available as open source at [https://github.com/Orange-OpenSource/ssb-consum-up](https://github.com/Orange-OpenSource/ssb-consum-up).
-  - grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g. for anomaly detection following the model-based design approach). Available as open source at [https://github.com/Orange-OpenSource/grlc](https://github.com/Orange-OpenSource/grlc).
+  - grlc, a fork of CLARIAH/grlc with SPARQL UPDATE and GitLab interface features to facilitate the call and versioning of stored user queries in SPARQL syntax (e.g., for anomaly detection following the model-based design approach). Available as open source at [https://github.com/Orange-OpenSource/grlc](https://github.com/Orange-OpenSource/grlc).
 
 * SemNIDS {{SemNIDS-2023}}, a test bench involving network trafic generation, open source Network Intrusion Detection Systems (NIDS), knowledge graphs, process mining and conformance checking components.
 
@@ -1021,7 +1028,7 @@ Note that the NORIA project does not currently address the Y-MODEL-FROM-DATA, Y-
 ### YANG2OWL {#sec-exp-yang2owl}
 
 The YANG2OWL framework aims at facilitating the implementation of a Network Digital Twin (NDT) that would leverage the representation and reasoning capabilities typically associated with knowledge graphs for anomaly detection needs, as well as for network management purposes by enabling network configuration based on modifications at the level of the ITSM-KG itself.
-Basically, the approach consists of reusing YANG data models used in network operations in a nearly equivalent form within Semantic Web technologies (i.e. producing ONTO-YANG-MODEL instances) to create a bijection between network configuration data and the NDT.
+Basically, the approach consists of reusing YANG data models used in network operations in a nearly equivalent form within Semantic Web technologies (i.e., producing ONTO-YANG-MODEL instances) to create a bijection between network configuration data and the NDT.
 
 The YANG2OWL framework addresses the use cases Y-MODEL-TO-RDFS-OWL and Y-INSTANCE-TO-KG (as defined in {{sec-experiments-plan}}).
 
@@ -1059,7 +1066,7 @@ The document {{?I-D.mackey-nmop-kg-for-netops}} (Knowledge Graph Framework for N
 However, it lacks guidance on creating these ontologies and provides limited details on generating knowledge graphs or their relationship with the ontologies.
 To address these topics, the following principles have been considered to underpin the development of the YANG2OWL approach:
 
-1. The ontologies should intimately reflect YANG models,
+1. The ontologies should intimately reflect YANG data models,
 2. The generation of ontologies should be mostly automatized,
 3. The knowledge graphs should intimately reflect the payload of messages that YANG compliant network equipments and controlers publish or emit in response to a Remote Procedure Call (RPC) request,
 4. The generation of knowledge graphs should be automated,
@@ -1068,7 +1075,7 @@ To address these topics, the following principles have been considered to underp
 Point 1 of the proposed principles is essential for ensuring the engagement of network administrators and experts in semantic technology.
 Aligning the ontology's vocabulary (class and relationship naming) and semantics (relationship constraints) with that of network managers is crucial.
 The YANG language is currently the reference in this area and will continue to be so, given its specification by the IETF and support from major telco industry players.
-This necessity has driven the development of the YANG2OWL framework for converting YANG models into OWL models, which corresponds to point 2 of the proposal.
+This necessity has driven the development of the YANG2OWL framework for converting YANG data models into OWL models, which corresponds to point 2 of the proposal.
 Points 3, 4, and 5 are direct outcomes of the commitment to points 1 and 2.
 
 #### The Y-MODEL-TO-RDFS-OWL step {#sec-exp-yang2owl-oc}
@@ -1079,12 +1086,12 @@ The vocabulary defines the concept of the domain. YANG domain is the telco domai
 
 In a natural language, the vocabulary defines nouns, verbs, adjectives, and adverbs that are useful for discussing the world.
 The grammar specifies how these elements should be assembled into sentences that describe a state of the world.
-In a YANG model, the vocabulary is defined in terms of *containers*, *lists*, *leaves*, *leaf-lists*, and other categories, while the grammar is defined in terms of statements that relate these elements to one another.
+In a YANG data model, the vocabulary is defined in terms of *containers*, *lists*, *leaves*, *leaf-lists*, and other categories, while the grammar is defined in terms of statements that relate these elements to one another.
 In an OWL ontology, the vocabulary is defined in terms of *classes*, *subclasses*, *object properties*, and *data properties*, which is somewhat similar to YANG but does not directly map.
 
 As ontologies have been introduced as a modeling language meant to share a common view (or knowledge) of a domain among different stakeholders {{GRUBER-1995}}, the terms defined by the ontologies should reflect those used by equipment manufacturers, telecom solutions developers, systems integrators, network operators, and ultimately end users.
 
-A YANG model is a document containing declarations.
+A YANG data model is a document containing declarations.
 The document has a tree-like structure: declarations can contain other declarations.
 There are about half hundred types of declarations.
 The main ones are *container*, *list*, *leaf* and *leaf-list*:
@@ -1092,7 +1099,7 @@ The main ones are *container*, *list*, *leaf* and *leaf-list*:
 CONTAINER:
 : It is a concept, something we can talk about ; it is the the basic type of elements of the domain, such as a network, a node, a link.
 A container declaration can contain another container declaration that can be called a sub-container.
-This sub-container allows to define a concept that will characterize the container that contains it (e.g. link, source, and destination).
+This sub-container allows to define a concept that will characterize the container that contains it (e.g., link, source, and destination).
 
 LIST:
 : It is a concept that can have multiple instances, such as nodes of a network.
@@ -1103,7 +1110,7 @@ LEAF:
 LEAF-LIST:
 : It is a multivalued property, such as hours of the day the device is in sleep mode.
 
-By applying the above principles, and in line with the reasons sketched in {{sec-exp-yang2owl-motivations}}, we have developed the YANG2OWL that automatically generates OWL ontologies from YANG modules (i.e. computes ONTO-YANG-MODELs).
+By applying the above principles, and in line with the reasons sketched in {{sec-exp-yang2owl-motivations}}, we have developed the YANG2OWL that automatically generates OWL ontologies from YANG modules (i.e., computes ONTO-YANG-MODELs).
 {{fig-yang2owl-flow}} sketches the use of the YANG2OWL tool to compute the `org.opendaylight.yangtools` ONTO-YANG-MODEL.
 
 ~~~~ ascii-art
@@ -1121,20 +1128,20 @@ In more detail, we have defined mapping rules between YANG constructs and OWL co
 The main YANG constructs (*container*, *list*, *leaf*, and *leaf-list*) are transformed as follows:
 
 - The *container* and *list* declarations are converted into OWL classes.
-The name of the OWL class correponds to the name of the *container* or *list* in the YANG model.
+The name of the OWL class correponds to the name of the *container* or *list* in the YANG data model.
 
 - The *leaf* and *leaf-list* declarations are converted into OWL data properties.
-The name of the OWL data property corresponds the name of the *leaf* or *leaf-list* in the YANG model.
+The name of the OWL data property corresponds the name of the *leaf* or *leaf-list* in the YANG data model.
 
 An example of this conversion is presented in the following section.
 
 #### The Y-INSTANCE-TO-KG step {#sec-exp-yang2owl-kgc}
 
-As introduced above, YANG models define the vocabulary and grammar to describe factual knowledge about the state of the network.
+As introduced above, YANG data models define the vocabulary and grammar to describe factual knowledge about the state of the network.
 For example if a YANG module defines the container *node*, and this container has a leaf `identifier` which has the type `string`,
 then a valid JSON document with configuration data describing a node should be a JSON object containing a key named `identifier` which value should be a `string` such as `router_253`.
 
-So, in line with the mapping rules of YANG statement into OWL concepts defined in {{sec-exp-yang2owl-oc}}, when parsing a JSON tree that comply to a given YANG model we can assume that if we get a *key which value is a JSON object* then the *key should be the name of a container or a list* and its *value should be a description to be further analyzed*.
+So, in line with the mapping rules of YANG statement into OWL concepts defined in {{sec-exp-yang2owl-oc}}, when parsing a JSON tree that comply to a given YANG data model we can assume that if we get a *key which value is a JSON object* then the *key should be the name of a container or a list* and its *value should be a description to be further analyzed*.
 Thus, in terms of knowledge graph modeling, this JSON object should be interpreted as an *instance of a class* which name is the *name of the container or of the list*.
 
 Conversely, if the value is a *litteral*, the *key* should be the *name of a leaf or a leaf-list*.
@@ -1182,7 +1189,7 @@ function parse(object, parentURI, class, namespace, ontology) {
 ~~~
 {: #snippet-json2rdf-pseudocode title="Pseudo code of the algorithm implemented by JSON2RDF."}
 
-The algorithm is initiated by calling the `parse` function as follows, where `top` is the root of the JSON object (i.e. configuration data as a JSON tree that complies to a given YANG model), and `ontology` is the output of the Y-MODEL-TO-RDFS-OWL step:
+The algorithm is initiated by calling the `parse` function as follows, where `top` is the root of the JSON object (i.e., configuration data as a JSON tree that complies to a given YANG data model), and `ontology` is the output of the Y-MODEL-TO-RDFS-OWL step:
 
 ~~~
 call parse(top, nil, namespace, ontology)
@@ -1193,7 +1200,7 @@ call parse(top, nil, namespace, ontology)
 To illustrate the YANG2OWL approach, this section briefly reports on an experiment conducted in an industrial setting with data from a virtualized 5G infrastructure.
 In the context of the Network Change Management process, *impact analysis* prior to conducting a scheduled operation can be run on an ITSM-KG.
 It aims to determine all the components of the 5G core network that are dependent of a given (set of) network infrastructure element.
-For example, for a scheduled operation on a leaf node (i.e. a network element in a 2-tier spine-leaf architecture), the impact calculus will return all the servers connected to the leaf, all the Virtual Machines (VMs) hosted on these servers, all the Network Functions (NFs) deployed on these VMs, and ideally all the telecom services using these NFs.
+For example, for a scheduled operation on a leaf node (i.e., a network element in a 2-tier spine-leaf architecture), the impact calculus will return all the servers connected to the leaf, all the Virtual Machines (VMs) hosted on these servers, all the Network Functions (NFs) deployed on these VMs, and ideally all the telecom services using these NFs.
 
 {{fig-yang2owl-experiment}} provides an overview of the data processing workflow used for the experiment.
 The tasks of the diagram are described below.
@@ -1246,25 +1253,25 @@ Model Gathering:
 The YANG modules from {{ETSI-TS-128-541}} have been selected for this experiment.
 
 Model Translation:
-: For a given YANG module, this task implements the Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from well-known GitHub repositories used for storing YANG modules (e.g. IETF, IEEE, IANA, ETSI, broadband forum, OpenROADM, OpenConfig, Cisco, Huawei, to name a few).
+: For a given YANG module, this task implements the Y-MODEL-DEPENDENCIES use case by fetching sub-YANG modules from well-known GitHub repositories used for storing YANG modules (e.g., IETF, IEEE, IANA, ETSI, broadband forum, OpenROADM, OpenConfig, Cisco, Huawei, to name a few).
 This is achieved by scrutinizing `import` clauses (including imports of imports) and examining module locations and relationships from the {{YANG-CATALOG}}.
 Additionally, it addresses the Y-MODEL-TO-RDFS-OWL use case using the YANG2OWL solution defined in {{sec-exp-yang2owl-oc}}.
 For this experiment, the resulting ontology is referred to as MOBILE-O.
 
 Model Curation:
-: This task involves providing a streamlined ontology by manually *filtering* (selection of classes and relationships based on the data available) and *grouping* (compression of the model hierarchy, i.e. class of classes) the model resulting from the *Model Translation* task.
+: This task involves providing a streamlined ontology by manually *filtering* (selection of classes and relationships based on the data available) and *grouping* (compression of the model hierarchy, i.e., class of classes) the model resulting from the *Model Translation* task.
 This simplification aims to enhance the readability of the model for an operator and facilitate the implementation of potentially more concise queries in the downstream *Use Cases-Related Querying* task.
 
 Model-Related Knowledge Graph Construction:
 : It realizes the Y-INSTANCE-TO-KG use case using the JSON2RDF solution described in {{sec-exp-yang2owl-kgc}}.
 
 NetOps-Related Knowledge Graph Construction:
-: It corresponds to the execution of RML transformation rules {{RML}} with definitions from the NORIA-O ontology {{NORIA-O-2024}} for the integration of complementary data to that of the 5G network derived from YANG configurations (i.e. the *Model-Related Knowledge Graph Construction* task), such as the topology of connected networks, scheduled operations, incident tickets, and organization-related data.
+: It corresponds to the execution of RML transformation rules {{RML}} with definitions from the NORIA-O ontology {{NORIA-O-2024}} for the integration of complementary data to that of the 5G network derived from YANG configurations (i.e., the *Model-Related Knowledge Graph Construction* task), such as the topology of connected networks, scheduled operations, incident tickets, and organization-related data.
 
 Global Knowledge Graph Construction:
 : It is achieved through parallel insertions into a graph database of the results from the *Model-Related* and *NetOps-Related* tasks, after ensuring that:
 1) the URI patterns implemented in the RML rules of the NetOps-Related step are consistent with the URIs produced by the Model-Related step to benefit from automatic linking of triples within the graph database through the uniqueness of the URIs;
-2) the definition of mappings between MOBILE-O and NORIA-O has been implemented and inserted into the graph database (i.e. realization of the Y-MODEL-META-KG-ALIGNMENT use case through the implementation of the ONTO-LINKER concept as illustrated in {{snippet-onto-linker}}).
+2) the definition of mappings between MOBILE-O and NORIA-O has been implemented and inserted into the graph database (i.e., realization of the Y-MODEL-META-KG-ALIGNMENT use case through the implementation of the ONTO-LINKER concept as illustrated in {{snippet-onto-linker}}).
 For this experiment, the graph database is a Neo4j database {{NEO4J}} instance, and the loading is performed using the Neo4j Neosemantics toolkit.
 
 Use Cases-Related Pre-Processing:
@@ -1287,11 +1294,11 @@ MATCH (m)<-[:subClassOf]-(x)<-[:type]-(c)
 WHERE m.uri CONTAINS 'ManagedFunction'
 SET c:ManagedFunction
 ~~~
-{: #snippet-yang2owl-cypher-subclass-inference title="Subclass inference query, in Cypher syntax, to tag 5G NF entities as `ManagedFunction` based on prior annotation of the entities at creation time with a specific class described in the YANG model, which is also a subclass of `ManagedFunction` as per MOBILE-O."}
+{: #snippet-yang2owl-cypher-subclass-inference title="Subclass inference query, in Cypher syntax, to tag 5G NF entities as `ManagedFunction` based on prior annotation of the entities at creation time with a specific class described in the YANG data model, which is also a subclass of `ManagedFunction` as per MOBILE-O."}
 
 Use Cases-Related Querying:
 : The exploitation of dependency relationships is carried out through queries on the graph,
-e.g. during the insertion of an entity of type `noria:ChangeRequest`
+e.g., during the insertion of an entity of type `noria:ChangeRequest`
 or by following an exploratory approach by coupling a query such as that in {{snippet-yang2owl-cypher-impact}} with a visualization tool like Neo4j NeoDash.
 
 ~~~
@@ -1313,13 +1320,13 @@ While the YANG2OWL approach has proven its validity as a proof of concept, sever
 - Are the conversion principles based on statement types (class vs. data property) in the Y-MODEL-TO-RDFS-OWL use case universally applicable?
 - How to ensure that an ITSM-KG can still be generically constructed from JSON/YANG data and queried when a *Model Curation* task is applied on an ONTO-YANG-MODEL?
 - What techniques can automate the Y-MODEL-META-KG-ALIGNMENT use case?
-- What principles should guide the implementation of the Y-MODEL-META-KG-ALIGNMENT use case to extract an aggregated view from ONTO-META of infrastructures/configurations represented by an ONTO-YANG-MODEL (e.g. distinguishing devices from sub-devices)?
-- As evoked in {{?I-D.boucadair-nmop-rfc3535-20years-later}} (NEW-OPS-REQ-QUICK-BUT-WELL), how can we ensure reliable retrieval of dependencies between YANG modules for the Y-MODEL-DEPENDENCIES use case? Indeed, while browsing the GitHub projects of module developers, we observe a lack of uniformity in the way modules are presented and managed (e.g. differences in project structure, replication and local modifications of reference modules), which hinders dependency calculation and the sound inclusion of sub-modules in the YANG2OWL translation process.
+- What principles should guide the implementation of the Y-MODEL-META-KG-ALIGNMENT use case to extract an aggregated view from ONTO-META of infrastructures/configurations represented by an ONTO-YANG-MODEL (e.g., distinguishing devices from sub-devices)?
+- As evoked in {{?I-D.boucadair-nmop-rfc3535-20years-later}} (NEW-OPS-REQ-QUICK-BUT-WELL), how can we ensure reliable retrieval of dependencies between YANG modules for the Y-MODEL-DEPENDENCIES use case? Indeed, while browsing the GitHub projects of module developers, we observe a lack of uniformity in the way modules are presented and managed (e.g., differences in project structure, replication and local modifications of reference modules), which hinders dependency calculation and the sound inclusion of sub-modules in the YANG2OWL translation process.
 
-Furthermore, it is noteworthy that the YANG2OWL approach is complementary to the YANG2RDF approach {{YANG2RDF-IETF-121}}, which consists in translating YANG models into RDF.
+Furthermore, it is noteworthy that the YANG2OWL approach is complementary to the YANG2RDF approach {{YANG2RDF-IETF-121}}, which consists in translating YANG data models into RDF.
 More specifically, YANG2RDF defines an ontology of the YANG language, where RDF graph instances model a YANG module.
-This approach is useful for querying YANG models.
-In contrast, the YANG2OWL approach defines an ontology of a YANG model, where RDF graph instances model an operational network.
+This approach is useful for querying YANG data models.
+In contrast, the YANG2OWL approach defines an ontology of a YANG data model, where RDF graph instances model an operational network.
 Future work may aim to combine the YANG2RDF and YANG2OWL approaches.
 
 Finally, it is noteworthy that the YANG2OWL framework automates the *Ontology Implementation* and *Ontology Update* activities of the LOT4KG methodology {{LOT4KG-2024}} (a methodology that extends the well-known LOT ontology engineering methodology to include knowledge graph lifecycle management) by linking YANG modules with ITSM-KG fragment construction.
@@ -1329,8 +1336,9 @@ This streamlines the development of NDT architectures based on knowledge graphs 
 
 As this document covers the *ITSM-KG* concepts, and use cases, there is no specific security considerations.
 
-However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e. including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
+However, as the concept of a meta-knowledge graph involves the construction of a multi-faceted graph (i.e., including network topologies, operational data, and service and client data), it poses the risk of simplifying access to network operational data and functions that fall outside the knowledge graph users' responsibility or that could facilitate the intervention of malicious individuals.
 To support the discussion on mitigating this risk, we suggest referring to {{fig-multi-store}}, which illustrates the concept of partial access to the meta-knowledge graph based on rights associated with each user group (UG) at the data domain level.
+
 We also recommend referring to {{AMO-2012}} for an example of implementation of access rights in a content management system that relies on Semantic Web models and technologies.
 This implementation uses the AMO ontology, which includes a set of classes and properties for annotating resources that require access control, as well as a base of inference rules that model the access management strategy to carry out.
 
