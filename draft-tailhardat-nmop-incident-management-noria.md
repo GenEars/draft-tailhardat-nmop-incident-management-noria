@@ -81,6 +81,10 @@ contributor:
     fullname: Clément Gouilloud
     organization: SOFRECOM
     email: "clement.gouilloud@sofrecom.com"
+ -
+    fullname: Mohamed Boucadair
+    organization: Orange Research
+    email: "mohamed.boucadair@orange.com"
 
 normative:
 
@@ -1372,3 +1376,8 @@ v01 - v02
 v02 - v03
 
 - Added the Distributed RDBMS perspective based on details from Bernard Kavanagh (TiDB).
+
+v03 - v04
+
+- Minor edits (update references, align with SIMAP, enhance readability) by Mohamed BOUCADAIR (Orange Research).
+
