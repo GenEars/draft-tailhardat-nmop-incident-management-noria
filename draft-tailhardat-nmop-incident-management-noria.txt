@@ -1880,6 +1880,11 @@ Changes Between Revisions
    *  Added the Distributed RDBMS perspective based on details from
       Bernard Kavanagh (TiDB).
 
+   v03 - v04
+
+   *  Minor edits (update references, align with SIMAP, enhance
+      readability) by Mohamed BOUCADAIR (Orange Research).
+
 Contributors
 
    Maria Massri
@@ -1915,6 +1920,11 @@ Contributors
    Clément Gouilloud
    SOFRECOM
    Email: clement.gouilloud@sofrecom.com
+
+
+   Mohamed Boucadair
+   Orange Research
+   Email: mohamed.boucadair@orange.com
 
 
 Authors' Addresses
