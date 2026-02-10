@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-08T02:25:31.322916+00:00",
+  "timestamp": "2026-02-10T02:13:00.049148+00:00",
   "repo": "GenEars/draft-tailhardat-nmop-incident-management-noria",
   "labels": [
     {
@@ -116,24 +116,26 @@
       "id": "PR_kwDOMg7Ycc7Bvg4T",
       "title": "Requested changes to propose TiDB as a RDBMS and a VECTOR store in order to achieve a solution to \u201cDigital ID drift\u201d",
       "url": "https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bernard-kavanagh",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Distributed RDBMS for Dynamic Network Topology and Schema Evolution {#sec-distributed-rdbms}\r\nTo effectively implement the \"Digital Twin\" replication of the network and mitigate the risks of \"Digital ID Drift\", the underlying data architecture must support high-velocity evolution without service interruption. Traditional rigid schemas often fail to adapt to the rapid introduction of new network elements, leading to a disconnection between historical event logs and the current topology.\r\n\r\nWe propose utilizing a Distributed RDBMS (e.g., TiDB) to address these challenges through the following mechanisms:\r\n\r\n1. Safe Evolution of Schemas without Downtime In a live telecom network, data structures change frequently. The architecture requires a database capable of performing online Data Definition Language (DDL) operations. This allows the system to modify table schemas (e.g., adding columns for new router metric types) to accommodate new workload requirements without locking tables or causing downtime for the ingestion pipeline. This capability is critical for maintaining the \"Federated Data Architecture\" (see {{fig-multi-store}}) where the RDBMS acts as a live, queryable source for the Knowledge Graph. See Documentation: https://docs.pingcap.com/tidbcloud/ddl-introduction/?plan=essential#best-practices-for-ddl-execution-in-tidb\r\n\r\n2. Solving Digital ID Drift via Unified Storage \"ID Drift\" occurs when network resources change identifiers (e.g., dynamic IP allocation), breaking the semantic link between past alerts and current objects. By positioning the Distributed RDBMS as a \"broker\" between the Stream Loader and persistence layers, we ensure data consistency. The database utilizes features such as Change Data Capture (CDC) to maintain a persistent, consistent mapping of identifiers, ensuring that the Knowledge Graph always references the correct historical entity (see {{fig-stream-mixed}}). See Documentation: https://docs.pingcap.com/tidbcloud/essential-changefeed-overview/?plan=essential\r\n\r\n3. Unified Vector and Operational Store To support \"Incident Management,\" the system must correlate current outages with historical precedents. This requires a hybrid storage engine capable of handling both massive scale operational data and vector embeddings for \"incident signatures.\" This allows operators to perform semantic searches to identify past incidents that resemble the current network state, significantly accelerating root cause analysis. See Documentation: https://docs.pingcap.com/tidbcloud/vector-search-overview/?plan=essential",
       "createdAt": "2026-02-05T14:25:48Z",
-      "updatedAt": "2026-02-05T20:19:18Z",
+      "updatedAt": "2026-02-08T10:57:58Z",
       "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
       "baseRefName": "main",
       "baseRefOid": "e0a31f2f1db018c6d8e7a573abec7ba204695a68",
       "headRepository": "bernard-kavanagh/draft-tailhardat-nmop-incident-management-noria",
       "headRefName": "main",
-      "headRefOid": "67eefd78b7f0f6a86526ac00bc67337505f09fbd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "1111d97aa6e2c7454a014c60ad700c84a845fee5",
+      "closedAt": "2026-02-08T10:57:58Z",
+      "mergedAt": "2026-02-08T10:57:58Z",
+      "mergedBy": "GenEars",
+      "mergeCommit": {
+        "oid": "9bf109a41e0ca14e47f95f7d7a8f9c4b689882e5"
+      },
       "comments": [
         {
           "author": "GenEars",
@@ -144,13 +146,83 @@
         },
         {
           "author": "bernard-kavanagh",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Hi Lionel,\r\n\r\nThank you for the feedback!\r\n\r\nWould you have 30 minutes tomorrow to run through this with me as I want to\r\nensure the message and placement is correct? I have availability anywhere\r\nbetween 11 am and 2 pm CET?\r\n\r\nThanks is advance,\r\nBernard\r\n\r\nOn Thu, Feb 5, 2026 at 5:58\u202fPM Lionel TAILHARDAT ***@***.***>\r\nwrote:\r\n\r\n> *GenEars* left a comment\r\n> (GenEars/draft-tailhardat-nmop-incident-management-noria#3)\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3#issuecomment-3854989287>\r\n>\r\n> Hi @bernard-kavanagh <https://github.com/bernard-kavanagh>,\r\n> Many thanks for contributing to this Internet Draft (ID).\r\n>\r\n> Your ideas are useful and I would like to include them into the current\r\n> document.\r\n>\r\n> However, some of your changes are breaking the generality of the ID. For\r\n> example, in 96dcc0c\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/commit/96dcc0c8ca4d80af908ccfcc77fa6c113a1d33de>\r\n> , you should be speaking of \"TiDB as an example Distributed RDMS in\r\n> {{fig-multi-store}}\", rather than replacing \"RDBMS\" with \"TiDB\" within the\r\n> Figure.\r\n>\r\n> In 822c7c4\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/commit/822c7c42717534d0d17337f8ab025039894a6d06>\r\n> it could be useful to add a bibliographical reference to \"(e.g., TiDB)\"\r\n>\r\n> Could you please update your pull request accordingly? and I'll be pleased\r\n> to merge.\r\n> Kind regards.\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3#issuecomment-3854989287>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/AI3VWJPVTZIU2UVOETEJJVD4KOAD3AVCNFSM6AAAAACUDGVQR2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTQNJUHE4DSMRYG4>\r\n> .\r\n> You are receiving this because you were mentioned.Message ID:\r\n> <GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3/c3854989287\r\n> @github.com>\r\n>\r\n",
           "createdAt": "2026-02-05T18:03:47Z",
           "updatedAt": "2026-02-05T18:03:47Z"
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOMg7Ycc7CSvcx",
+      "title": "Manual merge of TiDB's commits",
+      "url": "https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/4",
+      "state": "MERGED",
+      "author": "GenEars",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reworking the https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/3 commits",
+      "createdAt": "2026-02-08T12:33:52Z",
+      "updatedAt": "2026-02-08T12:54:03Z",
+      "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "baseRefName": "main",
+      "baseRefOid": "8f450e3e414bff033e13f4178488e6f74794e276",
+      "headRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "headRefName": "detached",
+      "headRefOid": "910815de5c2bc54b834f517691d845f7653b7486",
+      "closedAt": "2026-02-08T12:54:03Z",
+      "mergedAt": "2026-02-08T12:54:03Z",
+      "mergedBy": "GenEars",
+      "mergeCommit": {
+        "oid": "910815de5c2bc54b834f517691d845f7653b7486"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOMg7Ycc7CZpVO",
+      "title": "minor edits",
+      "url": "https://github.com/GenEars/draft-tailhardat-nmop-incident-management-noria/pull/5",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "* update references\r\n* align with SIMAP\r\n* few tweaks here and there to enhance readability",
+      "createdAt": "2026-02-09T07:04:23Z",
+      "updatedAt": "2026-02-09T08:24:59Z",
+      "baseRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "baseRefName": "main",
+      "baseRefOid": "211b004540a4b51ed9b2e98c973e1a24ddb98677",
+      "headRepository": "GenEars/draft-tailhardat-nmop-incident-management-noria",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "f32a24cfa10eed8e6fb14f64e9c4987971372b09",
+      "closedAt": "2026-02-09T08:24:58Z",
+      "mergedAt": "2026-02-09T08:24:58Z",
+      "mergedBy": "GenEars",
+      "mergeCommit": {
+        "oid": "30e008477b151f1aa6f406a6cc6cb8e2da236b9d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMg7Ycc7g0b7m",
+          "commit": {
+            "abbreviatedOid": "f32a24c"
+          },
+          "author": "GenEars",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Thank you @boucadair for the edits.",
+          "createdAt": "2026-02-09T08:24:23Z",
+          "updatedAt": "2026-02-09T08:24:23Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
