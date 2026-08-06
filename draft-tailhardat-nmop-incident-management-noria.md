@@ -1358,29 +1358,29 @@ This document has no IANA actions.
 We would like to thank Benoit Claise for spontaneously seeking to include the work of the NORIA research project {{NORIA-O-2024}} in the vision of the IETF NMOP working group through direct contact.
 We also extend our gratitude to Mohamed Boucadair for facilitating discussions within the NMOP community and for providing advice in organizing this Internet Draft.
 
-A substantial part of this document was consolidated out of discussions carried out in the Knowledge Graph design team (NMOP/KG DT), which began after the IETF NMOP interim-2024-nmop-03 meeting.
+A substantial part of this document was consolidated out of discussions carried out in the Knowledge Graph design team (NMOP KG DT), which began after the IETF NMOP interim-2024-nmop-03 meeting.
 The following individuals are (or have been) members of the design team and have contributed to exploring how and in what ways the use of knowledge graphs could improve network management and operations, as well as facilite knowledge sharing among stakeholders:
 
     Benoit CLAISE
-    benoit@everything-ops.net,
+    benoit@everything-ops.net
 
     Ignacio DOMINGUEZ MARTINEZ-CASANUEVA
-    ignacio.dominguezmartinez@telefonica.com,
+    ignacio.dominguezmartinez@telefonica.com
 
     Thomas GRAF
-    thomas.graf@swisscom.com,
+    thomas.graf@swisscom.com
 
     Pauline FOLZ
     pauline.folz@orange.com
 
     Michael MACKEY
-    michael.mackey@huawei.com,
+    michael.mackey@huawei.com
 
     Pedro MARTINEZ-JULIA
-    pedro@nict.go.jp,
+    pedro@nict.go.jp
 
     Brad PETERS
-    bradpeters@nbnco.com.au,
+    bradpeters@nbnco.com.au
 
     Reshad RAHMAN
     reshad@yahoo.com
@@ -1392,10 +1392,10 @@ The following individuals are (or have been) members of the design team and have
     raphael.troncy@eurecom.fr
 
     Dan VOYER
-    danvoyerwork@gmail.com,
+    danvoyerwork@gmail.com
 
     Mingzhe XING
-    xingmz@zgclab.edu.cn,
+    xingmz@zgclab.edu.cn
 
 # Changes Between Revisions
 {:numbered="false"}
