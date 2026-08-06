@@ -5,14 +5,14 @@
 Network Management Operations                              L. Tailhardat
 Internet-Draft                                           Orange Research
 Intended status: Informational                                 R. Troncy
-Expires: 13 August 2026                                          EURECOM
+Expires: 7 February 2027                                         EURECOM
                                                                Y. Chabot
                                                             F. Ramparany
                                                                  P. Folz
                                                          Orange Research
                                                              B. Kavanagh
                                                                     TiDB
-                                                         9 February 2026
+                                                           6 August 2026
 
 
   Knowledge Graphs for Enhanced Cross-Operator Incident Management and
@@ -77,7 +77,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 August 2026.
+   This Internet-Draft will expire on 7 February 2027.
 
 Copyright Notice
 
@@ -1711,38 +1711,38 @@ WHERE {
               Riccobene, V., Graf, T., Du, W., and A. H. Feng, "An
               Experiment: Network Anomaly Detection Lifecycle", Work in
               Progress, Internet-Draft, draft-ietf-nmop-network-anomaly-
-              lifecycle-04, 21 November 2025,
+              lifecycle-06, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              network-anomaly-lifecycle-04>.
+              network-anomaly-lifecycle-06>.
 
    [I-D.ietf-nmop-rfc3535-20years-later]
               Boucadair, M., Contreras, L. M., de Dios, O. G., Graf, T.,
               and R. Rahman, "An Update of Operators Requirements on
               Network Management Protocols and Modelling", Work in
               Progress, Internet-Draft, draft-ietf-nmop-rfc3535-20years-
-              later-01, 15 October 2025,
+              later-04, 5 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              rfc3535-20years-later-01>.
+              rfc3535-20years-later-04>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
-              Q., Boucadair, M., and C. Jacquenet, "Network Digital
-              Twin: Concepts and Reference Architecture", Work in
+              Q., Boucadair, M., and C. Jacquenet, "Network Digital Twin
+              (NDT): Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-11, 6 July 2025,
+              twin-arch-13, 1 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
-              network-digital-twin-arch-11>.
+              network-digital-twin-arch-13>.
 
    [I-D.mackey-nmop-kg-for-netops]
               Mackey, M., Claise, B., Graf, T., Keller, H., Voyer, D.,
               Lucente, P., and I. D. Martinez-Casanueva, "Knowledge
               Graph Framework for Network Operations", Work in Progress,
-              Internet-Draft, draft-mackey-nmop-kg-for-netops-03, 2
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-mackey-nmop-kg-for-netops-03>.
+              Internet-Draft, draft-mackey-nmop-kg-for-netops-04, 7
+              April 2026, <https://datatracker.ietf.org/doc/html/draft-
+              mackey-nmop-kg-for-netops-04>.
 
    [I-D.marcas-nmop-knowledge-graph-yang]
-              Martinez-Casanueva, I. D., Rodríguez, L. C., and P.
+              Martinez-Casanueva, I. D., Rodriguez, L. C., and P.
               Martinez-Julia, "Knowledge Graphs for YANG-based Network
               Management", Work in Progress, Internet-Draft, draft-
               marcas-nmop-knowledge-graph-yang-05, 21 October 2024,
@@ -1831,28 +1831,67 @@ WHERE {
               13, No. 12, 2020,
               <https://www.vldb.org/pvldb/vol13/p3072-huang.pdf>.
 
-   [YANG-CATALOG]
-              Cisco and IETF, "YANG Catalog", n.d.,
-              <https://www.yangcatalog.org/>.
-
    [YANG2RDF-IETF-121]
               Michael, M., Anatolii, P., and C. Benoit, "YANG 2 RDF",
               2024, <https://datatracker.ietf.org/doc/slides-121-nmop-
               yang-2-rdf/>.
 
+   [YANG-CATALOG]
+              Cisco and IETF, "YANG Catalog", n.d.,
+              <https://www.yangcatalog.org/>.
+
 Acknowledgments
 
    We would like to thank Benoit Claise for spontaneously seeking to
-   include the work of the NORIA research project in the vision of the
-   NMOP working group through direct contact.  We also extend our
-   gratitude to Mohamed Boucadair for facilitating discussions within
-   the NMOP community and for providing advice in organizing this
-   Internet Draft.
+   include the work of the NORIA research project [NORIA-O-2024] in the
+   vision of the IETF NMOP working group through direct contact.  We
+   also extend our gratitude to Mohamed Boucadair for facilitating
+   discussions within the NMOP community and for providing advice in
+   organizing this Internet Draft.
 
-   Additionally, we would like to thank Fano Ramparany for his initial
-   analysis of the possibilities of defining a model conversion algebra
-   for going from YANG data models to OWL ontologies (draft-tailhardat-
-   nmop-incident-management-noria-01).
+   A substantial part of this document was consolidated out of
+   discussions carried out in the Knowledge Graph design team (NMOP KG
+   DT), which began after the IETF NMOP interim-2024-nmop-03 meeting.
+   The following individuals are (or have been) members of the design
+   team and have contributed to exploring how and in what ways the use
+   of knowledge graphs could improve network management and operations,
+   as well as facilite knowledge sharing among stakeholders:
+
+   Benoit CLAISE
+   benoit@everything-ops.net
+
+   Ignacio DOMINGUEZ MARTINEZ-CASANUEVA
+   ignacio.dominguezmartinez@telefonica.com
+
+   Thomas GRAF
+   thomas.graf@swisscom.com
+
+   Pauline FOLZ
+   pauline.folz@orange.com
+
+   Michael MACKEY
+   michael.mackey@huawei.com
+
+   Pedro MARTINEZ-JULIA
+   pedro@nict.go.jp
+
+   Brad PETERS
+   bradpeters@nbnco.com.au
+
+   Reshad RAHMAN
+   reshad@yahoo.com
+
+   Lionel TAILHARDAT
+   lionel.tailhardat@orange.com
+
+   Raphaël TRONCY
+   raphael.troncy@eurecom.fr
+
+   Dan VOYER
+   danvoyerwork@gmail.com
+
+   Mingzhe XING
+   xingmz@zgclab.edu.cn
 
 Changes Between Revisions
 
@@ -1884,6 +1923,11 @@ Changes Between Revisions
 
    *  Minor edits (update references, align with SIMAP, enhance
       readability) by Mohamed BOUCADAIR (Orange Research).
+
+   v04 - v05
+
+   *  Minor edits (acknowledging the IETF NMOP Knowledge Graph design
+      team) by Lionel TAILHARDAT (Orange Research).
 
 Contributors
 
